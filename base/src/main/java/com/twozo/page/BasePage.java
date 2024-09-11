@@ -27,7 +27,6 @@ public class BasePage {
     public ImplicitWaitHandler implicitWaitHandler;
     private static BasePage basePage;
 
-
     protected BasePage(final WebAutomationDriver webAutomationDriver) {
         this.webAutomationDriver = webAutomationDriver;
         this.elementFinder = webAutomationDriver.getElementFinder();

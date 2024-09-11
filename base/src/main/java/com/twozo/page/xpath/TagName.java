@@ -1,4 +1,4 @@
-package com.twozo.xpath;
+package com.twozo.page.xpath;
 
 public enum TagName {
 

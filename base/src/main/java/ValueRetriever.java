@@ -1,5 +1,3 @@
-package com.twozo;
-
 import com.twozo.commons.exception.ErrorCode;
 import com.twozo.commons.exception.error.code.CommonsErrorCode;
 
