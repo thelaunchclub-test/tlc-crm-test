@@ -9,7 +9,6 @@
 
     <modules>
         <module>base</module>
-        <module>settings</module>
     </modules>
 
     <dependencyManagement>

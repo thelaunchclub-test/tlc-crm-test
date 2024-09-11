@@ -1,4 +1,4 @@
-package com.twozo;
+package com.twozo.test;
 
 import com.twozo.commons.cookie.BrowserCookie;
 import com.twozo.commons.util.ConfigFileReader;
@@ -31,7 +31,7 @@ public class BaseTest {
 
         automationDriver.getWebNavigator().to(link);
         automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(10));
-        SignIn.getInstance(automationDriver).signIn("n4@gmail.com", "A$12345a");
+        SignIn.getInstance(automationDriver).signIn("n13@gmail.com", "A$12345a");
         cookies = automationDriver.getSessionCookie().getCookies();
 
         automationDriver.close();
