@@ -1,0 +1,9 @@
+[
+  {
+    "testCaseID": "RT-6",
+    "title": "Verify that the system enforces a maximum limit of 255 characters for a tag name.",
+    "input": {
+      "tagName": "AaaaaBbbbbCccccDddddEeeeeFffffGggggHhhhhIiiiiJjjjjKkkkkLllllMmmmmNnnnnOooooPppppQqqqqRrrrrSssssTttttUuuuuVvvvvWwwwwXxxxxYyyyyZzzzzAaaaaBbbbbCccccDddddEeeeeFffffGggggHhhhhIiiiiJjjjjKkkkkLllllMmmmmNnnnnOooooPppppQqqqqRrrrrSssssTttttUuuuuVvvvvWwwwwXxxxxYyyyyZzzzz"
+    }
+  }
+]

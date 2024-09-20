@@ -9,6 +9,7 @@ import com.twozo.page.settings.data.fields.company.CompanyDataField;
 import com.twozo.page.settings.data.fields.contact.ContactDataField;
 import com.twozo.page.settings.data.fields.deal.DealDataField;
 import com.twozo.page.settings.data.fields.product.ProductDataField;
+import com.twozo.page.settings.tags.Tags;
 import com.twozo.page.xpath.XPathBuilder;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import com.twozo.web.element.model.Element;
@@ -36,6 +37,7 @@ public class Settings extends BasePage {
     private WebPageElement deal;
     private WebPageElement product;
     private Collection<WebPageElement> fields;
+    private Tags tags = new Tags(webAutomationDriver);
 
     protected Settings(final WebAutomationDriver webAutomationDriver) {
         super(webAutomationDriver);
@@ -152,5 +154,15 @@ public class Settings extends BasePage {
         refresh();
 
         return ProductDataField.getInstance(webAutomationDriver);
+    }
+
+    public Tags clickTags() {
+        click(getTags());
+
+        return tags;
+    }
+
+    public WebPageElement getTags() {
+        return this.findByXpath("//*[text()='Tags']");
     }
 }

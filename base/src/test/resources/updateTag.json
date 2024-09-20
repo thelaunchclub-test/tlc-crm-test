@@ -1,0 +1,11 @@
+[
+  {
+    "testCaseID": "RT-3",
+    "title": "Make sure you can update an existing tag.",
+    "input": {
+      "tagName": "Cool",
+      "isUpdate" : true,
+      "changes" : "er"
+    }
+  }
+]

@@ -131,6 +131,10 @@ public class BasePage {
         getElementInteraction(webPageElement).click();
     }
 
+    protected final void clear(final WebPageElement webPageElement) {
+        getElementInteraction(webPageElement).clear();
+    }
+
     protected <T> T initializeElement(final T element, final Supplier<T> initializer) {
         return Objects.isNull(element) ? initializer.get() : element;
     }

@@ -1,0 +1,23 @@
+[
+  {
+    "testCaseID": "RT-1",
+    "title": "Make sure you can add a tag.",
+    "input": {
+      "tagName": "Cool"
+    }
+  },
+  {
+    "testCaseID": "RT-1",
+    "title": "Make sure you can add a tag.",
+    "input": {
+      "tagName": "hot"
+    }
+  },
+  {
+    "testCaseID": "RT-1",
+    "title": "Make sure you can add a tag.",
+    "input": {
+      "tagName": "Warm"
+    }
+  }
+]

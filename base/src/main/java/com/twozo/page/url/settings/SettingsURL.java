@@ -8,6 +8,7 @@ public class SettingsURL extends URL {
     public static final String COMPANY_DATA_FIELDS = buildSettingsURL("/datafields?type=Company");
     public static final String DEAL_DATA_FIELDS= buildSettingsURL("/datafields?type=Deal");
     public static final String PRODUCT_DATA_FIELDS = buildSettingsURL("/datafields?type=Product");
+    public static final String TAGS = buildSettingsURL("/tags");
 
     public static String buildSettingsURL(final String path) {
         return String.format(TWO_STRING_FORMAT, SETTINGS, path);
