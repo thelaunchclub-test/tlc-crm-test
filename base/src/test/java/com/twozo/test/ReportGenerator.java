@@ -82,7 +82,7 @@ public class ReportGenerator extends BaseTest implements TestListener {
         final Object testObject = result.getInstance();
 
         try {
-            final Field driverField = testObject.getClass().getDeclaredField("automationDriver");
+            final Field driverField = testObject.getClass().getDeclaredField("webAutomationDriver");
 
             driverField.setAccessible(true);
         } catch (NoSuchFieldException exception) {

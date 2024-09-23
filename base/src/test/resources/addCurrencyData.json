@@ -1,0 +1,16 @@
+[
+  {
+    "testCaseID": "TC-6",
+    "title": "Make sure you can add a currency.",
+    "input": {
+      "currency": "IMP"
+    }
+  },
+  {
+    "testCaseID" : "TC-6",
+    "title": "Make sure you can add a currency.",
+    "input": {
+      "currency": "GNF"
+    }
+  }
+]

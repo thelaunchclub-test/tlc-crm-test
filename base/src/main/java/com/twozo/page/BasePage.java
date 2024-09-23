@@ -223,7 +223,7 @@ public class BasePage {
     private void select(final String option, final String dropdownType) {
         for (final WebPageElement element : findElements(new Element(LocatorType.TAG_NAME, dropdownType, true))) {
 
-            if (getText(element).equalsIgnoreCase(option)) {
+            if (getText(element).contains(option)) {
                 click(element);
                 break;
             }

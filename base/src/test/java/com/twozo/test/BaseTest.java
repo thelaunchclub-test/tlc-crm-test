@@ -2,6 +2,7 @@ package com.twozo.test;
 
 import com.twozo.commons.cookie.BrowserCookie;
 import com.twozo.commons.util.ConfigFileReader;
+import com.twozo.page.settings.currency.service.Currency;
 import com.twozo.page.sign.SignIn;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import org.openqa.selenium.OutputType;
@@ -17,12 +18,13 @@ import java.util.Set;
 
 public class BaseTest {
 
-    private static final Map<String, String> CONFIG = ConfigFileReader.get("Config.Properties");
+    private static final Map<String, String> CONFIG = ConfigFileReader.get("config.Properties");
 
     protected WebAutomationDriver automationDriver;
     protected SignIn signIn;
     protected Set<BrowserCookie> cookies;
     public String link;
+    protected Currency currency;
 
     @BeforeTest
     public void setUp() {
@@ -31,7 +33,7 @@ public class BaseTest {
 
         automationDriver.getWebNavigator().to(link);
         automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(10));
-        SignIn.getInstance(automationDriver).signIn("n13@gmail.com", "A$12345a");
+        SignIn.getInstance(automationDriver).signIn("wl@gmail.com", "A$12345a");
         cookies = automationDriver.getSessionCookie().getCookies();
 
         automationDriver.close();
