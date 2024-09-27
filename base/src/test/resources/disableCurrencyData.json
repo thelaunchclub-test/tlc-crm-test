@@ -3,7 +3,7 @@
     "testCaseID": "TC-10",
     "title": "Make sure you can disable the added currencies",
     "input": {
-      "currency": "GNF",
+      "currency": "LAK",
       "makeItDisable" : true,
       "makeItEnable" : true
     }

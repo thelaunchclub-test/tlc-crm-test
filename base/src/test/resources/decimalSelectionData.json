@@ -10,7 +10,7 @@
     "testCaseID": "TC-4",
     "title": "Ensure you can select a decimal value from 1 to 4 in the dropdown list.",
     "input": {
-      "decimal": 0
+      "decimal": 4
     }
   }
 ]

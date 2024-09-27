@@ -464,32 +464,36 @@ public class Currency extends BasePage {
                 ExtentLogger.pass(YES);
                 click(getAddCurrencyBox());
                 ExtentLogger.pass(CURRENCY_FIELD);
-                final Collection<WebPageElement> currencyOptions = findElementsByXpath(CURRENCY_LIST);
+//                final Collection<WebPageElement> currencyOptions = findElementsByXpath(CURRENCY_LIST);
+//
+//                for (WebPageElement option : currencyOptions) {
+//                    String currencyText = option.getElementInformationProvider().getText().trim();
+//
+//                    if (currencyText.contains(currency)) {
+//                        Thread.sleep(2000);
+                click(findByXpath(String.format("//p[contains(text(),'%s')]//parent::div", currency)));
+                ExtentLogger.pass(CURRENCY_OPTION);
 
-                for (WebPageElement option : currencyOptions) {
-                    String currencyText = option.getElementInformationProvider().getText().trim();
-
-                    if (currencyText.contains(currency)) {
-                        Thread.sleep(2000);
-                        click(option);
-                        ExtentLogger.pass(CURRENCY_OPTION);
-                        Thread.sleep(2000);
-                        click(getSave());
-                        ExtentLogger.pass("The save button is clicked");
-                    }
-                }
+                click(getSave());
+                ExtentLogger.pass("The save button is clicked");
 
             } catch (Exception exception) {
+
+                click(getAddCurrencyBox());
+                ExtentLogger.pass(CURRENCY_FIELD);
                 try {
-                    click(getAddCurrencyBox());
-                    ExtentLogger.pass(CURRENCY_FIELD);
-                    sleepFor();
-                    dropdown(currency);
-                    ExtentLogger.pass(CURRENCY_OPTION);
-                    sleepFor();
-                } catch (Exception exception1) {
-                    throw new RuntimeException(exception1);
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
+                dropdown(String.format("//p[contains(text(),'%s')]//parent::div", currency));
+                ExtentLogger.pass(CURRENCY_OPTION);
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
                 click(getSave());
                 ExtentLogger.pass("The save button is clicked");
             }
@@ -891,5 +895,52 @@ public class Currency extends BasePage {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Handles the process of adding a currency from the test case data.
+     *
+     * @param testCase The {@link TestCase} containing input data for the currency type.
+     */
+    public void addCurrencyTest(final TestCase testCase) {
+        final String currency = testCase.input.getString(CURRENCY_TYPE);
+
+        if (Objects.nonNull(currency)) {
+            click(getAddCurrencyButton());
+            ExtentLogger.pass(ADD_CURRENCY_BTN);
+
+            try {
+                isDisplayed(addCurrencyPopUp());
+                ExtentLogger.info(POPUP_MSG);
+                click(getYes());
+                ExtentLogger.pass(YES);
+                addCurrencyToDropdown(currency);
+
+            } catch (Exception exception) {
+                addCurrencyToDropdown(currency);
+            }
+        }
+    }
+
+    /**
+     * Adding the specified currency to the dropdown
+     * and saving the changes. It selects the currency based on the provided XPath.
+     *
+     * @param currency The {@link Currency} string to be selected and added.
+     */
+    private void addCurrencyToDropdown(final String currency) {
+        click(getAddCurrencyBox());
+        ExtentLogger.pass(CURRENCY_FIELD);
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        click(findByXpath(String.format("//p[contains(text(),'%s')]//parent::div", currency)));
+        ExtentLogger.pass(CURRENCY_OPTION);
+        click(getSave());
+        ExtentLogger.pass("The save button is clicked");
     }
 }

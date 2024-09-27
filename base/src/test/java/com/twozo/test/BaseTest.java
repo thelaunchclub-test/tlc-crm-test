@@ -33,7 +33,7 @@ public class BaseTest {
 
         automationDriver.getWebNavigator().to(link);
         automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(10));
-        SignIn.getInstance(automationDriver).signIn("eq@gmail.com", "A$12345a");
+        SignIn.getInstance(automationDriver).signIn("eu@gmail.com", "A$12345a");
         cookies = automationDriver.getSessionCookie().getCookies();
 
         automationDriver.close();

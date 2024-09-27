@@ -3,14 +3,14 @@
     "testCaseID": "TC-6",
     "title": "Make sure you can add a currency.",
     "input": {
-      "currency": "GIP"
+      "currency": "LAK"
     }
   },
   {
     "testCaseID" : "TC-6",
     "title": "Make sure you can add a currency.",
     "input": {
-      "currency": "GGP"
+      "currency": "FKP"
     }
   }
 ]
