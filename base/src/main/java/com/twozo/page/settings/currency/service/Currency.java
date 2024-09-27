@@ -623,6 +623,23 @@ public class Currency extends BasePage {
         return availableCurrencies;
     }
 
+    public Collection<String> getAvailableCurrenciesInList() {
+        refresh();
+        final Collection<WebPageElement> currencyElements = findElementsByXpath("//*[@class='css-j7qwjs']/div/div[2]");
+        final List<String> availableCurrencies = new ArrayList<>();
+
+        for (final WebPageElement currencyElement : currencyElements) {
+            final String currencyName = currencyElement.getElementInformationProvider().getText();
+            availableCurrencies.add(currencyName);
+        }
+
+        for (String availableCurrency : availableCurrencies) {
+            System.out.println(availableCurrency);
+        }
+
+        return availableCurrencies;
+    }
+
     /**
      * Checks if a specific currency is available in the add currency form dropdown.
      *
@@ -633,6 +650,19 @@ public class Currency extends BasePage {
         final Collection<String> availableCurrencies = getAvailableCurrenciesInAddForm();
         return !availableCurrencies.contains(currencyName);
     }
+
+    public boolean isCurrencyAvailableInList(final String currencyName) {
+
+        for (final String currency : getAvailableCurrenciesInList()) {
+
+            if (currency.contains(currencyName)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
     /**
      * Checks if the base currency field is enabled.
@@ -788,7 +818,7 @@ public class Currency extends BasePage {
 
         if (isElementPresent("//*[text()='" + expectedCurrency + "']")) {
             dropdown(expectedCurrency);
-            ExtentLogger.pass("The given currency is clicked");
+            ExtentLogger.pass(CURRENCY_OPTION);
             click(getSave());
             ExtentLogger.pass("Save button is clicked");
             return true;
@@ -849,7 +879,13 @@ public class Currency extends BasePage {
         return false;
     }
 
+    /**
+     * Pauses the current thread for 2 seconds (2000 milliseconds).
+     * If the thread is interrupted while sleeping, it catches
+     * the `InterruptedException` and rethrows it as a `RuntimeException`.
+     */
     public void sleepFor() {
+
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {

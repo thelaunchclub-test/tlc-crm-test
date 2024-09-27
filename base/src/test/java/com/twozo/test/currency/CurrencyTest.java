@@ -125,7 +125,7 @@ public class CurrencyTest extends BaseTest {
             testCase.input.getString("currency");
         }
         currency.addCurrency(testCase);
-        Assert.assertTrue(currency.isAddCurrency());
+        Assert.assertTrue(currency.isCurrencyAvailableInList(testCase.input.getString("currency")));
     }
 
     @Test(dataProvider = "disableCurrency", priority = 7)
