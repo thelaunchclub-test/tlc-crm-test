@@ -3,6 +3,7 @@ package com.twozo.page.settings.data.fields.contact.field;
 import com.twozo.page.settings.data.fields.FieldType;
 import com.twozo.page.settings.data.fields.field.Field;
 
+import java.util.Collection;
 import java.util.List;
 
 public enum ContactField implements Field {
@@ -70,7 +71,7 @@ public enum ContactField implements Field {
         return fieldType;
     }
 
-    public static List<Field> getDefaultFields() {
+    public static Collection<Field> getDefaultFields() {
         return List.of(FIRST_NAME, LAST_NAME, EMAILS, PHONES, COMPANY, DESIGNATION, SALES_OWNER, FACEBOOK, LINKED_IN);
     }
 }

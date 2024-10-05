@@ -1,10 +1,10 @@
 package com.twozo.test.settings.data.fields;
 
 import com.twozo.commons.cookie.BrowserCookie;
-import com.twozo.page.company.Company;
 import com.twozo.page.homepage.HomePage;
 import com.twozo.page.settings.data.fields.FieldStatus;
 import com.twozo.page.settings.data.fields.company.CompanyDataField;
+import com.twozo.page.settings.data.fields.field.Field;
 import com.twozo.page.settings.data.fields.field.FieldElement;
 import com.twozo.page.url.URL;
 import com.twozo.page.url.settings.SettingsURL;
@@ -14,6 +14,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.time.Duration;
+import java.util.Collection;
 import java.util.List;
 
 public class CompanyDataFieldTest extends DataFieldTest {
@@ -22,38 +23,37 @@ public class CompanyDataFieldTest extends DataFieldTest {
     private HomePage homePage;
     private WebAutomationDriver automationDriver;
 
-
     @DataProvider(name = "companySystemFields")
     private static Object[][] getCompanySystemFieldData() {
-        return new TestDataProvider().getTestCases("company/SystemFields.json");
+        return new TestDataProvider().getTestCases("settings.data.fields/company/SystemFields.json");
     }
 
     @DataProvider(name = "addViewAndRequired")
     private static Object[][] getAddView() {
-        return new TestDataProvider().getTestCases("company/AddViewAndRequired.json");
+        return new TestDataProvider().getTestCases("settings.data.fields/company/AddViewAndRequired.json");
     }
 
     @DataProvider(name = "autoGeneratingField")
     private static Object[][] getAutoGeneratingFieldData() {
-        return new TestDataProvider().getTestCases("company/AutoGeneratingFields.json");
+        return new TestDataProvider().getTestCases("settings.data.fields/company/AutoGeneratingFields.json");
     }
 
-    @BeforeClass
-    public void set(){
-        automationDriver = WebAutomationDriver.get();
-        webNavigator = automationDriver.getWebNavigator();
-        webNavigator.to(link);
-
-        for (final BrowserCookie cookie : cookies) {
-            automationDriver.getSessionCookie().addCookie(cookie);
-        }
-
-        automationDriver.getWebWindowHandler().maximize();
-        automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(10));
-        webNavigator.to(URL.COMPANIES);
-        automationDriver.getWebWindowHandler().maximize();
-        Company.getInstance(automationDriver).addCompany().createCompany("a");
-    }
+//    @BeforeClass
+//    public void set(){
+//        automationDriver = WebAutomationDriver.get();
+//        webNavigator = automationDriver.getWebNavigator();
+//        webNavigator.to(link);
+//
+//        for (final BrowserCookie cookie : cookies) {
+//            automationDriver.getSessionCookie().addCookie(cookie);
+//        }
+//
+//        automationDriver.getWebWindowHandler().maximize();
+//        automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(10));
+//        webNavigator.to(URL.COMPANIES);
+//        automationDriver.getWebWindowHandler().maximize();
+//        Company.getInstance(automationDriver).addCompany().createCompany("a");
+//    }
 
     @BeforeMethod
     public void before() {
@@ -89,12 +89,10 @@ public class CompanyDataFieldTest extends DataFieldTest {
         Assert.assertTrue(companyDataField.addSystemField(getFieldStatus(object)));
     }
 
-
     @Test(dataProvider = "addViewAndRequired")
     public void enableAddView(final Object object) {
         Assert.assertTrue(companyDataField.enableAddView(getFieldStatus(object)));
     }
-
 
     @Test(dataProvider = "addViewAndRequired")
     public void enableRequired(final Object object) {
@@ -108,7 +106,7 @@ public class CompanyDataFieldTest extends DataFieldTest {
 
     @Test(dataProvider = "autoGeneratingField")
     public void enableRequiredForAutoGeneratingField(final Object object) {
-        Assert.assertFalse(productDataField.enableRequired(getFieldStatus(object)));
+        Assert.assertFalse(companyDataField.enableRequired(getFieldStatus(object)));
     }
 
     @Test(dataProvider = "companySystemFields")
@@ -128,13 +126,13 @@ public class CompanyDataFieldTest extends DataFieldTest {
 
     @Test(dataProvider = "deleteField")
     public void deleteField(final Object object) {
-             Assert.assertTrue(companyDataField.deleteField(getFieldStatus(object).getFieldName()));
+        Assert.assertTrue(companyDataField.deleteField(getFieldStatus(object).getFieldName()));
     }
 
     @Test
     public void checkMaxLimit() {
         final String fieldName = "CustomField";
-        final List<String> choices = List.of("a","b");
+        final List<String> choices = List.of("a", "b");
 
         for (int i = 1; i <= 11; i++) {
             FieldStatus fieldStatus = new FieldStatus();
@@ -143,7 +141,7 @@ public class CompanyDataFieldTest extends DataFieldTest {
             fieldStatus.setChoices(choices);
             companyDataField.checkMaximumLimit(fieldStatus);
 
-            if (i!=11) {
+            if (i != 11) {
                 companyDataField.refresh();
             }
         }
@@ -167,8 +165,7 @@ public class CompanyDataFieldTest extends DataFieldTest {
 
     @Test
     public void checkColumnSettings() {
-
-        Assert.assertTrue(isPresentInColumnSettings(companyDataField.getFields()));
+        Assert.assertTrue(isPresentInColumnSettings(companyDataField.getAllFields()));
     }
 
     @Test
@@ -187,7 +184,7 @@ public class CompanyDataFieldTest extends DataFieldTest {
     }
 
     @Override
-    public boolean isPresentInSummary(final List<String> fields) {
+    public boolean isPresentInSummary(final Collection<String> fields) {
         webNavigator.to(URL.COMPANIES);
         companyDataField.switchToSummary();
 
@@ -195,7 +192,7 @@ public class CompanyDataFieldTest extends DataFieldTest {
     }
 
     @Override
-    public boolean isPresentInAddForm(final List<String> fields) {
+    public boolean isPresentInAddForm(final Collection<String> fields) {
         webNavigator.to(URL.COMPANIES);
         companyDataField.switchToAddCompanyForm();
 
@@ -203,7 +200,7 @@ public class CompanyDataFieldTest extends DataFieldTest {
     }
 
     @Override
-    public boolean isPresentInColumnSettings(final List<String> fields) {
+    public boolean isPresentInColumnSettings(final Field[] fields) {
         webNavigator.to(URL.COMPANIES);
         companyDataField.switchToColumnSettings();
 

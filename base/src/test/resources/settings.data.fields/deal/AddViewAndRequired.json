@@ -1,0 +1,167 @@
+[
+  {
+    "testCaseID": 1,
+    "title": "Title with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Title",
+      "fieldType": "Text",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 2,
+    "title": "Pipeline with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Pipeline",
+      "fieldType": "Text",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 3,
+    "title": "Primary Contact with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Primary Contact",
+      "fieldType": "Contact",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 4,
+    "title": "Related Contacts with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Related Contacts",
+      "fieldType": "Contact",
+      "isAddView": true,
+      "isRequired": false
+    }
+  },
+  {
+    "testCaseID": 5,
+    "title": "Company with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Company",
+      "fieldType": "Company",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 6,
+    "title": "Deal Value with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Deal Value",
+      "fieldType": "Monetary",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 7,
+    "title": "Sales Owner with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Sales Owner",
+      "fieldType": "Owner",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 8,
+    "title": "Expected Close Date with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Expected Close Date",
+      "fieldType": "Date",
+      "isAddView": true,
+      "isRequired": false
+    }
+  },
+  {
+    "testCaseID": 9,
+    "title": "Source with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Source",
+      "fieldType": "Text",
+      "isAddView": true,
+      "isRequired": false
+    }
+  },
+  {
+    "testCaseID": 10,
+    "title": "Tags with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Tags",
+      "fieldType": "Dropdown",
+      "isAddView": true,
+      "isRequired": false
+    }
+  },
+  {
+    "testCaseID": 11,
+    "title": "Territory with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Territory",
+      "fieldType": "Dropdown",
+      "isAddView": true,
+      "isRequired": false
+    }
+  },
+  {
+    "testCaseID": 12,
+    "title": "Stage Probability with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Stage Probability",
+      "fieldType": "Number",
+      "isAddView": true,
+      "isRequired": false
+    }
+  },
+  {
+    "testCaseID": 13,
+    "title": "Description with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Description",
+      "fieldType": "Text",
+      "isAddView": true,
+      "isRequired": false
+    }
+  },
+  {
+    "testCaseID": 14,
+    "title": "Type with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Type",
+      "fieldType": "Dropdown",
+      "isAddView": true,
+      "isRequired": false
+    }
+  },
+  {
+    "testCaseID": 15,
+    "title": "Payment Status with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Payment Status",
+      "fieldType": "Dropdown",
+      "isAddView": true,
+      "isRequired": false
+    }
+  }
+]

@@ -1,14 +1,11 @@
 package com.twozo.page.settings.data.fields.deal;
 
-import com.twozo.commons.exception.ErrorCode;
 import com.twozo.page.settings.data.fields.AbstractDataField;
 import com.twozo.page.settings.data.fields.deal.field.DealField;
 import com.twozo.page.settings.data.fields.field.*;
-import com.twozo.page.url.settings.SettingsURL;
 import com.twozo.page.xpath.XPathBuilder;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import com.twozo.web.element.service.WebPageElement;
-import com.twozo.web.error.code.WebDriverErrorCode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,9 +19,9 @@ public class DealDataField extends AbstractDataField {
     protected DealDataField(final WebAutomationDriver webAutomationDriver) {
         super(webAutomationDriver);
 
-        if (!getURL().equals(SettingsURL.DEAL_DATA_FIELDS)) {
-            throw ErrorCode.get(WebDriverErrorCode.EXPECTED_PAGE_NOT_FOUND, "exp page not found");
-        }
+//        if (!getURL().equals(SettingsURL.DEAL_DATA_FIELDS)) {
+//            throw ErrorCode.get(WebDriverErrorCode.EXPECTED_PAGE_NOT_FOUND, "exp page not found");
+//        }
     }
 
     public static DealDataField getInstance(final WebAutomationDriver webAutomationDriver) {
@@ -366,12 +363,12 @@ public class DealDataField extends AbstractDataField {
     }
 
     @Override
-    protected List<Field> getDefaultFields() {
+    protected Collection<Field> getDefaultFields() {
         return DealField.getDefaultFields();
     }
 
     @Override
-    protected Field[] getAllFields() {
+    public Field[] getAllFields() {
         return DealField.values();
     }
 
@@ -393,7 +390,7 @@ public class DealDataField extends AbstractDataField {
     }
 
     @Override
-    protected List<Record> getDefaultSystemFieldElements() {
+    protected Collection<Record> getDefaultSystemFieldElements() {
         return List.of(getTitleField(), getPipelineField(), getStageField(), getWonReasonField(), getLostReasonField(),
                 getDealClosedOnField(), getPrimaryContactField(), getRelatedContactsField(), getCompanyField(),
                 getDealValueField(), getSalesOwnerField(), getProductQuantityField());
@@ -452,32 +449,11 @@ public class DealDataField extends AbstractDataField {
         return fieldsPresent;
     }
 
-    @Override
-    public List<String> getFields() {
-        final List<String> fieldsPresent = new ArrayList<>();
-        final Collection<WebPageElement> fields = findElementsByXpath("//*[@class='css-1qqzcwf']/div/p");
+    public Collection<String> getFieldsForSummary() {
+        final Collection<String> fieldsNotToDisplay = List.of("Title","Won Reason",
+                "Lost Reason","Deal Closed On","Primary Contact","Related Contacts","Company","Deal Value",
+                "Rotting Days","Status");
 
-        for (final WebPageElement field : fields) {
-            fieldsPresent.add(getText(field));
-        }
-
-        return fieldsPresent;
-    }
-
-    @Override
-    public List<String> getFieldsForSummary() {
-        final List<String> fieldsPresent = new ArrayList<>();
-        final Collection<WebPageElement> fields = findElementsByXpath("//*[@class='css-1qqzcwf']/div/p");
-        final List<String> profileFieldsForContact = List.of("Title", "Company", "Sales Owner");
-
-        for (final WebPageElement field : fields) {
-            final String fieldName = getText(field);
-
-            if (!profileFieldsForContact.contains(fieldName)) {
-                fieldsPresent.add(getText(field));
-            }
-        }
-
-        return fieldsPresent;
+       return getFieldsForSummary(fieldsNotToDisplay);
     }
 }

@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Company extends BasePage {
 
     private static Company company;
-    private AddCompany addCompany;
+    private CompanyForm addCompany;
 
     protected Company(final WebAutomationDriver webAutomationDriver) {
         super(webAutomationDriver);
@@ -24,10 +24,10 @@ public class Company extends BasePage {
         return company;
     }
 
-    private AddCompany getAddCompany() {
+    private CompanyForm getAddCompany() {
 
         if (Objects.isNull(addCompany)) {
-            addCompany = AddCompany.getInstance(webAutomationDriver);
+            addCompany = CompanyForm.getInstance(webAutomationDriver);
         }
 
         return addCompany;
@@ -37,7 +37,7 @@ public class Company extends BasePage {
         return findByText("Company");
     }
 
-    public AddCompany addCompany() {
+    public CompanyForm addCompany() {
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {

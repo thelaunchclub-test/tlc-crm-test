@@ -1,6 +1,7 @@
 package com.twozo.page;
 
 import com.twozo.commons.cookie.BrowserCookie;
+import com.twozo.commons.util.ConfigFileReader;
 import com.twozo.page.xpath.XPath;
 import com.twozo.page.xpath.XPathBuilder;
 import com.twozo.web.driver.service.*;
@@ -16,6 +17,8 @@ import java.util.*;
 import java.util.function.Supplier;
 
 public class BasePage {
+
+    protected static final Map<String, String> map = ConfigFileReader.get("locator/locator.Properties");
 
     public WebAutomationDriver webAutomationDriver;
     public ElementFinder elementFinder;
@@ -111,6 +114,10 @@ public class BasePage {
         return findElement(new Element(LocatorType.XPATH, XPathBuilder.getXPath(xpath), true));
     }
 
+    public WebPageElement findByClass(final String className){
+        return findElement(new Element(LocatorType.CLASS_NAME, className, true));
+    }
+
     public WebPageElement findByXpath(final String xpath) {
         return findElement(new Element(LocatorType.XPATH, xpath, true));
     }
@@ -119,6 +126,9 @@ public class BasePage {
         return findElements(new Element(LocatorType.XPATH, xpath, true));
     }
 
+    protected Collection<WebPageElement> findElementsByClass(final String className) {
+        return findElements(new Element(LocatorType.CLASS_NAME, className, true));
+    }
     protected WebPageElement findByText(final String value) {
         return findElement(new Element(LocatorType.XPATH, XPathBuilder.getXPathByText(value), true));
     }
@@ -129,6 +139,10 @@ public class BasePage {
 
     protected final void click(final WebPageElement webPageElement) {
         getElementInteraction(webPageElement).click();
+    }
+
+    protected final void clear(final WebPageElement webPageElement){
+        getElementInteraction(webPageElement).clear();
     }
 
     protected <T> T initializeElement(final T element, final Supplier<T> initializer) {
@@ -216,7 +230,7 @@ public class BasePage {
         mouseActions.moveToElement(element).build().perform();
     }
 
-    protected final void hoverByXpath(final String xpath) {
+    public final void hoverByXpath(final String xpath) {
         mouseActions.moveToElement(new Element(LocatorType.XPATH, xpath, true)).build().perform();
     }
 

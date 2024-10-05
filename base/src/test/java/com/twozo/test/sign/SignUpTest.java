@@ -1,4 +1,4 @@
-package com.twozo.test.sign.up;
+package com.twozo.test.sign;
 
 import com.twozo.commons.json.JsonObject;
 import com.twozo.page.sign.Account;

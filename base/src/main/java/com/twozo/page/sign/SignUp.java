@@ -2,7 +2,7 @@ package com.twozo.page.sign;
 
 import com.twozo.commons.exception.ErrorCode;
 import com.twozo.page.BasePage;
-import com.twozo.page.deal.Deal;
+import com.twozo.page.deal.DealPage;
 import com.twozo.page.homepage.HomePage;
 import com.twozo.page.url.URL;
 import com.twozo.web.driver.service.WebAutomationDriver;
@@ -18,7 +18,7 @@ import java.util.Objects;
 public class SignUp extends BasePage {
 
     private static SignUp signUp;
-    private final Deal deal;
+    private final DealPage deal;
     private WebPageElement signUpButton;
     private WebPageElement emailField;
     private WebPageElement nextButton;
@@ -40,7 +40,7 @@ public class SignUp extends BasePage {
             throw ErrorCode.get(WebDriverErrorCode.EXPECTED_PAGE_NOT_FOUND);
         }
 
-        this.deal = Deal.getInstance(webAutomationDriver);
+        this.deal = DealPage.getInstance(webAutomationDriver);
     }
 
     public static SignUp getInstance(final WebAutomationDriver webAutomationDriver) {

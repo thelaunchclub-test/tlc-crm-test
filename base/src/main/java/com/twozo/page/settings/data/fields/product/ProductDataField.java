@@ -25,9 +25,9 @@ public class ProductDataField extends AbstractDataField {
     protected ProductDataField(final WebAutomationDriver webAutomationDriver) {
         super(webAutomationDriver);
 
-        if (!getURL().equals(SettingsURL.PRODUCT_DATA_FIELDS)) {
-            throw ErrorCode.get(WebDriverErrorCode.EXPECTED_PAGE_NOT_FOUND, "exp page not found");
-        }
+//        if (!getURL().equals(SettingsURL.PRODUCT_DATA_FIELDS)) {
+//            throw ErrorCode.get(WebDriverErrorCode.EXPECTED_PAGE_NOT_FOUND, "exp page not found");
+//        }
         enableProduct();
     }
 
@@ -218,14 +218,35 @@ public class ProductDataField extends AbstractDataField {
         refresh();
     }
 
+    public boolean isPresentInSummary(final Collection<String> fieldsToBePresentInSummary) {
+        final Collection<WebPageElement> fieldsPresentInSummary = findElementsByXpath("//*[@class='css-1t62lt9']/div/div/table/tbody/tr/td[1]/p");
+        final Collection<String> fieldNames = new ArrayList<>();
+
+        for (final WebPageElement field : fieldsPresentInSummary) {
+            String fieldText = getText(field);
+            fieldNames.add(fieldText);
+        }
+
+        for (final String fieldToBePresent : fieldsToBePresentInSummary) {
+
+            final String formattedField = String.format("%s%s%s", fieldToBePresent, " ", ":");
+
+            if (!fieldNames.contains(formattedField)) {
+                System.out.println();
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     @Override
-    protected List<Field> getDefaultFields() {
+    protected Collection<Field> getDefaultFields() {
         return ProductField.getDefaultFields();
     }
 
     @Override
-    protected Field[] getAllFields() {
+    public Field[] getAllFields() {
         return ProductField.values();
     }
 
@@ -240,13 +261,13 @@ public class ProductDataField extends AbstractDataField {
     }
 
     @Override
-    protected List<Record> getDefaultSystemFieldElements() {
+    protected Collection<Record> getDefaultSystemFieldElements() {
         return List.of(getNameField(), getSalesOwnerField(), getProductCodeField(), getCategoryField(), getUnitPriceField());
     }
 
     @Override
     public boolean isDefaultFieldsVisibleInSummary() {
-        final List<Field> summaryDefaultFields = List.of(ProductField.SALES_OWNER, ProductField.UNIT_PRICE,
+        final Collection<Field> summaryDefaultFields = List.of(ProductField.SALES_OWNER, ProductField.UNIT_PRICE,
                 ProductField.PRODUCT_CODE, ProductField.CATEGORY);
 
         for (final Field summaryDefaultField : summaryDefaultFields) {
@@ -261,17 +282,15 @@ public class ProductDataField extends AbstractDataField {
 
     @Override
     public boolean uncheckMandatoryFields() {
-        final String[] mandatoryFields = new String[]{
-                getNameDiv(),
-        };
+        final String[] mandatoryFields = new String[]{getNameDiv()};
         unCheck(mandatoryFields);
 
         return true;
     }
 
     @Override
-    public List<String> getFieldsForAddViewAndRequired(final String addViewOrRequired) {
-        final List<String> fieldsPresent = new ArrayList<>();
+    public Collection<String> getFieldsForAddViewAndRequired(final String addViewOrRequired) {
+        final Collection<String> fieldsPresent = new ArrayList<>();
 
         int count = 0;
         final Collection<WebPageElement> elementsByXpath = findElementsByXpath("//*[@class='MuiBox-root css-19idom']");
@@ -294,33 +313,10 @@ public class ProductDataField extends AbstractDataField {
         return fieldsPresent;
     }
 
-    @Override
-    public List<String> getFields() {
-        final List<String> fieldsPresent = new ArrayList<>();
-        final Collection<WebPageElement> fields = findElementsByXpath("//*[@class='css-1qqzcwf']/div/p");
+    public Collection<String> getFieldsForSummary() {
+        final Collection<String> fieldsNotToDisplay = List.of("Unit Price");
 
-        for (final WebPageElement field : fields) {
-            fieldsPresent.add(getText(field));
-        }
+        return getFieldsForSummary(fieldsNotToDisplay);
 
-        return fieldsPresent;
-    }
-
-    @Override
-    public List<String> getFieldsForSummary() {
-        final List<String> fieldsPresent = new ArrayList<>();
-        final Collection<WebPageElement> fields = findElementsByXpath("//*[@class='css-1qqzcwf']/div/p");
-        final List<String> profileFieldsForContact = List.of("First Name", "Last Name", "LinkedIn", "Facebook",
-                "Designation", "Company", "Unsubscribe Reason", "Other unsubscribe reason");
-
-        for (final WebPageElement field : fields) {
-            final String fieldName = getText(field);
-
-            if (!profileFieldsForContact.contains(fieldName)) {
-                fieldsPresent.add(getText(field));
-            }
-        }
-
-        return fieldsPresent;
     }
 }

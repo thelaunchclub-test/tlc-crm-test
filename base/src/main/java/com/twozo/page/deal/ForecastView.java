@@ -2,7 +2,7 @@ package com.twozo.page.deal;
 
 import com.twozo.web.driver.service.WebAutomationDriver;
 
-public class ForecastView extends Deal{
+public class ForecastView extends DealPage {
 
     private static ForecastView forecastView;
 

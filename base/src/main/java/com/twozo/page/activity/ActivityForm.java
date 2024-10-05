@@ -6,9 +6,9 @@ import com.twozo.web.element.service.WebPageElement;
 
 import java.util.Objects;
 
-public class Activity extends BasePage {
+public class ActivityForm extends BasePage {
 
-    private static Activity activity;
+    private static ActivityForm activityForm;
 
     private WebPageElement status;
     private WebPageElement title;
@@ -41,17 +41,17 @@ public class Activity extends BasePage {
     private WebPageElement importActivities;
     private WebPageElement addActivity;
 
-    protected Activity(final WebAutomationDriver webAutomationDriver) {
+    protected ActivityForm(final WebAutomationDriver webAutomationDriver) {
         super(webAutomationDriver);
     }
 
-    public static Activity getInstance(final WebAutomationDriver webAutomationDriver) {
+    public static ActivityForm getInstance(final WebAutomationDriver webAutomationDriver) {
 
         //if (Objects.isNull(activity)) {
-            activity = new Activity(webAutomationDriver);
+            activityForm = new ActivityForm(webAutomationDriver);
         //}
 
-        return activity;
+        return activityForm;
     }
 
     public WebPageElement getStatus() {

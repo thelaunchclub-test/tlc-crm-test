@@ -4,6 +4,7 @@ import com.twozo.commons.cookie.BrowserCookie;
 import com.twozo.page.homepage.HomePage;
 import com.twozo.page.settings.data.fields.FieldStatus;
 import com.twozo.page.settings.data.fields.contact.ContactDataField;
+import com.twozo.page.settings.data.fields.field.Field;
 import com.twozo.page.settings.data.fields.field.FieldElement;
 import com.twozo.page.url.URL;
 import com.twozo.page.url.settings.SettingsURL;
@@ -16,6 +17,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.Collection;
 import java.util.List;
 
 public class ContactDataFieldTest extends DataFieldTest {
@@ -26,17 +28,17 @@ public class ContactDataFieldTest extends DataFieldTest {
 
     @DataProvider(name = "contactSystemFields")
     private static Object[][] getContactSystemFieldData() {
-        return new TestDataProvider().getTestCases("contact/SystemFields.json");
+        return new TestDataProvider().getTestCases("settings.data.fields/contact/SystemFields.json");
     }
 
     @DataProvider(name = "addViewAndRequired")
     private static Object[][] getAddView() {
-        return new TestDataProvider().getTestCases("contact/AddViewAndRequired.json");
+        return new TestDataProvider().getTestCases("settings.data.fields/contact/AddViewAndRequired.json");
     }
 
     @DataProvider(name = "autoGeneratingField")
     private static Object[][] getAutoGeneratingFieldData() {
-        return new TestDataProvider().getTestCases("contact/AutoGeneratingFields.json");
+        return new TestDataProvider().getTestCases("settings.data.fields/contact/AutoGeneratingFields.json");
     }
 
 //    @BeforeClass
@@ -165,7 +167,7 @@ public class ContactDataFieldTest extends DataFieldTest {
 
     @Test
     public void checkColumnSettings() {
-        Assert.assertTrue(isPresentInColumnSettings(contactDataField.getFields()));
+        Assert.assertTrue(isPresentInColumnSettings(contactDataField.getAllFields()));
     }
 
     @Test
@@ -188,9 +190,8 @@ public class ContactDataFieldTest extends DataFieldTest {
         Assert.assertTrue(contactDataField.checkSource());
     }
 
-
     @Override
-    public boolean isPresentInSummary(final List<String> fields) {
+    public boolean isPresentInSummary(final Collection<String> fields) {
         webNavigator.to(URL.CONTACTS);
         contactDataField.switchToSummary();
 
@@ -198,7 +199,7 @@ public class ContactDataFieldTest extends DataFieldTest {
     }
 
     @Override
-    public boolean isPresentInAddForm(final List<String> fields) {
+    public boolean isPresentInAddForm(final Collection<String> fields) {
         webNavigator.to(URL.CONTACTS);
         contactDataField.switchToAddContactForm();
 
@@ -206,7 +207,7 @@ public class ContactDataFieldTest extends DataFieldTest {
     }
 
     @Override
-    public boolean isPresentInColumnSettings(final List<String> fields) {
+    public boolean isPresentInColumnSettings(final Field[] fields) {
         webNavigator.to(URL.CONTACTS);
         contactDataField.switchToColumnSettings();
 

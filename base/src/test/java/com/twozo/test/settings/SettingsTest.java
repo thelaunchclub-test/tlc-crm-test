@@ -5,6 +5,8 @@ import com.twozo.page.settings.data.fields.company.CompanyDataField;
 import com.twozo.page.settings.data.fields.deal.DealDataField;
 import com.twozo.page.settings.data.fields.product.ProductDataField;
 import com.twozo.test.BaseTest;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class SettingsTest extends BaseTest {
 
@@ -28,4 +30,21 @@ public class SettingsTest extends BaseTest {
 //      //  productDataField = homePage.switchToSettings().switchToProductDataFields();
 //
 //    }
+
+//    @BeforeMethod
+//    public void initialize() {
+//
+//        System.out.println(link);
+//
+//        // homePage = signIn.signIn("aah@gmail.com", "A$12345a");
+//
+////       contactDataField = homePage().switchToContactDataFields();
+//
+//        //companyDataField = homePage.switchToSettings().switchToCompanyDataFields();
+//        // dealDataField = homePage.switchToSettings().switchToDealDataFields();
+//        //  productDataField = homePage.switchToSettings().switchToProductDataFields();
+//
+//    }
+
+
 }

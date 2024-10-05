@@ -3,18 +3,18 @@ package com.twozo.page.company;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import com.twozo.web.element.service.WebPageElement;
 
-public class AddCompany extends Company {
+public class CompanyForm extends Company {
 
-    private static AddCompany addCompany;
+    private static CompanyForm addCompany;
 
-    protected AddCompany(final WebAutomationDriver webAutomationDriver) {
+    protected CompanyForm(final WebAutomationDriver webAutomationDriver) {
         super(webAutomationDriver);
     }
 
-    public static AddCompany getInstance(final WebAutomationDriver webAutomationDriver) {
+    public static CompanyForm getInstance(final WebAutomationDriver webAutomationDriver) {
 
        // if (Objects.isNull(addCompany)) {
-            addCompany = new AddCompany(webAutomationDriver);
+            addCompany = new CompanyForm(webAutomationDriver);
         //}
 
         return addCompany;

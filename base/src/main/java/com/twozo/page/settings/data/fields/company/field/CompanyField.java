@@ -3,8 +3,17 @@ package com.twozo.page.settings.data.fields.company.field;
 import com.twozo.page.settings.data.fields.FieldType;
 import com.twozo.page.settings.data.fields.field.Field;
 
+import java.util.Collection;
 import java.util.List;
 
+/**
+ * <p>
+ * Represents different fields and its type.
+ * </p>
+ *
+ * @author Petchimuthu
+ * @version 1.0
+ */
 public enum CompanyField implements Field {
 
     NAME("Name", FieldType.TEXT),
@@ -54,17 +63,38 @@ public enum CompanyField implements Field {
         this.fieldType = fieldType;
     }
 
+    /**
+     * <p>
+     * Returns the name of the field.
+     * </p>
+     *
+     * @return the field name as a String
+     */
     @Override
     public String getName() {
         return name;
     }
 
+    /**
+     * <p>
+     * Returns the field type associated with the field.
+     * </p>
+     *
+     * @return the field type as a String
+     */
     @Override
     public String getFieldType() {
         return fieldType;
     }
 
-    public static List<Field> getDefaultFields() {
+    /**
+     * <p>
+     * Retrieves a list of default company fields.
+     * </p>
+     *
+     * @return a list of default fields for a company entity
+     */
+    public static Collection<Field> getDefaultFields() {
         return List.of(NAME, WEBSITE, SALES_OWNER, ADDRESS);
     }
 }

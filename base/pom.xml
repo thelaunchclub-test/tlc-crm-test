@@ -22,7 +22,6 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>7.7.1</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.twozo</groupId>
@@ -34,9 +33,8 @@
             <groupId>com.twozo</groupId>
             <artifactId>extent-reports</artifactId>
             <version>1.0.0-SNAPSHOT</version>
-            <scope>test</scope>
+            <scope>provided</scope>
         </dependency>
-
     </dependencies>
     <build>
         <plugins>
@@ -44,8 +42,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>16</source>
-                    <target>16</target>
+                    <source>20</source>
+                    <target>20</target>
                 </configuration>
             </plugin>
         </plugins>

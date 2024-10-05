@@ -1,10 +1,11 @@
 package com.twozo.test.settings.data.fields;
 
 import com.twozo.commons.cookie.BrowserCookie;
-import com.twozo.page.deal.Deal;
+import com.twozo.page.deal.DealPage;
 import com.twozo.page.homepage.HomePage;
 import com.twozo.page.settings.data.fields.FieldStatus;
 import com.twozo.page.settings.data.fields.deal.DealDataField;
+import com.twozo.page.settings.data.fields.field.Field;
 import com.twozo.page.settings.data.fields.field.FieldElement;
 import com.twozo.page.url.URL;
 import com.twozo.page.url.settings.SettingsURL;
@@ -17,6 +18,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.Collection;
 import java.util.List;
 
 public class DealDataFieldTest extends DataFieldTest {
@@ -27,17 +29,17 @@ public class DealDataFieldTest extends DataFieldTest {
 
     @DataProvider(name = "dealSystemFields")
     private static Object[][] getDealSystemFieldData() {
-        return new TestDataProvider().getTestCases("deal/SystemFields.json");
+        return new TestDataProvider().getTestCases("settings.data.fields/deal/SystemFields.json");
     }
 
     @DataProvider(name = "addViewAndRequired")
     private static Object[][] getAddView() {
-        return new TestDataProvider().getTestCases("deal/AddViewAndRequired.json");
+        return new TestDataProvider().getTestCases("settings.data.fields/deal/AddViewAndRequired.json");
     }
 
     @DataProvider(name = "autoGeneratingField")
     private static Object[][] getAutoGeneratingFieldData() {
-        return new TestDataProvider().getTestCases("deal/AutoGeneratingFields.json");
+        return new TestDataProvider().getTestCases("settings.data.fields/deal/AutoGeneratingFields.json");
     }
 
 //    @BeforeClass
@@ -169,7 +171,7 @@ public class DealDataFieldTest extends DataFieldTest {
 
     @Test
     public void checkColumnSettings() {
-        Assert.assertTrue(isPresentInColumnSettings(dealDataField.getFields()));
+        Assert.assertTrue(isPresentInColumnSettings(dealDataField.getAllFields()));
     }
 
     @Test
@@ -178,7 +180,7 @@ public class DealDataFieldTest extends DataFieldTest {
     }
 
     @Override
-    public boolean isPresentInSummary(final List<String> fields) {
+    public boolean isPresentInSummary(final Collection<String> fields) {
         webNavigator.to(URL.DEALS);
         dealDataField.switchToSummary();
 
@@ -186,7 +188,7 @@ public class DealDataFieldTest extends DataFieldTest {
     }
 
     @Override
-    public boolean isPresentInAddForm(final List<String> fields) {
+    public boolean isPresentInAddForm(final Collection<String> fields) {
         webNavigator.to(URL.DEALS);
         dealDataField.switchToAddDealForm();
 
@@ -194,9 +196,9 @@ public class DealDataFieldTest extends DataFieldTest {
     }
 
     @Override
-    public boolean isPresentInColumnSettings(final List<String> fields) {
+    public boolean isPresentInColumnSettings(final Field[] fields) {
         webNavigator.to(URL.DEALS);
-        Deal.getInstance(automationDriver).switchToColumnSettings();
+        DealPage.getInstance(automationDriver).switchToColumnSettings();
 
         return dealDataField.isPresentInColumnSettings(fields);
     }

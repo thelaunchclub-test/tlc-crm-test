@@ -11,7 +11,7 @@ import java.util.Collection;
 public class TestDataProvider {
 
     public Object[][] getTestCases(final String fileName) {
-        final JsonArray jsonArray = Json.array(new File("C:\\Testing\\automation-tool\\test\\src\\test\\resources", fileName));
+        final JsonArray jsonArray = Json.array(new File("C:\\Data fields log\\tlc-crm-test\\base\\src\\test\\resources", fileName));
         final Collection<TestCase> testCases1 = new ArrayList<>();
 
         for (int i = 0; i < jsonArray.size(); i++) {

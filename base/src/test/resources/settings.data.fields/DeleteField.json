@@ -1,0 +1,163 @@
+[
+  {
+    "testCaseID": "CF-1",
+    "title": "Field",
+    "input": {
+      "fieldName": "aedited"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-2",
+    "title": "Field",
+    "input": {
+      "fieldName": "bedited"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-3",
+    "title": "Field",
+    "input": {
+      "fieldName": "cedited"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-4",
+    "title": "Field",
+    "input": {
+      "fieldName": "dedited"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-5",
+    "title": "Field",
+    "input": {
+      "fieldName": "eedited"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-6",
+    "title": "Field",
+    "input": {
+      "fieldName": "fedited"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-7",
+    "title": "Field",
+    "input": {
+      "fieldName": "gedited"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-8",
+    "title": "Field",
+    "input": {
+      "fieldName": "hedited"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-9",
+    "title": "Field",
+    "input": {
+      "fieldName": "iedited"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-10",
+    "title": "Field",
+    "input": {
+      "fieldName": "jedited"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-11",
+    "title": "Field",
+    "input": {
+      "fieldName": "kedited"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-12",
+    "title": "Field",
+    "input": {
+      "fieldName": "ledited"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-13",
+    "title": "Field",
+    "input": {
+      "fieldName": "medited"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-14",
+    "title": "Field",
+    "input": {
+      "fieldName": "nedited"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-15",
+    "title": "Field",
+    "input": {
+      "fieldName": "oedited"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-16",
+    "title": "Field",
+    "input": {
+      "fieldName": "peditied"
+    },
+    "output": {
+      "result": "pass"
+    }
+  }
+]
+

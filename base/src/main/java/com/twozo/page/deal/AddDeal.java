@@ -9,7 +9,7 @@ import com.twozo.web.element.service.WebPageElement;
 import java.util.List;
 import java.util.Objects;
 
-public class AddDeal extends Deal {
+public class AddDeal extends DealPage {
 
     private static AddDeal addDeal;
 

@@ -3,6 +3,7 @@ package com.twozo.test.settings.data.fields;
 import com.twozo.commons.cookie.BrowserCookie;
 import com.twozo.page.homepage.HomePage;
 import com.twozo.page.settings.data.fields.FieldStatus;
+import com.twozo.page.settings.data.fields.field.Field;
 import com.twozo.page.settings.data.fields.field.FieldElement;
 import com.twozo.page.settings.data.fields.product.ProductDataField;
 import com.twozo.page.url.URL;
@@ -16,6 +17,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.Collection;
 import java.util.List;
 
 public class ProductDataFieldTest extends DataFieldTest {
@@ -24,22 +26,20 @@ public class ProductDataFieldTest extends DataFieldTest {
     private HomePage homePage;
     private WebAutomationDriver automationDriver;
 
-
     @DataProvider(name = "productSystemFields")
     private static Object[][] getContactSystemFieldData() {
-        return new TestDataProvider().getTestCases("product/SystemFields.json");
+        return new TestDataProvider().getTestCases("settings.data.fields/product/ProductSystemFields.json");
     }
 
     @DataProvider(name = "addViewAndRequired")
     private static Object[][] getAddView() {
-        return new TestDataProvider().getTestCases("product/AddViewAndRequired.json");
+        return new TestDataProvider().getTestCases("settings.data.fields/product/AddViewAndRequired.json");
     }
 
     @DataProvider(name = "autoGeneratingField")
     private static Object[][] getAutoGeneratingFieldData() {
-        return new TestDataProvider().getTestCases("product/AutoGeneratingFields.json");
+        return new TestDataProvider().getTestCases("settings.data.fields/product/AutoGeneratingFields.json");
     }
-
 
     @BeforeMethod
     public void before() {
@@ -152,11 +152,11 @@ public class ProductDataFieldTest extends DataFieldTest {
 
     @Test
     public void checkColumnSettings() {
-        Assert.assertTrue(isPresentInColumnSettings(productDataField.getFields()));
+        Assert.assertTrue(isPresentInColumnSettings(productDataField.getAllFields()));
     }
 
     @Override
-    public boolean isPresentInSummary(final List<String> fields) {
+    public boolean isPresentInSummary(final Collection<String> fields) {
         webNavigator.to(URL.PRODUCTS);
         productDataField.switchToSummary();
 
@@ -164,7 +164,7 @@ public class ProductDataFieldTest extends DataFieldTest {
     }
 
     @Override
-    public boolean isPresentInAddForm(final List<String> fields) {
+    public boolean isPresentInAddForm(final Collection<String> fields) {
         webNavigator.to(URL.PRODUCTS);
         productDataField.switchToAddProductForm();
 
@@ -172,7 +172,7 @@ public class ProductDataFieldTest extends DataFieldTest {
     }
 
     @Override
-    public boolean isPresentInColumnSettings(final List<String> fields) {
+    public boolean isPresentInColumnSettings(final Field[] fields) {
         webNavigator.to(URL.PRODUCTS);
         productDataField.switchToColumnSettings();
 

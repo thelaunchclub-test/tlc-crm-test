@@ -1,0 +1,192 @@
+[
+  {
+    "testCaseID": "CF-1",
+    "title": "Field",
+    "input": {
+      "fieldName": "a",
+      "fieldType": "Text"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-2",
+    "title": "Field",
+    "input": {
+      "fieldName": "b",
+      "fieldType": "Large Text"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-3",
+    "title": "Field",
+    "input": {
+      "fieldName": "c",
+      "fieldType": "Monetary"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-4",
+    "title": "Field",
+    "input": {
+      "fieldName": "d",
+      "fieldType": "Emails"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-5",
+    "title": "Field",
+    "input": {
+      "fieldName": "e",
+      "fieldType": "Phones"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-6",
+    "title": "Field",
+    "input": {
+      "fieldName": "f",
+      "fieldType": "Address"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-7",
+    "title": "Field",
+    "input": {
+      "fieldName": "g",
+      "fieldType": "Date"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-7",
+    "title": "Field",
+    "input": {
+      "fieldName": "h",
+      "fieldType": "Date Range"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-8",
+    "title": "Field",
+    "input": {
+      "fieldName": "i",
+      "fieldType": "Time"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-9",
+    "title": "Field",
+    "input": {
+      "fieldName": "j",
+      "fieldType": "Time Range"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-10",
+    "title": "Field",
+    "input": {
+      "fieldName": "k",
+      "fieldType": "Date and Time Range"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-11",
+    "title": "Field",
+    "input": {
+      "fieldName": "l",
+      "fieldType": "Contact"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-12",
+    "title": "Field",
+    "input": {
+      "fieldName": "m",
+      "fieldType": "Company"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-13",
+    "title": "Field",
+    "input": {
+      "fieldName": "n",
+      "fieldType": "Owner"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-14",
+    "title": "Field",
+    "input": {
+      "fieldName": "o",
+      "fieldType": "Number"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-15",
+    "title": "Field",
+    "input": {
+      "fieldName": "p",
+      "fieldType": "Dropdown",
+      "choices": ["a","b"]
+
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": "CF-1",
+    "title": "Field",
+    "input": {
+      "fieldName": "q",
+      "fieldType": "Multi Select",
+      "choices": ["a","b"]
+    },
+    "output": {
+      "result": "pass"
+    }
+  }
+]

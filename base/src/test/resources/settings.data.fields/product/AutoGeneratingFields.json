@@ -1,0 +1,69 @@
+[
+
+  {
+    "testCaseID": 1,
+    "title": "Created By with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Created By",
+      "fieldType": "Owner",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 2,
+    "title": "Created At with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Created At",
+      "fieldType": "Date",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 3,
+    "title": "Updated By with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Updated By",
+      "fieldType": "Owner",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 4,
+    "title": "Updated At with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Updated At",
+      "fieldType": "Date",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 5,
+    "title": "Last Assigned At with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Last Assigned At",
+      "fieldType": "Date",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 6,
+    "title": "ID with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "ID",
+      "fieldType": "Number",
+      "isAddView": true,
+      "isRequired": true
+    }
+  }
+]

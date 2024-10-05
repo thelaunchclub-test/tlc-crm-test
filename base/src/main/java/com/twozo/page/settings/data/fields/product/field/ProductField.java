@@ -3,6 +3,7 @@ package com.twozo.page.settings.data.fields.product.field;
 import com.twozo.page.settings.data.fields.FieldType;
 import com.twozo.page.settings.data.fields.field.Field;
 
+import java.util.Collection;
 import java.util.List;
 
 public enum ProductField implements Field {
@@ -35,7 +36,7 @@ public enum ProductField implements Field {
         return fieldType;
     }
 
-    public static List<Field> getDefaultFields() {
+    public static Collection<Field> getDefaultFields() {
         return List.of(NAME, PRODUCT_CODE, CATEGORY, UNIT_PRICE);
     }
 }

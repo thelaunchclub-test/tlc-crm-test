@@ -1,4 +1,4 @@
-package com.twozo.test.sign.in;
+package com.twozo.test.sign;
 
 import com.twozo.test.BaseTest;
 import org.slf4j.Logger;

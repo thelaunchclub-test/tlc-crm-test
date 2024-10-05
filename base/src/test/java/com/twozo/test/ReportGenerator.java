@@ -18,15 +18,13 @@ public class ReportGenerator extends BaseTest implements TestListener {
 
     @Override
     public void onStart(final ITestContext context) {
-        final SparkReporter sparkReporter = new SparkReporter("./currency_report.html");
+        final SparkReporter sparkReporter = new SparkReporter("./DataFields.html");
 
-        sparkReporter.setReportName("currency");
-        sparkReporter.setTitle("Currency Test Results");
-
+        sparkReporter.setReportName("Data Fields");
+        sparkReporter.setTitle("Data Fields Test Results");
         reports.attachReporter(sparkReporter);
         reports.systemInfo("OS", System.getProperty("os.name"));
         reports.systemInfo("JAVA VERSION", System.getProperty("java.version"));
-        // ExtentReport.initReport();
     }
 
     @Override
@@ -34,19 +32,13 @@ public class ReportGenerator extends BaseTest implements TestListener {
         System.out.println("test starts " + result.getMethod().getMethodName());
         final ReportTest reportTest = reports.createTest(result.getMethod().getMethodName());
 
-        reportTest.getTabs().assignAuthor("Navin Jones");
+        reportTest.getTabs().assignAuthor("Petchimuthu");
         threadLocal.set(reportTest);
     }
 
     @Override
     public void onFinish(final ITestContext context) {
         reports.flush();
-//        try {
-//            Desktop.getDesktop().browse(new File("./currency_report.html").toURI());
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        ExtentReport.saveReport();
     }
 
     @Override
@@ -54,26 +46,16 @@ public class ReportGenerator extends BaseTest implements TestListener {
         final ReportTest reportTest = threadLocal.get();
 
         if (Objects.nonNull(reportTest)) {
-            reportTest.getLog().pass(result.getMethod().getMethodName() + "is Passed");
-//            Node node = reportTest.getNode();
-//
-//            Node childNode = node.createNode("child node");
-//
-//            childNode.createNode("regression").getLog().pass("fail");
-//            childNode.createNode("unit").getLog().pass("pass");
-//            log.setLog(LogStatus.PASS, "Test Passed");
-//
-//            reportTest.getNode().createNode("Passed Test");
-
+            reportTest.getLog().pass(result.getMethod().getMethodName() + " is Passed");
         }
     }
 
     @Override
     public void onTestFailure(final ITestResult result) {
         System.out.println("Test failed: " + result.getThrowable());
-        ReportTest reportTest = threadLocal.get();
+        final ReportTest reportTest = threadLocal.get();
 
-        if (reportTest != null && reportTest.getLog() != null) {
+        if (Objects.nonNull(reportTest) && Objects.nonNull(reportTest.getLog())) {
             reportTest.getLog().fail(result.getThrowable().getMessage());
         } else {
             System.out.println("ReportTest or ReportTest log is null");
@@ -91,7 +73,7 @@ public class ReportGenerator extends BaseTest implements TestListener {
         }
 
         try {
-            if (automationDriver != null) {
+            if (Objects.nonNull(automationDriver)) {
                 assert reportTest != null;
                 reportTest.getScreenCapture().fromPath(takeScreenShot(result.getMethod().getMethodName(), automationDriver), result.getMethod().getMethodName());
             } else {

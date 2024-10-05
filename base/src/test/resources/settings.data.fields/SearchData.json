@@ -1,0 +1,22 @@
+[
+  {
+    "testCaseID": 1,
+    "title": "Data for search",
+    "input": {
+      "searchData": "a"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 2,
+    "title": "Data for search",
+    "input": {
+      "searchData": "uyi"
+    },
+    "output": {
+      "result": "pass"
+    }
+  }
+]

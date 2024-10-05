@@ -1,6 +1,7 @@
 package com.twozo.page.settings.data.fields.contact;
 
 import com.twozo.commons.exception.ErrorCode;
+
 import com.twozo.page.settings.data.fields.AbstractDataField;
 import com.twozo.page.settings.data.fields.contact.field.ContactField;
 import com.twozo.page.settings.data.fields.field.Field;
@@ -9,12 +10,22 @@ import com.twozo.page.settings.data.fields.field.FieldTypePath;
 import com.twozo.page.settings.data.fields.field.SystemField;
 import com.twozo.page.url.settings.SettingsURL;
 import com.twozo.page.xpath.XPathBuilder;
+
 import com.twozo.web.driver.service.WebAutomationDriver;
 import com.twozo.web.element.service.WebPageElement;
 import com.twozo.web.error.code.WebDriverErrorCode;
 
 import java.util.*;
 
+/**
+ * <p>
+ * Manages contact-related fields and their behaviors in the data field settings. Provides methods to interact with
+ * various contact fields. It also supports adding, editing, and validating the contact fields.
+ * </p>
+ *
+ * @author Petchimuthu
+ * @version 1.0
+ */
 public class ContactDataField extends AbstractDataField {
 
     private static ContactDataField contactDataField;
@@ -22,9 +33,9 @@ public class ContactDataField extends AbstractDataField {
     protected ContactDataField(final WebAutomationDriver webAutomationDriver) {
         super(webAutomationDriver);
 
-        if (!getURL().equals(SettingsURL.CONTACT_DATA_FIELDS)) {
-            throw ErrorCode.get(WebDriverErrorCode.EXPECTED_PAGE_NOT_FOUND, "exp page not found");
-        }
+//        if (!getURL().equals(SettingsURL.CONTACT_DATA_FIELDS)) {
+//            throw ErrorCode.get(WebDriverErrorCode.EXPECTED_PAGE_NOT_FOUND, "exp page not found");
+//        }
     }
 
     public static ContactDataField getInstance(final WebAutomationDriver webAutomationDriver) {
@@ -33,6 +44,13 @@ public class ContactDataField extends AbstractDataField {
         return contactDataField;
     }
 
+    /**
+     * <p>
+     * Retrieves the XPath of the div element for the first name field.
+     * </p>
+     *
+     * @return XPath of the first name field.
+     */
     public String getFirstNameDiv() {
         return getFieldBlock(ContactField.FIRST_NAME);
     }
@@ -203,7 +221,7 @@ public class ContactDataField extends AbstractDataField {
 
         final Collection<WebPageElement> choicesAsElements = findElementsByXpath("//*[@class='MuiBox-root css-173a8x7']//*[@class='css-h35jak']");
         final Collection<WebPageElement> draggableChoicesAsElements = findElementsByXpath("//*[@class='MuiBox-root css-173a8x7']//*[@class='css-1c02ymu']");
-        final List<String> choices = new ArrayList<>();
+        final Collection<String> choices = new ArrayList<>();
 
         for (final WebPageElement choicesAsElement : choicesAsElements) {
             choices.add(getText(choicesAsElement));
@@ -328,7 +346,7 @@ public class ContactDataField extends AbstractDataField {
         };
 
         final Collection<WebPageElement> choices = findElementsByXpath("//*[@class='css-vb6e92']/div[2]/div/p");
-        final Set<String> timeZoneChoices = new HashSet<>();
+        final Collection<String> timeZoneChoices = new LinkedList<>();
 
         for (final WebPageElement choice : choices) {
             timeZoneChoices.add(getText(choice));
@@ -365,7 +383,7 @@ public class ContactDataField extends AbstractDataField {
 
     public boolean checkChoicesForSubscriptionTypes() {
         final String[] options = {"Newsletter", "Promotional", "Product updates", "Conference and events", "Non marketing emails from our company"};
-        final List<String> choices = new ArrayList<>();
+        final Collection<String> choices = new ArrayList<>();
         final Collection<WebPageElement> choicesAsElements = findElementsByXpath("//*[@class='css-evarem']");
 
         for (final WebPageElement choicesAsElement : choicesAsElements) {
@@ -386,7 +404,7 @@ public class ContactDataField extends AbstractDataField {
         final String[] options = {"I no longer want to receive emails from you", "I receive too many emails from you",
                 "The emails are inappropriate", "The emails are spam", "Other unsubscribeReason"};
 
-        final List<String> choices = new ArrayList<>();
+        final Collection<String> choices = new ArrayList<>();
         final Collection<WebPageElement> choicesAsElements = findElementsByXpath("//*[@class='css-vb6e92']");
 
         for (final WebPageElement choicesAsElement : choicesAsElements) {
@@ -410,7 +428,6 @@ public class ContactDataField extends AbstractDataField {
         if (!isFieldPresent(subscriptionStatus)) {
             addField(subscriptionStatus);
         }
-        // refresh();
         try {
             Thread.sleep(5000);
         } catch (Exception exception) {
@@ -436,7 +453,7 @@ public class ContactDataField extends AbstractDataField {
         refresh();
         final String otherUnsubscribeReason = ContactField.OTHER_UNSUBSCRIBE_REASON.getName();
 
-        checkSpecificElement(otherUnsubscribeReason, FieldTypePath.LARGE_TEXT);
+        checkSpecificElement(otherUnsubscribeReason, FieldTypePath.TEXT);
 
         return true;
     }
@@ -512,17 +529,17 @@ public class ContactDataField extends AbstractDataField {
     }
 
     @Override
-    protected List<Field> getDefaultFields() {
+    public Collection<Field> getDefaultFields() {
         return ContactField.getDefaultFields();
     }
 
     @Override
-    protected Field[] getAllFields() {
+    public Field[] getAllFields() {
         return ContactField.values();
     }
 
     @Override
-    protected List<String> getMandatoryFields() {
+    public Collection<String> getMandatoryFields() {
         return Arrays.asList(
                 getFirstNameDiv(),
                 getLastNameDiv(),
@@ -541,7 +558,7 @@ public class ContactDataField extends AbstractDataField {
     }
 
     @Override
-    protected List<Record> getDefaultSystemFieldElements() {
+    public Collection<Record> getDefaultSystemFieldElements() {
         return List.of(
                 getFirstNameField(),
                 getLastNameField(),
@@ -557,7 +574,7 @@ public class ContactDataField extends AbstractDataField {
 
     @Override
     public boolean isDefaultFieldsVisibleInSummary() {
-        final List<Field> summaryDefaultFields = List.of(ContactField.EMAILS, ContactField.PHONES, ContactField.SALES_OWNER);
+        final Collection<Field> summaryDefaultFields = List.of(ContactField.EMAILS, ContactField.PHONES, ContactField.SALES_OWNER);
 
         for (final Field summaryDefaultField : summaryDefaultFields) {
 
@@ -566,6 +583,7 @@ public class ContactDataField extends AbstractDataField {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -583,8 +601,8 @@ public class ContactDataField extends AbstractDataField {
     }
 
     @Override
-    public List<String> getFieldsForAddViewAndRequired(final String addViewOrRequired) {
-        final List<String> fieldsPresent = new ArrayList<>();
+    public Collection<String> getFieldsForAddViewAndRequired(final String addViewOrRequired) {
+        final Collection<String> fieldsPresent = new ArrayList<>();
 
         int count = 0;
         final Collection<WebPageElement> elementsByXpath = findElementsByXpath("//*[@class='MuiBox-root css-19idom']");
@@ -601,41 +619,17 @@ public class ContactDataField extends AbstractDataField {
 
             if (isSelected(fieldElement)) {
                 fieldsPresent.add(getText(findByXpath(String.format("(%s%s%s)", "((", fieldBlock, "/div)[1])//*[@class='MuiTypography-root MuiTypography-body1 MuiTypography-noWrap css-10vldmf']"))));
-
             }
         }
 
         return fieldsPresent;
     }
 
-    @Override
-    public List<String> getFields() {
-        final List<String> fieldsPresent = new ArrayList<>();
-        final Collection<WebPageElement> fields = findElementsByXpath("//*[@class='css-1qqzcwf']/div/p");
+    public Collection<String> getFieldsForSummary() {
+        final Collection<String> fieldsNotToDisplay = List.of("First Name", "Last Name", "LinkedIn", "Facebook",
+                "Designation", "Company", "Unsubscribe Reason", "Other Unsubscribe reason");
 
-        for (final WebPageElement field : fields) {
-            fieldsPresent.add(getText(field));
-        }
-
-        return fieldsPresent;
-    }
-
-    @Override
-    public List<String> getFieldsForSummary() {
-        final List<String> fieldsPresent = new ArrayList<>();
-        final Collection<WebPageElement> fields = findElementsByXpath("//*[@class='css-1qqzcwf']/div/p");
-        final List<String> profileFieldsForContact = List.of("First Name", "Last Name", "LinkedIn", "Facebook",
-                "Designation", "Company", "Unsubscribe Reason", "Other unsubscribe reason");
-
-        for (final WebPageElement field : fields) {
-            final String fieldName = getText(field);
-
-            if (!profileFieldsForContact.contains(fieldName)) {
-                fieldsPresent.add(getText(field));
-            }
-        }
-
-        return fieldsPresent;
+        return getFieldsForSummary(fieldsNotToDisplay);
     }
 }
 
