@@ -1,0 +1,9 @@
+[
+  {
+    "testCaseID": "TC-5",
+    "title": "Ensure that an activity type cannot be added without a name.",
+    "input": {
+      "activityTypeIcon": "search"
+    }
+  }
+]

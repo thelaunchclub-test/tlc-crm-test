@@ -38,7 +38,7 @@ public class HomePage extends BasePage {
     private WebPageElement analyticsIcon;
     private final boolean isProductEnabled = isProductEnabled();
 
-    protected HomePage(final WebAutomationDriver webAutomationDriver) {
+    public HomePage(final WebAutomationDriver webAutomationDriver) {
         super(webAutomationDriver);
         this.webAutomationDriver = webAutomationDriver;
         this.deal = Deal.getInstance(webAutomationDriver);
@@ -184,5 +184,9 @@ public class HomePage extends BasePage {
         click(getAnalyticsIcon());
 
         return analytics;
+    }
+
+    public void hover() {
+        scroll("//*[@class='css-11x1d9z']//child::div[@class='MuiBox-root css-0']//*[text()='LinkedIn']/ancestor::div[@class='MuiBox-root css-19idom']");
     }
 }

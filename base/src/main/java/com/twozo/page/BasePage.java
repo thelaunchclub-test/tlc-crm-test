@@ -12,6 +12,7 @@ import com.twozo.web.element.service.ElementInteraction;
 import com.twozo.web.element.service.WebPageElement;
 import com.twozo.web.mouse.service.actions.MouseActions;
 
+import java.time.Duration;
 import java.util.*;
 import java.util.function.Supplier;
 
@@ -131,6 +132,10 @@ public class BasePage {
         getElementInteraction(webPageElement).click();
     }
 
+    protected final void clear(final WebPageElement webPageElement) {
+        getElementInteraction(webPageElement).clear();
+    }
+
     protected <T> T initializeElement(final T element, final Supplier<T> initializer) {
         return Objects.isNull(element) ? initializer.get() : element;
     }
@@ -220,6 +225,10 @@ public class BasePage {
         mouseActions.moveToElement(new Element(LocatorType.XPATH, xpath, true)).build().perform();
     }
 
+    protected final void scroll(final String xpath) {
+        mouseActions.scrollToElement(new Element(LocatorType.XPATH, xpath, true)).build().perform();
+    }
+
     private void select(final String option, final String dropdownType) {
         for (final WebPageElement element : findElements(new Element(LocatorType.TAG_NAME, dropdownType, true))) {
 
@@ -230,6 +239,9 @@ public class BasePage {
         }
     }
 
+    protected final void moveToElement(final String xpath) {
+        mouseActions.moveToElement(new Element(LocatorType.XPATH,xpath,true), 0, 0).pause(Duration.ofSeconds(10)).build().perform();
+    }
     protected Element getElementByXpath(final String xpath) {
         return new Element(LocatorType.XPATH, xpath, true);
     }

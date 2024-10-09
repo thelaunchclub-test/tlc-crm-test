@@ -1,0 +1,18 @@
+[
+  {
+    "testCaseID": "TC-3",
+    "title": "Verify that the given activity type can be added.",
+    "input": {
+      "activityTypeName": "Nioneee",
+      "ActivityTypeIcon": "Meeting"
+    }
+  },
+  {
+    "testCaseID": "TC-3",
+    "title": "Verify that the given activity type can be added.",
+    "input": {
+      "activityTypeName": "Zindaki",
+      "ActivityTypeIcon": "product"
+    }
+  }
+]

@@ -153,4 +153,5 @@ public class Settings extends BasePage {
 
         return ProductDataField.getInstance(webAutomationDriver);
     }
+
 }

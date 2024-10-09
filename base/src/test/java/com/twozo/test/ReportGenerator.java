@@ -18,10 +18,10 @@ public class ReportGenerator extends BaseTest implements TestListener {
 
     @Override
     public void onStart(final ITestContext context) {
-        final SparkReporter sparkReporter = new SparkReporter("./currency_report.html");
+        final SparkReporter sparkReporter = new SparkReporter("./salesActivities_report.html");
 
-        sparkReporter.setReportName("currency");
-        sparkReporter.setTitle("Currency Test Results");
+        sparkReporter.setReportName("Sales Activities");
+        sparkReporter.setTitle("Sales Activities Test Results");
 
         reports.attachReporter(sparkReporter);
         reports.systemInfo("OS", System.getProperty("os.name"));
@@ -82,7 +82,7 @@ public class ReportGenerator extends BaseTest implements TestListener {
         final Object testObject = result.getInstance();
 
         try {
-            final Field driverField = testObject.getClass().getDeclaredField("automationDriver");
+            final Field driverField = testObject.getClass().getDeclaredField("webAutomationDriver");
 
             driverField.setAccessible(true);
         } catch (NoSuchFieldException exception) {
