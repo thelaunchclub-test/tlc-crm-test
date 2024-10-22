@@ -1,0 +1,24 @@
+[
+  {
+    "testCaseID": 1,
+    "title": "Default fields of Add Form",
+    "input": {
+      "Name": "Text",
+      "Sales Owner": "Owner",
+      "Address": "Address",
+      "Facebook": "Text",
+      "Twitter": "Text",
+      "LinkedIn": "Text",
+      "Annual Revenue": "Monetary",
+      "SIC Code": "Number",
+      "Territory": "Dropdown",
+      "Tags": "Dropdown",
+      "Employees": "Number",
+      "Parent Company": "Company",
+      "Organization Status": "Dropdown",
+      "Industry Type": "Dropdown",
+      "Business Type": "Dropdown",
+      "Description": "Text"
+    }
+  }
+]

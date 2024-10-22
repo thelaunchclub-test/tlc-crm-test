@@ -101,12 +101,12 @@ public class CompanyDataFieldTest extends DataFieldTest {
 
     @Test(dataProvider = "autoGeneratingField")
     public void enableAddViewForAutoGeneratingField(final Object object) {
-        Assert.assertFalse(companyDataField.enableAddView(getFieldStatus(object)));
+        Assert.assertFalse(companyDataField.enableAddViewForAutoGeneratingField(getFieldStatus(object)));
     }
 
     @Test(dataProvider = "autoGeneratingField")
     public void enableRequiredForAutoGeneratingField(final Object object) {
-        Assert.assertFalse(companyDataField.enableRequired(getFieldStatus(object)));
+        Assert.assertFalse(companyDataField.enableRequiredForAutoGeneratingField(getFieldStatus(object)));
     }
 
     @Test(dataProvider = "companySystemFields")
@@ -149,6 +149,21 @@ public class CompanyDataFieldTest extends DataFieldTest {
     }
 
     @Test
+    public void checkOrganizationStatus() {
+        Assert.assertTrue(companyDataField.checkOrganizationStatus());
+    }
+
+    @Test
+    public void checkIndustryType() {
+        Assert.assertTrue(companyDataField.checkIndustryType());
+    }
+
+    @Test
+    public void checkBusinessType() {
+        Assert.assertTrue(companyDataField.checkBusinessType());
+    }
+
+    @Test
     public void checkAddForm() {
         Assert.assertTrue(isPresentInAddForm(companyDataField.getFieldsForAddViewAndRequired(FieldElement.ADD_VIEW_CHECKBOX)));
     }
@@ -166,21 +181,6 @@ public class CompanyDataFieldTest extends DataFieldTest {
     @Test
     public void checkColumnSettings() {
         Assert.assertTrue(isPresentInColumnSettings(companyDataField.getAllFields()));
-    }
-
-    @Test
-    public void checkOrganizationStatus() {
-        Assert.assertTrue(companyDataField.checkOrganizationStatus());
-    }
-
-    @Test
-    public void checkIndustryType() {
-        Assert.assertTrue(companyDataField.checkIndustryType());
-    }
-
-    @Test
-    public void checkBusinessType() {
-        Assert.assertTrue(companyDataField.checkBusinessType());
     }
 
     @Override

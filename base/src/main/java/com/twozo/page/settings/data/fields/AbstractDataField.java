@@ -24,7 +24,6 @@ import java.util.*;
  */
 public abstract class AbstractDataField extends Settings {
 
-    private static final String TWO_STRING_FORMAT = "%s%s";
     private static final String THREE_STRING_FORMAT = "%s%s%s";
     private static final String OPEN_PARENTHESIS = "(";
 
@@ -96,20 +95,9 @@ public abstract class AbstractDataField extends Settings {
      * @return true if the notification is displayed, false otherwise.
      */
     public boolean isLimitExceededNotificationDisplayed() {
-        return isDisplayed(findByXpath("//*[contains(text(),'Maximum')]"));
-    }
+        waitTillVisible("//*[contains(text(),'Maximum')]");
 
-    /**
-     * <p>
-     * Formats a string by concatenating two parts.
-     * </p>
-     *
-     * @param div     The first part of the string.
-     * @param element The second part of the string.
-     * @return The formatted string.
-     */
-    protected String format(final String div, final String element) {
-        return String.format(TWO_STRING_FORMAT, div, element);
+        return isDisplayed(findByXpath("//*[contains(text(),'Maximum')]"));
     }
 
     /**
@@ -145,6 +133,8 @@ public abstract class AbstractDataField extends Settings {
      * @return A {@link WebPageElement} representing the checkbox element.
      */
     protected WebPageElement getAddSystemFieldToList(final String fieldName) {
+        waitTillVisible(getMenuBlock(fieldName));
+
         return findByXpath(format(getMenuBlock(fieldName), "//*[@type='checkbox']"));
     }
 
@@ -169,6 +159,30 @@ public abstract class AbstractDataField extends Settings {
      * @return The XPath string for the {@link Field} block.
      */
     protected String getFieldBlock(final Field field) {
+        return String.format(FieldElement.FIELD_BLOCK, field.getName());
+    }
+
+    /**
+     * <p>
+     * Retrieves the block XPath for a field based on its field name.
+     * </p>
+     *
+     * @param field The name of the field.
+     * @return The XPath string for the field block.
+     */
+    protected String getDependableBlock(final String field) {
+        return String.format(FieldElement.DEPENDABLE_BLOCK, field);
+    }
+
+    /**
+     * <p>
+     * Retrieves the block XPath for a field based on its {@link Field} .
+     * </p>
+     *
+     * @param field The field object.
+     * @return The XPath string for the {@link Field} block.
+     */
+    protected String getDependableBlock(final Field field) {
         return String.format(FieldElement.FIELD_BLOCK, field.getName());
     }
 
@@ -315,8 +329,33 @@ public abstract class AbstractDataField extends Settings {
      * @param fieldName   The name of the field block.
      * @param elementName The name of the element to check within the block.
      */
-    protected void checkSpecificElement(final String fieldName, final String elementName) {
-        isDisplayed(findByXpath(format(getFieldBlock(fieldName), elementName)));
+    protected boolean checkSpecificElement(final String fieldName, final String elementName) {
+        final String xpath = format(getFieldBlock(fieldName), elementName);
+
+        waitTillVisible(xpath);
+
+        return isDisplayed(findByXpath(xpath));
+    }
+
+    protected boolean areChoicesPresent(final String[] options) {
+        final Collection<String> choices = new ArrayList<>();
+        waitTillVisible("//*[@role='menu']");
+        final Collection<WebPageElement> choicesAsElements = findElementsByXpath("//*[@role='menu']//child::p");
+
+
+        for (final WebPageElement choicesAsElement : choicesAsElements) {
+            choices.add(getText(choicesAsElement));
+        }
+
+        for (final String option : options) {
+
+            if (!choices.contains(option)) {
+                System.out.println(option);
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -377,9 +416,15 @@ public abstract class AbstractDataField extends Settings {
     public boolean addCustomField(final FieldStatus fieldStatus) {
         final String customFieldName = fieldStatus.getFieldName();
         final String fieldType = fieldStatus.getFieldType();
-        final List<String> choices = fieldStatus.getChoices();
-        final String dropdownPath = "(((//*[@data-rbd-droppable-id='dropdown-choices']/div/div/div/div)[%d])/div/div)[2]/div/div/div/input";
-        final String multiSelectPath = "(((//*[@data-rbd-droppable-id='multiselect-choices']/div/div/div/div)[%d])/div/div)[2]/div/input";
+        List<String> choices = null;
+        String dropdownPath = null;
+        String multiSelectPath = null;
+
+        if (Objects.nonNull(fieldStatus.getChoices())) {
+            choices = fieldStatus.getChoices();
+            dropdownPath = "(((//*[@data-rbd-droppable-id='dropdown-choices']/div/div/div/div)[%d])/div/div)[2]/div/div/div/input";
+            multiSelectPath = "(((//*[@data-rbd-droppable-id='multiselect-choices']/div/div/div/div)[%d])/div/div)[2]/div/input";
+        }
 
         if (!isFieldPresent(customFieldName)) {
 
@@ -405,9 +450,8 @@ public abstract class AbstractDataField extends Settings {
             }
             click(findByXpath("//body"));
 
-            waitTillVisible(FieldElement.ADD_BUTTON);
+            waitTillClickable(FieldElement.ADD_BUTTON);
             click(getCustomFieldAddButton());
-
             refresh();
         }
 
@@ -429,12 +473,10 @@ public abstract class AbstractDataField extends Settings {
         final String dropdownPath = "(((//*[@data-rbd-droppable-id='%s-choices']/div/div/div/div)[%d])/div/div)[2]/div/div/div/input";
         final String multiSelectPath = "(((//*[@data-rbd-droppable-id='%s-choices']/div/div/div/div)[%d])/div/div)[2]/div/input";
 
-        try {
-            Thread.sleep(2000);
-        } catch (Exception exception) {
-        }
 
+        waitTillClickable(XPathBuilder.getXPathByText("Custom Field"));
         click(getAddCustomFieldButton());
+        waitTillVisible("//div[@data-rbd-draggable-id='new_field1']");
         send(getCustomFieldName(), customFieldName);
         click(getSelectCustomFieldType());
         dropdown(fieldType);
@@ -457,7 +499,7 @@ public abstract class AbstractDataField extends Settings {
         }
         click(findByXpath("//body"));
 
-        waitTillVisible(FieldElement.ADD_BUTTON);
+        waitTillClickable(FieldElement.ADD_BUTTON);
         click(getCustomFieldAddButton());
     }
 
@@ -470,6 +512,8 @@ public abstract class AbstractDataField extends Settings {
      */
     public Collection<String> getFields() {
         final Collection<String> fieldsPresent = new ArrayList<>();
+
+        waitTillVisible("//*[@class='css-1qqzcwf']");
         final Collection<WebPageElement> fields = findElementsByXpath("//*[@class='css-1qqzcwf']/div/p");
 
         for (final WebPageElement field : fields) {
@@ -727,14 +771,10 @@ public abstract class AbstractDataField extends Settings {
             click(findByXpath(format(fieldBlockXpath, FieldElement.EDIT_ICON)));
             send(getCustomFieldName(), newName);
 
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            click(findByXpath(format(fieldBlockXpath, FieldElement.UPDATE_BUTTON)));
-            refresh();
+            // final String updateButton = format(fieldBlockXpath, FieldElement.UPDATE_BUTTON);
 
+            click(findByText("Update"));
+            refresh();
         }
 
         return isFieldPresent(String.format("%s%s", actualName, newName));
@@ -750,11 +790,21 @@ public abstract class AbstractDataField extends Settings {
      */
     public boolean hideField(final String systemFieldName) {
         System.out.println(systemFieldName);
+        String fieldBlock;
+        String eyeIconButton;
 
         if (isFieldPresent(systemFieldName)) {
-            final String fieldBlock = getFieldBlock(systemFieldName);
+
+            if (Objects.equals("Subscription Status",systemFieldName)) {
+                fieldBlock = getDependableBlock(systemFieldName);
+            } else {
+                fieldBlock = getFieldBlock(systemFieldName);
+            }
+            eyeIconButton = format(fieldBlock, FieldElement.EYE_ICON);
             hoverByXpath(fieldBlock);
-            click(findByXpath(format(fieldBlock, FieldElement.EYE_ICON)));
+
+            waitTillClickable(eyeIconButton);
+            click(findByXpath(eyeIconButton));
             refresh();
         }
 
@@ -770,15 +820,15 @@ public abstract class AbstractDataField extends Settings {
      * @return true if the field is deleted successfully, false otherwise.
      */
     public boolean deleteField(final String fieldName) {
+        System.out.println(fieldName);
 
         if (isFieldPresent(fieldName)) {
             final String fieldBlock = getFieldBlock(fieldName);
+
             hoverByXpath(fieldBlock);
             click(findByXpath(format(fieldBlock, FieldElement.DELETE_ICON)));
-            try {
-                Thread.sleep(5000);
-            } catch (Exception e) {
-            }
+
+            waitTillClickable(XPathBuilder.getXPathByText("Delete"));
             click(findByText("Delete"));
             refresh();
         }
@@ -1183,6 +1233,12 @@ public abstract class AbstractDataField extends Settings {
      * </p>
      */
     public void switchToSummary() {
+        //waitTillClickable("//*[@class='MuiTableRow-root css-rm8p5t']//td[2]/div");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+
+        }
         click(findByXpath("//*[@class='MuiTableRow-root css-rm8p5t']//td[2]/div"));
     }
 
@@ -1192,9 +1248,11 @@ public abstract class AbstractDataField extends Settings {
      * </p>
      */
     public void switchToAddContactForm() {
+        //waitTillClickable(XPathBuilder.getXPathByText("Contact"));
         try {
             Thread.sleep(5000);
-        } catch (Exception ex) {
+        } catch (InterruptedException e) {
+
         }
         click(findByText("Contact"));
     }
@@ -1205,9 +1263,11 @@ public abstract class AbstractDataField extends Settings {
      * </p>
      */
     public void switchToAddCompanyForm() {
+        // waitTillClickable(XPathBuilder.getXPathByText("Company"));
         try {
             Thread.sleep(5000);
-        } catch (Exception exception) {
+        } catch (InterruptedException e) {
+
         }
         click(findByText("Company"));
     }
@@ -1218,9 +1278,11 @@ public abstract class AbstractDataField extends Settings {
      * </p>
      */
     public void switchToAddDealForm() {
+        //waitTillClickable(XPathBuilder.getXPathByText("Deal"));
         try {
             Thread.sleep(5000);
-        } catch (Exception ex) {
+        } catch (InterruptedException e) {
+
         }
         click(findByText("Deal"));
     }
@@ -1231,6 +1293,11 @@ public abstract class AbstractDataField extends Settings {
      * </p>
      */
     public void switchToAddProductForm() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+
+        }
         click(findByText("Product"));
     }
 
@@ -1445,10 +1512,7 @@ public abstract class AbstractDataField extends Settings {
             click(addViewCheckbox);
             click(findByXpath(format(fieldBlock, FieldElement.UPDATE_BUTTON)));
             refresh();
-            try {
-                Thread.sleep(2000);
-            } catch (Exception exception) {
-            }
+            waitTillVisible(fieldBlock);
             updatedAddViewChecked = isSelected(findByXpath(getPathOfSpecificCheckbox(fieldBlock,
                     FieldElement.ADD_VIEW_CHECKBOX)));
         }
@@ -1493,13 +1557,15 @@ public abstract class AbstractDataField extends Settings {
      * @param fieldName The name of the field to be added.
      */
     protected void addField(final String fieldName) {
+        waitTillVisible(XPathBuilder.getXPathByText(Button.SYSTEM_FIELDS));
         click(getAddSystemFieldsButton());
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        click(getAddSystemFieldToList(fieldName));
+        waitTillVisible(getMenuBlock(fieldName));
+        // waitTillClickable(getMenuBlock(fieldName));
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//        }
+        click(findByXpath(format(getMenuBlock(fieldName), "//*[@type='checkbox']")));
         click(getAddSelectedFieldsButton());
     }
 
@@ -1513,22 +1579,26 @@ public abstract class AbstractDataField extends Settings {
      */
     public boolean addSystemField(final FieldStatus fieldStatus) {
         final String fieldName = fieldStatus.getFieldName();
+
         System.out.println(fieldName);
         final String fieldType = fieldStatus.getFieldType();
 
         if (!isFieldPresent(fieldName)) {
             addField(fieldName);
+            refresh();
         }
 
-        refresh();
+        final String fieldNameXPath = getFieldBlock(fieldName);
+        final String fieldTypeXPath = format(getFieldBlock(fieldName), XPathBuilder.getXPathByText(fieldType));
+
+        //waitTillVisible("//div[@data-rbd-droppable-id='field-list']");
 
         try {
-            Thread.sleep(3000);
-        } catch (Exception e) {
-        }
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
 
-        return isDisplayed(findByXpath(getFieldBlock(fieldName))) && isDisplayed(findByXpath(format(getFieldBlock(fieldName),
-                XPathBuilder.getXPathByText(fieldType))));
+        }
+        return isDisplayed(findByXpath(fieldNameXPath)) && isDisplayed(findByXpath(fieldTypeXPath));
     }
 
     /**
@@ -1541,6 +1611,9 @@ public abstract class AbstractDataField extends Settings {
      */
     public boolean enableAddView(final FieldStatus fieldStatus) {
         final String fieldName = fieldStatus.getFieldName();
+        final String fieldBlock = getFieldBlock(fieldName);
+        final String pathOfSpecificCheckbox = getPathOfSpecificCheckbox(fieldBlock, FieldElement.ADD_VIEW_CHECKBOX);
+
         System.out.println(fieldName);
         WebPageElement addViewCheckbox = null;
 
@@ -1548,25 +1621,18 @@ public abstract class AbstractDataField extends Settings {
             addSystemField(fieldStatus);
         }
 
-        addViewCheckbox = findByXpath(getPathOfSpecificCheckbox(getFieldBlock(fieldName), FieldElement.ADD_VIEW_CHECKBOX));
+        addViewCheckbox = findByXpath(pathOfSpecificCheckbox);
 
         if (!isSelected(addViewCheckbox)) {
             click(addViewCheckbox);
-            try {
-                click(findByXpath(format(getFieldBlock(fieldName), FieldElement.UPDATE_BUTTON)));
-            } catch (Exception exception) {
-                System.out.println(fieldName);
-            }
+
+            waitTillClickable(FieldElement.UPDATE_BUTTON);
+            click(findByXpath(format(fieldBlock, FieldElement.UPDATE_BUTTON)));
             refresh();
-
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
         }
+        waitTillVisible(fieldBlock);
 
-        return isSelected(findByXpath(getPathOfSpecificCheckbox(getFieldBlock(fieldName), FieldElement.ADD_VIEW_CHECKBOX)));
+        return isSelected(findByXpath(pathOfSpecificCheckbox));
     }
 
     /**
@@ -1579,6 +1645,9 @@ public abstract class AbstractDataField extends Settings {
      */
     public boolean enableRequired(final FieldStatus fieldStatus) {
         final String fieldName = fieldStatus.getFieldName();
+        final String fieldBlock = getFieldBlock(fieldName);
+        final String pathOfSpecificCheckbox = getPathOfSpecificCheckbox(fieldBlock, FieldElement.REQUIRED_CHECKBOX);
+
         System.out.println(fieldName);
         WebPageElement requiredCheckbox = null;
 
@@ -1586,25 +1655,93 @@ public abstract class AbstractDataField extends Settings {
             addSystemField(fieldStatus);
         }
 
-        requiredCheckbox = findByXpath(getPathOfSpecificCheckbox(getFieldBlock(fieldName), FieldElement.REQUIRED_CHECKBOX));
+        requiredCheckbox = findByXpath(pathOfSpecificCheckbox);
 
         if (!isSelected(requiredCheckbox)) {
             click(requiredCheckbox);
-            try {
-                click(findByXpath(format(getFieldBlock(fieldName), FieldElement.UPDATE_BUTTON)));
-            } catch (Exception exception) {
-                System.out.println(fieldName);
-            }
-            refresh();
 
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            waitTillClickable(FieldElement.UPDATE_BUTTON);
+            click(findByXpath(format(fieldBlock, FieldElement.UPDATE_BUTTON)));
+            refresh();
+        }
+        waitTillVisible(fieldBlock);
+
+        return isSelected(findByXpath(pathOfSpecificCheckbox));
+    }
+
+
+    /**
+     * <p>
+     * Enables the 'Add View' checkbox for a given field and updates the changes.
+     * </p>
+     *
+     * @param fieldStatus An object representing the status of the field.
+     * @return true if the 'Add View' checkbox is selected, false otherwise.
+     */
+    public boolean enableAddViewForAutoGeneratingField(final FieldStatus fieldStatus) {
+        final String fieldName = fieldStatus.getFieldName();
+        final String fieldBlock = getFieldBlock(fieldName);
+        final String pathOfSpecificCheckbox = getPathOfSpecificCheckbox(fieldBlock, FieldElement.ADD_VIEW_CHECKBOX);
+
+        System.out.println(fieldName);
+        WebPageElement addViewCheckbox = null;
+
+        if (!isFieldPresent(fieldName)) {
+            addSystemField(fieldStatus);
         }
 
-        return isSelected(findByXpath(getPathOfSpecificCheckbox(getFieldBlock(fieldName), FieldElement.REQUIRED_CHECKBOX)));
+        addViewCheckbox = findByXpath(pathOfSpecificCheckbox);
+
+        if (!isSelected(addViewCheckbox)) {
+            click(addViewCheckbox);
+
+            try {
+                shortWaitTillVisible(format(fieldBlock, FieldElement.UPDATE_BUTTON));
+            } catch (Exception exception) {
+                refresh();
+            }
+        }
+        waitTillVisible(fieldBlock);
+
+        return isSelected(findByXpath(pathOfSpecificCheckbox));
+    }
+
+    /**
+     * <p>
+     * Enables the 'Required' checkbox for a given field and updates the changes.
+     * </p>
+     *
+     * @param fieldStatus An object representing the status of the field.
+     * @return true if the 'Required' checkbox is selected, false otherwise.
+     */
+    public boolean enableRequiredForAutoGeneratingField(final FieldStatus fieldStatus) {
+        final String fieldName = fieldStatus.getFieldName();
+        final String fieldBlock = getFieldBlock(fieldName);
+        final String pathOfSpecificCheckbox = getPathOfSpecificCheckbox(fieldBlock, FieldElement.REQUIRED_CHECKBOX);
+
+        System.out.println(fieldName);
+        WebPageElement requiredCheckbox = null;
+
+        if (!isFieldPresent(fieldName)) {
+            addSystemField(fieldStatus);
+        }
+
+        requiredCheckbox = findByXpath(pathOfSpecificCheckbox);
+
+
+        if (!isSelected(requiredCheckbox)) {
+            click(requiredCheckbox);
+
+            try {
+                shortWaitTillVisible(format(fieldBlock, FieldElement.UPDATE_BUTTON));
+            } catch (Exception exception) {
+                refresh();
+            }
+        }
+        waitTillVisible(fieldBlock);
+
+        return isSelected(findByXpath(pathOfSpecificCheckbox));
+
     }
 
     /**
@@ -1623,6 +1760,38 @@ public abstract class AbstractDataField extends Settings {
 
             if (!fieldsNotToDisplay.contains(fieldName)) {
                 fieldsPresent.add(fieldName);
+            }
+        }
+
+        return fieldsPresent;
+    }
+
+    /**
+     * <p>
+     * Retrieves the list of fields for 'Add View' and 'Required' settings.
+     * </p>
+     *
+     * @param addViewOrRequired The type of setting to check ('Add View' or 'Required').
+     * @return A list of fields for the specified setting.
+     */
+    public Collection<String> getFieldsForAddViewAndRequired(final String addViewOrRequired) {
+        final Collection<String> fieldsPresent = new ArrayList<>();
+
+        int count = 0;
+        final Collection<WebPageElement> elementsByXpath = findElementsByXpath("//*[@class='MuiBox-root css-19idom']");
+
+        for (final WebPageElement webPageElement : elementsByXpath) {
+            count++;
+        }
+
+        for (int i = 1; i <= count; i++) {
+
+            final String fieldBlock = String.format(FieldElement.BLOCK, i);
+            final WebPageElement fieldElement = findByXpath(getPathOfSpecificCheckbox
+                    (fieldBlock, addViewOrRequired));
+
+            if (isSelected(fieldElement)) {
+                fieldsPresent.add(getText(findByXpath(String.format("(%s%s%s)", "((", fieldBlock, "/div)[1])//*[@class='MuiTypography-root MuiTypography-body1 MuiTypography-noWrap css-10vldmf']"))));
             }
         }
 
@@ -1691,15 +1860,5 @@ public abstract class AbstractDataField extends Settings {
      * @return true if mandatory fields are successfully unchecked, false otherwise.
      */
     protected abstract boolean uncheckMandatoryFields();
-
-    /**
-     * <p>
-     * Retrieves the list of fields for 'Add View' and 'Required' settings.
-     * </p>
-     *
-     * @param addViewOrRequired The type of setting to check ('Add View' or 'Required').
-     * @return A list of fields for the specified setting.
-     */
-    protected abstract Collection<String> getFieldsForAddViewAndRequired(final String addViewOrRequired);
 }
 

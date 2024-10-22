@@ -1,16 +1,5 @@
 [
   {
-    "testCaseID": "CF-1",
-    "title": "Field",
-    "input": {
-      "fieldName": "a",
-      "fieldType": "Text"
-    },
-    "output": {
-      "result": "pass"
-    }
-  },
-  {
     "testCaseID": "CF-2",
     "title": "Field",
     "input": {

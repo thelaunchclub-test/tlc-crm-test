@@ -21,9 +21,9 @@ public class KanbanView extends DealPage {
 
     public boolean checkDefaultStagesInKanbanView() {
         try {
-            isDisplayed(findByXpath(map.get("crm.deal.kanban.pipeline.default.stage.new")));
-            isDisplayed(findByXpath(map.get("crm.deal.kanban.pipeline.default.stage.won")));
-            isDisplayed(findByXpath(map.get("crm.deal.kanban.pipeline.default.stage.lost")));
+            isDisplayed(findByXpath(MAP.get("crm.deal.kanban.pipeline.default.stage.new")));
+            isDisplayed(findByXpath(MAP.get("crm.deal.kanban.pipeline.default.stage.won")));
+            isDisplayed(findByXpath(MAP.get("crm.deal.kanban.pipeline.default.stage.lost")));
             return true;
         } catch (Exception exception) {
             return false;

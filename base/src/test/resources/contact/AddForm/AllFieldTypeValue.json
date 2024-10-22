@@ -1,0 +1,30 @@
+[
+  {
+    "testCaseID": 1,
+    "title": "Default fields of Add Form",
+    "input": {
+      "First Name": "John",
+      "Last Name": "Doe",
+      "Emails": "john.doe@example.com",
+      "Phones": "123456789",
+      "Company": "Example Inc.",
+      "Designation": "Manager",
+      "Sales Owner": "Jane Smith",
+      "Lifecycle Stage": "Customer",
+      "Source": "Referral",
+      "Territory": "North America",
+      "Tags": [
+        "VIP",
+        "New Lead"
+      ],
+      "Date Of Birth": "1990-01-01",
+      "Department": "Sales",
+      "Address": "123 Example Street, City, Country",
+      "Facebook": "facebook.com/johndoe",
+      "Twitter": "@johndoe",
+      "LinkedIn": "linkedin.com/in/johndoe",
+      "Subscription Status": "Subscribed",
+      "Time Zone": "GMT-5"
+    }
+  }
+]

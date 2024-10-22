@@ -88,12 +88,12 @@ public class ProductDataFieldTest extends DataFieldTest {
 
     @Test(dataProvider = "autoGeneratingField")
     public void enableAddViewForAutoGeneratingField(final Object object) {
-        Assert.assertTrue(!productDataField.enableAddView(getFieldStatus(object)));
+        Assert.assertTrue(!productDataField.enableAddViewForAutoGeneratingField(getFieldStatus(object)));
     }
 
     @Test(dataProvider = "autoGeneratingField")
     public void enableRequiredForAutoGeneratingField(final Object object) {
-        Assert.assertTrue(!productDataField.enableRequired(getFieldStatus(object)));
+        Assert.assertTrue(!productDataField.enableRequiredForAutoGeneratingField(getFieldStatus(object)));
     }
 
     @Test(dataProvider = "productSystemFields")
@@ -133,6 +133,26 @@ public class ProductDataFieldTest extends DataFieldTest {
             }
         }
         Assert.assertTrue(productDataField.isLimitExceededNotificationDisplayed());
+    }
+
+    @Test
+    public void checkCategory() {
+        Assert.assertTrue(productDataField.checkCategory());
+    }
+
+    @Test
+    public void checkActive() {
+        Assert.assertTrue(productDataField.checkActive());
+    }
+
+    @Test
+    public void checkTaxable() {
+        Assert.assertTrue(productDataField.checkTaxable());
+    }
+
+    @Test
+    public void checkType() {
+        Assert.assertTrue(productDataField.checkType());
     }
 
     @Test

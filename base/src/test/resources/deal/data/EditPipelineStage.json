@@ -3,7 +3,7 @@
     "testCaseID": 1,
     "title": "Adding new pipeline",
     "input": {
-      "pipelineName": "General",
+      "pipelineName": "New General",
       "currentStage": "New",
       "newStage": "Newly edited stage"
     }

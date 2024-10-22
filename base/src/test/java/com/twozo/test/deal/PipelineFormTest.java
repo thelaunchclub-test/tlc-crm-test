@@ -6,6 +6,7 @@ import com.twozo.page.url.URL;
 import com.twozo.test.TestCase;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -34,10 +35,10 @@ public class PipelineFormTest extends DealTest {
         pipelineForm.switchToPipeline();
     }
 
-//    @AfterMethod
-//    public void after() {
-//        automationDriver.close();
-//    }
+    @AfterMethod
+    public void after() {
+        automationDriver.close();
+    }
 
     @Test(dataProvider = "editPipelineName")
     public void editPipelineName(final Object object) {
@@ -80,33 +81,63 @@ public class PipelineFormTest extends DealTest {
     }
 
     @Test
-    public void checkPipelineLimit(){
+    public void checkPipelineLimit() {
         Assert.assertTrue(pipelineForm.checkPipelineLimit());
     }
 
     @Test
-    public void checkStageLimit(){
+    public void checkStageLimit() {
         Assert.assertTrue(pipelineForm.checkStageLimit("stageCheck"));
     }
 
     @Test
-    public void checkDefaultStagesArePresent(){
+    public void checkDefaultStagesArePresent() {
         Assert.assertTrue(pipelineForm.checkDefaultStagesArePresent());
     }
 
     @Test
-    public void checkDuplicateStage(){
+    public void checkDuplicateStage() {
         Assert.assertTrue(pipelineForm.checkDuplicateStage());
     }
 
     @Test
-    public void checkDuplicatePipeline(){
+    public void checkDuplicatePipeline() {
         Assert.assertTrue(pipelineForm.checkDuplicatePipeline());
     }
 
     @Test
-    public void verifyStageAddedBetweenDefaultAndClosedStage(){
+    public void verifyStageAddedBetweenDefaultAndClosedStage() {
         Assert.assertTrue(pipelineForm.verifyStageAddedBetweenDefaultAndClosedStage());
     }
 
+
+    @Test
+    public void verifyDefaultStagesCannotBeDeleted() {
+        Assert.assertTrue(pipelineForm.verifyDefaultStagesCannotBeDeleted());
+    }
+
+    @Test
+    public void verifyStageDefaultProbability() {
+        Assert.assertTrue(pipelineForm.verifyStageDefaultProbability());
+    }
+
+    @Test
+    public void verifyDefaultRottingDays() {
+        Assert.assertTrue(pipelineForm.verifyDefaultRottingDays());
+    }
+
+    @Test
+    public void verifyPipelineNameMandatory() {
+        Assert.assertTrue(pipelineForm.verifyPipelineNameMandatory());
+    }
+
+    @Test
+    public void verifyDefaultPipelineMarkAsDefaultCannotBeUnchecked() {
+        Assert.assertTrue(pipelineForm.verifyDefaultPipelineMarkAsDefaultCannotBeUnchecked());
+    }
+
+    @Test
+    public void verifyMarkAsDefaultCanBeCheckedForNonDefaultPipelines() {
+        Assert.assertTrue(pipelineForm.verifyMarkAsDefaultCanBeCheckedForNonDefaultPipelines());
+    }
 }

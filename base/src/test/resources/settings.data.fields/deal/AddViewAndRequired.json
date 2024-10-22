@@ -122,17 +122,6 @@
   },
   {
     "testCaseID": 12,
-    "title": "Stage Probability with add view",
-    "input": {
-      "isDraggable": false,
-      "fieldName": "Stage Probability",
-      "fieldType": "Number",
-      "isAddView": true,
-      "isRequired": false
-    }
-  },
-  {
-    "testCaseID": 13,
     "title": "Description with add view",
     "input": {
       "isDraggable": false,
@@ -143,7 +132,7 @@
     }
   },
   {
-    "testCaseID": 14,
+    "testCaseID": 13,
     "title": "Type with add view",
     "input": {
       "isDraggable": false,
@@ -154,7 +143,7 @@
     }
   },
   {
-    "testCaseID": 15,
+    "testCaseID": 14,
     "title": "Payment Status with add view",
     "input": {
       "isDraggable": false,

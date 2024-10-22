@@ -4,6 +4,8 @@ import com.twozo.commons.cookie.BrowserCookie;
 import com.twozo.commons.util.ConfigFileReader;
 import com.twozo.page.sign.SignIn;
 import com.twozo.web.driver.service.WebAutomationDriver;
+import com.twozo.web.element.model.Element;
+import com.twozo.web.element.model.LocatorType;
 import org.openqa.selenium.OutputType;
 
 import org.testng.annotations.BeforeClass;
@@ -20,11 +22,12 @@ import java.util.Set;
 
 public class BaseTest {
     private static final Map<String, String> CONFIG = ConfigFileReader.get("Config.Properties");
+    protected static final Map<String, String> MAP = ConfigFileReader.get("locator/locator.Properties");
 
     protected WebAutomationDriver automationDriver;
     protected SignIn signIn;
     protected static Set<BrowserCookie> cookies;
-    protected static String link;
+    protected static String link = CONFIG.get("Domain");
 
     @BeforeSuite
     public void setUp() {
@@ -32,20 +35,13 @@ public class BaseTest {
 
         link = CONFIG.get("Domain");
         automationDriver.getWebNavigator().to(link);
-        automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(50));
-        SignIn.getInstance(automationDriver).signIn("x5@gmail.com", "A$12345a");
+        automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(3));
+        automationDriver.getExplicitWaitHandler().waitTillVisible(new Element(LocatorType.XPATH,"//*[text()='Sign In']",true));
+        SignIn.getInstance(automationDriver).signIn(MAP.get("login.id"), MAP.get("login.password"));
         cookies = automationDriver.getSessionCookie().getCookies();
 
         automationDriver.close();
     }
-
-//    protected Set<BrowserCookie> getCookies(){
-//        return cookies;
-//    }
-//
-//    protected String get() {
-//        return CONFIG.get("Domain");
-//    }
 
     public String takeScreenShot(final String TestName, final WebAutomationDriver driver) throws IOException {
         final File sourceFile = driver.getScreenCapturer().getScreenshotAs(OutputType.FILE);
@@ -53,8 +49,6 @@ public class BaseTest {
         final String timeStamp = dateFormat.format(new Date());
         final String path = System.getProperty("user.dir") + "\\reports\\" + TestName + "_" + timeStamp + ".png";
         final File file = new File(path);
-
-        //FileUtils.
 
         return path;
     }

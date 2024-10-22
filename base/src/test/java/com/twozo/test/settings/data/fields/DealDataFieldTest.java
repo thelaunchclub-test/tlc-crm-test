@@ -89,7 +89,7 @@ public class DealDataFieldTest extends DataFieldTest {
     }
 
     @Test(dataProvider = "dealSystemFields")
-    public void addSystemField(final Object object) {
+    public void addSystemFields(final Object object) {
         Assert.assertTrue(dealDataField.addSystemField(getFieldStatus(object)));
     }
 
@@ -106,12 +106,12 @@ public class DealDataFieldTest extends DataFieldTest {
 
     @Test(dataProvider = "autoGeneratingField")
     public void enableAddViewForAutoGeneratingField(final Object object) {
-        Assert.assertFalse(dealDataField.enableAddView(getFieldStatus(object)));
+        Assert.assertFalse(dealDataField.enableAddViewForAutoGeneratingField(getFieldStatus(object)));
     }
 
     @Test(dataProvider = "autoGeneratingField")
     public void enableRequiredForAutoGeneratingField(final Object object) {
-        Assert.assertFalse(dealDataField.enableRequired(getFieldStatus(object)));
+        Assert.assertFalse(dealDataField.enableRequiredForAutoGeneratingField(getFieldStatus(object)));
     }
 
     @Test(dataProvider = "dealSystemFields")
@@ -177,6 +177,11 @@ public class DealDataFieldTest extends DataFieldTest {
     @Test
     public void checkPipeline() {
         Assert.assertTrue(dealDataField.checkPipeline());
+    }
+
+    @Test
+    public void checkType(){
+        Assert.assertTrue(dealDataField.checkType());
     }
 
     @Override

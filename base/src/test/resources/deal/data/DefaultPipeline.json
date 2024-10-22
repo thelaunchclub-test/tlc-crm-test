@@ -3,7 +3,7 @@
     "testCaseID": 1,
     "title": "Set Pipeline as Default",
     "input": {
-      "pipelineName": "sample"
+      "pipelineName": "Default Pipeline"
     }
   }
 ]

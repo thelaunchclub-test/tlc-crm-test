@@ -32,13 +32,12 @@ public class KanbanViewTest extends DealTest {
         webNavigator.to(URL.DEALS);
 
         kanbanView = KanbanView.getInstance(automationDriver);
-        kanbanView.switchToPipeline();
     }
 
-//    @AfterMethod
-//    public void after() {
-//        automationDriver.close();
-//    }
+    @AfterMethod
+    public void after() {
+        automationDriver.close();
+    }
 
     @Test
     public void checkDefaultStagesInKanbanView() {

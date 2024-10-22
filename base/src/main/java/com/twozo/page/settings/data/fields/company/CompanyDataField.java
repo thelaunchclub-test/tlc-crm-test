@@ -20,8 +20,7 @@ import java.util.*;
 /**
  * <p>
  * Manages company-related fields and their behaviors in the data field settings. Provides methods to interact with
- * various company fields. It also supports adding, editing, and
- * validating the company fields.
+ * various company fields. It also supports adding, editing, and validating the company fields.
  * </p>
  *
  * @author Petchimuthu
@@ -33,10 +32,6 @@ public class CompanyDataField extends AbstractDataField {
 
     protected CompanyDataField(final WebAutomationDriver webAutomationDriver) {
         super(webAutomationDriver);
-
-//        if (getURL().equals(SettingsURL.COMPANY_DATA_FIELDS)) {
-//            throw ErrorCode.get(WebDriverErrorCode.EXPECTED_PAGE_NOT_FOUND, "exp page not found");
-//        }
     }
 
     public static CompanyDataField getInstance(final WebAutomationDriver webAutomationDriver) {
@@ -143,7 +138,6 @@ public class CompanyDataField extends AbstractDataField {
                 null);
     }
 
-
     /**
      * <p>
      * Constructs and returns a {@link SystemField}  for the company's address field.
@@ -170,23 +164,9 @@ public class CompanyDataField extends AbstractDataField {
      * @return true if all expected options are present, false otherwise.
      */
     public boolean checkChoicesForOrganizationStatus() {
-        final String[] options = {"Acquire", "Active", "Market Failed", "Project Cancelled", "Shutdown"};
+        final String[] options = {"Acquired", "Active", "Market Failed", "Project Cancelled", "Shutdown"};
 
-        final List<String> choices = new ArrayList<>();
-        final Collection<WebPageElement> choicesAsElements = findElementsByXpath("//*[@class='css-vb6e92']");
-
-        for (final WebPageElement choicesAsElement : choicesAsElements) {
-            choices.add(getText(choicesAsElement));
-        }
-
-        for (final String option : options) {
-
-            if (!choices.contains(option)) {
-                return false;
-            }
-        }
-
-        return true;
+        return areChoicesPresent(options);
     }
 
     /**
@@ -268,22 +248,7 @@ public class CompanyDataField extends AbstractDataField {
                 "Venture Capital"
         };
 
-
-        final Collection<WebPageElement> choices = findElementsByXpath("//*[@class='css-vb6e92']");
-        final Set<String> industryChoices = new HashSet<>();
-
-        for (final WebPageElement choice : choices) {
-            industryChoices.add(getText(choice));
-        }
-
-        for (final String industry : industries) {
-
-            if (!industryChoices.contains(industry)) {
-                return false;
-            }
-        }
-
-        return true;
+        return areChoicesPresent(industries);
     }
 
     /**
@@ -310,21 +275,7 @@ public class CompanyDataField extends AbstractDataField {
                 "Vendor"
         };
 
-        final List<String> choices = new ArrayList<>();
-        final Collection<WebPageElement> choicesAsElements = findElementsByXpath("//*[@class='css-vb6e92']");
-
-        for (final WebPageElement choicesAsElement : choicesAsElements) {
-            choices.add(getText(choicesAsElement));
-        }
-
-        for (final String businessType : businessTypes) {
-
-            if (!choices.contains(businessType)) {
-                return false;
-            }
-        }
-
-        return true;
+        return areChoicesPresent(businessTypes);
     }
 
     /**
@@ -346,25 +297,23 @@ public class CompanyDataField extends AbstractDataField {
      * @return true if the field and its choices are verified successfully.
      */
     public boolean checkOrganizationStatus() {
-        final String organizationStatus = "Organization Status";
-        final String fiveChoices = XPathBuilder.getXPathByText("5");
+        final String organizationStatus = CompanyField.ORGANIZATION_STATUS.getName();
 
         if (!isFieldPresent(organizationStatus)) {
             addField(organizationStatus);
         }
         refresh();
-        try {
-            Thread.sleep(2000);
-        } catch (Exception exception) {
 
+        if (!checkSpecificElement(organizationStatus, FieldElement.DRAGGABLE)) {
+            return false;
         }
 
-        checkSpecificElement(organizationStatus, FieldElement.DRAGGABLE);
-        checkSpecificElement(organizationStatus, FieldTypePath.DROPDOWN);
-        click(findByXpath(format(getFieldBlock(organizationStatus), fiveChoices)));
-        checkChoicesForOrganizationStatus();
+        if (!checkSpecificElement(organizationStatus, FieldTypePath.DROPDOWN)) {
+            return false;
+        }
+        click(findByXpath(format(getFieldBlock(organizationStatus), XPathBuilder.getXPathByText("5"))));
 
-        return true;
+        return checkChoicesForOrganizationStatus();
     }
 
     /**
@@ -375,24 +324,23 @@ public class CompanyDataField extends AbstractDataField {
      * @return true if the field and its choices are verified successfully.
      */
     public boolean checkIndustryType() {
-        final String industryType = "Industry Type";
-        final String sixtyEightChoices = XPathBuilder.getXPathByText("68");
+        final String industryType = CompanyField.INDUSTRIAL_TYPE.getName();
 
         if (!isFieldPresent(industryType)) {
             addField(industryType);
         }
         refresh();
-        try {
-            Thread.sleep(2000);
-        } catch (Exception exception) {
 
+        if (!checkSpecificElement(industryType, FieldElement.DRAGGABLE)) {
+            return false;
         }
 
-        checkSpecificElement(industryType, FieldElement.DRAGGABLE);
-        checkSpecificElement(industryType, FieldTypePath.DROPDOWN);
-        click(findByXpath(format(getFieldBlock(industryType), sixtyEightChoices)));
-        checkChoicesForIndustryType();
-        return true;
+        if (!checkSpecificElement(industryType, FieldTypePath.DROPDOWN)) {
+            return false;
+        }
+        click(findByXpath(format(getFieldBlock(industryType), XPathBuilder.getXPathByText("68"))));
+
+        return checkChoicesForIndustryType();
     }
 
     /**
@@ -403,25 +351,23 @@ public class CompanyDataField extends AbstractDataField {
      * @return true if the field and its choices are verified successfully.
      */
     public boolean checkBusinessType() {
-        final String businessType = "Business Type";
-        final String thirteenChoices = XPathBuilder.getXPathByText("13");
+        final String businessType = CompanyField.BUSINESS_TYPE.getName();
 
         if (!isFieldPresent(businessType)) {
             addField(businessType);
         }
-
         refresh();
-        try {
-            Thread.sleep(2000);
-        } catch (Exception exception) {
 
+        if (!checkSpecificElement(businessType, FieldElement.DRAGGABLE)) {
+            return false;
         }
 
-        checkSpecificElement(businessType, FieldElement.DRAGGABLE);
-        checkSpecificElement(businessType, FieldTypePath.DROPDOWN);
-        click(findByXpath(format(getFieldBlock(businessType), thirteenChoices)));
-        checkChoicesForBusinessType();
-        return true;
+        if (!checkSpecificElement(businessType, FieldTypePath.DROPDOWN)) {
+            return false;
+        }
+        click(findByXpath(format(getFieldBlock(businessType), XPathBuilder.getXPathByText("13"))));
+
+        return checkChoicesForBusinessType();
     }
 
     /**
@@ -516,40 +462,6 @@ public class CompanyDataField extends AbstractDataField {
         unCheck(mandatoryFields);
 
         return true;
-    }
-
-    /**
-     * <p>
-     * Retrieves the fields that are marked for "Add View" or "Required" based on the provided parameter.
-     * </p>
-     *
-     * @param addViewOrRequired The specific type of fields to retrieve ("Add View" or "Required").
-     * @return The {@link Collection} of fields matching the specified type.
-     */
-    @Override
-    public Collection<String> getFieldsForAddViewAndRequired(final String addViewOrRequired) {
-        final Collection<String> fieldsPresent = new ArrayList<>();
-
-        int count = 0;
-        final Collection<WebPageElement> elementsByXpath = findElementsByXpath("//*[@class='MuiBox-root css-19idom']");
-
-        for (final WebPageElement webPageElement : elementsByXpath) {
-            count++;
-        }
-
-        for (int i = 1; i <= count; i++) {
-
-            final String fieldBlock = String.format(FieldElement.BLOCK, i);
-            final WebPageElement fieldElement = findByXpath(getPathOfSpecificCheckbox
-                    (fieldBlock, addViewOrRequired));
-
-            if (isSelected(fieldElement)) {
-                fieldsPresent.add(getText(findByXpath(String.format("(%s%s%s)", "((", fieldBlock, "/div)[1])//*[@class='MuiTypography-root MuiTypography-body1 MuiTypography-noWrap css-10vldmf']"))));
-
-            }
-        }
-
-        return fieldsPresent;
     }
 
     /**

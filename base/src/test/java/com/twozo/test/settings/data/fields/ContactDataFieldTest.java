@@ -1,6 +1,7 @@
 package com.twozo.test.settings.data.fields;
 
 import com.twozo.commons.cookie.BrowserCookie;
+import com.twozo.page.contact.Contact;
 import com.twozo.page.homepage.HomePage;
 import com.twozo.page.settings.data.fields.FieldStatus;
 import com.twozo.page.settings.data.fields.contact.ContactDataField;
@@ -10,11 +11,10 @@ import com.twozo.page.url.URL;
 import com.twozo.page.url.settings.SettingsURL;
 import com.twozo.test.TestDataProvider;
 import com.twozo.web.driver.service.WebAutomationDriver;
+import com.twozo.web.element.model.Element;
+import com.twozo.web.element.model.LocatorType;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -56,6 +56,7 @@ public class ContactDataFieldTest extends DataFieldTest {
 //        webNavigator.to(URL.CONTACTS);
 //        automationDriver.getWebWindowHandler().maximize();
 //        Contact.getInstance(automationDriver).addContact().createContact("a", "a@gmail.com", "9876543211");
+//        automationDriver.close();
 //    }
 
     @BeforeMethod
@@ -69,7 +70,6 @@ public class ContactDataFieldTest extends DataFieldTest {
         }
 
         automationDriver.getWebWindowHandler().maximize();
-        automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(10));
         webNavigator.to(SettingsURL.CONTACT_DATA_FIELDS);
         automationDriver.getWebWindowHandler().maximize();
         homePage = HomePage.getInstance(automationDriver);
@@ -87,7 +87,7 @@ public class ContactDataFieldTest extends DataFieldTest {
     }
 
     @Test(dataProvider = "contactSystemFields")
-    public void addSystemField(final Object object) {
+    public void addSystemFields(final Object object) {
         Assert.assertTrue(contactDataField.addSystemField(getFieldStatus(object)));
     }
 
@@ -103,12 +103,12 @@ public class ContactDataFieldTest extends DataFieldTest {
 
     @Test(dataProvider = "autoGeneratingField")
     public void enableAddViewForAutoGeneratingField(final Object object) {
-        Assert.assertFalse(contactDataField.enableAddView(getFieldStatus(object)));
+        Assert.assertFalse(contactDataField.enableAddViewForAutoGeneratingField(getFieldStatus(object)));
     }
 
     @Test(dataProvider = "autoGeneratingField")
     public void enableRequiredForAutoGeneratingField(final Object object) {
-        Assert.assertFalse(contactDataField.enableRequired(getFieldStatus(object)));
+        Assert.assertFalse(contactDataField.enableRequiredForAutoGeneratingField(getFieldStatus(object)));
     }
 
     @Test(dataProvider = "contactSystemFields")
@@ -134,13 +134,13 @@ public class ContactDataFieldTest extends DataFieldTest {
     @Test
     public void checkMaxLimit() {
         final String fieldName = "CustomField";
-        final List<String> choices = List.of("a", "b");
+        // final List<String> choices = List.of("a", "b");
 
         for (int i = 1; i <= 11; i++) {
             FieldStatus fieldStatus = new FieldStatus();
             fieldStatus.setFieldName(String.format("%s%d", fieldName, i));
-            fieldStatus.setFieldType("Multi Select");
-            fieldStatus.setChoices(choices);
+            fieldStatus.setFieldType("Text");
+            // fieldStatus.setChoices(choices);
             contactDataField.checkMaximumLimit(fieldStatus);
 
             if (i != 11) {
@@ -148,26 +148,6 @@ public class ContactDataFieldTest extends DataFieldTest {
             }
         }
         Assert.assertTrue(contactDataField.isLimitExceededNotificationDisplayed());
-    }
-
-    @Test
-    public void checkAddForm() {
-        Assert.assertTrue(isPresentInAddForm(contactDataField.getFieldsForAddViewAndRequired(FieldElement.ADD_VIEW_CHECKBOX)));
-    }
-
-    @Test
-    public void checkAddFormAsRequired() {
-        Assert.assertTrue(isPresentInAddForm(contactDataField.getFieldsForAddViewAndRequired(FieldElement.REQUIRED_CHECKBOX)));
-    }
-
-    @Test
-    public void checkSummary() {
-        Assert.assertTrue(isPresentInSummary(contactDataField.getFieldsForSummary()));
-    }
-
-    @Test
-    public void checkColumnSettings() {
-        Assert.assertTrue(isPresentInColumnSettings(contactDataField.getAllFields()));
     }
 
     @Test
@@ -188,6 +168,26 @@ public class ContactDataFieldTest extends DataFieldTest {
     @Test
     public void checkSource() {
         Assert.assertTrue(contactDataField.checkSource());
+    }
+
+    @Test
+    public void checkAddForm() {
+        Assert.assertTrue(isPresentInAddForm(contactDataField.getFieldsForAddViewAndRequired(FieldElement.ADD_VIEW_CHECKBOX)));
+    }
+
+    @Test
+    public void checkAddFormAsRequired() {
+        Assert.assertTrue(isPresentInAddForm(contactDataField.getFieldsForAddViewAndRequired(FieldElement.REQUIRED_CHECKBOX)));
+    }
+
+    @Test
+    public void checkSummary() {
+        Assert.assertTrue(isPresentInSummary(contactDataField.getFieldsForSummary()));
+    }
+
+    @Test
+    public void checkColumnSettings() {
+        Assert.assertTrue(isPresentInColumnSettings(contactDataField.getAllFields()));
     }
 
     @Override

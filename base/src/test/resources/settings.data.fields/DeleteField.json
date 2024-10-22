@@ -1,15 +1,5 @@
 [
   {
-    "testCaseID": "CF-1",
-    "title": "Field",
-    "input": {
-      "fieldName": "aedited"
-    },
-    "output": {
-      "result": "pass"
-    }
-  },
-  {
     "testCaseID": "CF-2",
     "title": "Field",
     "input": {

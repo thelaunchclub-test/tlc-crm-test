@@ -3,8 +3,8 @@
     "testCaseID": 1,
     "title": "Adding new pipeline",
     "input": {
-      "pipelineName": "General",
-      "stageName": "New",
+      "pipelineName": "New General",
+      "stageName": "Newly edited stage",
       "probability": "26"
     }
   }

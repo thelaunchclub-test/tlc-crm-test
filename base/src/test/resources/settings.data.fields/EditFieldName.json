@@ -3,17 +3,6 @@
     "testCaseID": 1,
     "title": "Field",
     "input": {
-      "fieldName": "a",
-      "append": "edited"
-    },
-    "output": {
-      "result": "pass"
-    }
-  },
-  {
-    "testCaseID": 1,
-    "title": "Field",
-    "input": {
       "fieldName": "b",
       "append": "edited"
     },

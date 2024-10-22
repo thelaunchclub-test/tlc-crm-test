@@ -12,6 +12,7 @@ import com.twozo.test.TestDataProvider;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import com.twozo.web.driver.service.WebNavigator;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -24,6 +25,8 @@ public class DealTest extends BaseTest {
 
     private DealPage dealPage;
     WebNavigator webNavigator;
+    private WebAutomationDriver automationDriver;
+
 
     @DataProvider(name = "defaultPipeline")
     public static Object[][] getPipelineForDefault() {
@@ -88,10 +91,10 @@ public class DealTest extends BaseTest {
         dealPage = DealPage.getInstance(automationDriver);
     }
 
-    //    @AfterMethod
-//    public void after() {
-//        automationDriver.close();
-//    }
+    @AfterMethod
+    public void after() {
+        automationDriver.close();
+    }
 
     protected Pipeline getPipeline(final Object object) {
         final TestCase testCase = (TestCase) object;
@@ -124,8 +127,8 @@ public class DealTest extends BaseTest {
     }
 
     @Test
-    public void verifyPipelineChangeInKanbanReflectedInAddDealForm(){
-        //Assert.assertTrue(dealPage.verifyPipelineChangeInKanbanReflectedInAddDealForm());
-        dealPage.verifyPipelineChangeInKanbanReflectedInAddDealForm();
+    public void verifyPipelineChangeInKanbanReflectedInAddDealForm() {
+        Assert.assertTrue(dealPage.verifyPipelineChangeInKanbanReflectedInAddDealForm());
+        //dealPage.verifyPipelineChangeInKanbanReflectedInAddDealForm();
     }
 }

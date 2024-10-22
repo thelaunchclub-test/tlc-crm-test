@@ -1,0 +1,19 @@
+[
+  {
+    "testCaseID": 1,
+    "title": "Default fields of Add Form",
+    "input": {
+      "Fields": [
+        "First Name",
+        "Last Name",
+        "Emails",
+        "Phone",
+        "Company",
+        "Designation",
+        "Sales Owner",
+        "Facebook",
+        "LinkedIn"
+      ]
+    }
+  }
+]

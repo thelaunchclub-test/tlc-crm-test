@@ -16,6 +16,18 @@ public enum ProductField implements Field {
     ACTIVE("Active", FieldType.DROPDOWN),
     TAXABLE("Taxable", FieldType.DROPDOWN),
     BASE_CURRENCY_AMOUNT("Base Currency Amount", FieldType.MONETARY),
+    QUANTITY_ORDERED("Quantity Ordered", FieldType.NUMBER),
+    QUANTITY_IN_STOCK("Quantity In Stock", FieldType.NUMBER),
+    DESCRIPTION("Description", FieldType.TEXT),
+    TYPE("Type", FieldType.DROPDOWN),
+    SKU_NUMBER("SKU Number", FieldType.TEXT),
+    VALID_TILL("Valid Till", FieldType.DATE),
+    CREATED_BY("Created By", FieldType.OWNER),
+    CREATED_AT("Created At", FieldType.TIME),
+    UPDATED_BY("Updated By", FieldType.OWNER),
+    UPDATED_AT("Updated At", FieldType.TIME),
+    LAST_ASSIGNED_AT("Last Assigned At", FieldType.TIME),
+    ID("ID", FieldType.NUMBER),
     ;
 
     private final String name;

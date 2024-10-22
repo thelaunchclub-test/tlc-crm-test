@@ -18,7 +18,8 @@ import java.util.function.Supplier;
 
 public class BasePage {
 
-    protected static final Map<String, String> map = ConfigFileReader.get("locator/locator.Properties");
+    protected static final Map<String, String> MAP = ConfigFileReader.get("locator/locator.Properties");
+    protected static final String TWO_STRING_FORMAT = "%s%s";
 
     public WebAutomationDriver webAutomationDriver;
     public ElementFinder elementFinder;
@@ -47,7 +48,7 @@ public class BasePage {
         return basePage;
     }
 
-    public Set<BrowserCookie> getCookies(){
+    public Set<BrowserCookie> getCookies() {
         //System.out.println(sessionCookie.getCookies());
 //        for (Cookie cookie : sessionCookie.getCookies()) {
 //            System.out.println(cookie);
@@ -67,19 +68,41 @@ public class BasePage {
     }
 
     public void switchToColumnSettings() {
+        //waitTillVisible("//*[@class='css-181x7hd']");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
 
+        }
         click(getColumnSettingsButton());
     }
 
-    public void close(){
+    public void close() {
         webAutomationDriver.close();
     }
+    
+    protected String format(final String div, final String element) {
+        return String.format(TWO_STRING_FORMAT, div, element);
+    }
+
+    public void waitTillVisible(final Element element) {
+        explicitWaitHandler.waitTillVisible(element);
+    }
+
     public void waitTillVisible(final String xpath) {
         explicitWaitHandler.waitTillVisible(new Element(LocatorType.XPATH, xpath, true));
     }
 
     public void waitTillClickable(final String xpath) {
         explicitWaitHandler.WaitTillClickable(new Element(LocatorType.XPATH, xpath, true));
+    }
+
+    public void shortWaitTillVisible(final String xpath) {
+        explicitWaitHandler.shortWaitTillVisible(new Element(LocatorType.XPATH, xpath, true));
+    }
+
+    public void shortWaitTillClickable(final String xpath) {
+        explicitWaitHandler.shortWaitTillClickable(new Element(LocatorType.XPATH, xpath, true));
     }
 
     protected final WebPageElement findElement(final Element element) {
@@ -114,7 +137,7 @@ public class BasePage {
         return findElement(new Element(LocatorType.XPATH, XPathBuilder.getXPath(xpath), true));
     }
 
-    public WebPageElement findByClass(final String className){
+    public WebPageElement findByClass(final String className) {
         return findElement(new Element(LocatorType.CLASS_NAME, className, true));
     }
 
@@ -129,6 +152,7 @@ public class BasePage {
     protected Collection<WebPageElement> findElementsByClass(final String className) {
         return findElements(new Element(LocatorType.CLASS_NAME, className, true));
     }
+
     protected WebPageElement findByText(final String value) {
         return findElement(new Element(LocatorType.XPATH, XPathBuilder.getXPathByText(value), true));
     }
@@ -141,7 +165,7 @@ public class BasePage {
         getElementInteraction(webPageElement).click();
     }
 
-    protected final void clear(final WebPageElement webPageElement){
+    protected final void clear(final WebPageElement webPageElement) {
         getElementInteraction(webPageElement).clear();
     }
 
@@ -153,12 +177,12 @@ public class BasePage {
         return XPathBuilder.getXPathByText(text);
     }
 
-    protected final void selectDate(final Element element, final String month, final int date, final int year) {
+    protected final void selectDate(final String fieldXPath, final String month, final int date, final int year) {
         final String xpath = "//button[text()='%d']";
 
         click(findBelowElement(List.of(
                 new Element(LocatorType.XPATH, "//button[@aria-label='Choose date']", false),
-                element)));
+                new Element(LocatorType.XPATH, fieldXPath, true))));
         click(findByXpath("//button[@aria-label='calendar view is open, switch to year view']"));
         click(findByText(String.format(xpath, year)));
         final WebPageElement div = findLeftElement(List.of(
@@ -260,12 +284,12 @@ public class BasePage {
 
     public void refresh() {
         webNavigator.refresh();
-
     }
+
 //    public WebPageElement getStatus() {
 //
 //        if (Objects.isNull(status)) {
-//            status = findByXpath("(//div[text()='Status'])[2]");
+//            status = findBy("(//div[text()='Status'])[2]");
 //            status = TagFinder.get(Record)
 //        }
 //

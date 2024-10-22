@@ -1,6 +1,7 @@
 package com.twozo.page.company;
 
 import com.twozo.page.BasePage;
+import com.twozo.page.xpath.XPathBuilder;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import com.twozo.web.element.service.WebPageElement;
 
@@ -38,11 +39,7 @@ public class Company extends BasePage {
     }
 
     public CompanyForm addCompany() {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        waitTillVisible(XPathBuilder.getXPathByText("Company"));
         click(getAddCompanyButton());
 
         return getAddCompany();

@@ -36,10 +36,10 @@ public class PipelineTest extends DealTest {
         pipelinePage.switchToPipeline();
     }
 
-//    @AfterMethod
-//    public void after() {
-//        automationDriver.close();
-//    }
+    @AfterMethod
+    public void after() {
+        automationDriver.close();
+    }
 
     @Test
     public void checkDefaultPipelineAndStages() {
@@ -48,13 +48,17 @@ public class PipelineTest extends DealTest {
 
     @Test(dataProvider = "defaultPipeline")
     public void markAsDefaultPipeline(final Object object) {
-        Assert.assertTrue(pipelinePage.markAsDefaultPipeline( ((TestCase) object).input.getString("pipelineName")));
+        Assert.assertTrue(pipelinePage.markAsDefaultPipeline(((TestCase) object).input.getString("pipelineName")));
     }
 
     @Test(dataProvider = "defaultPipeline")
     public void checkDefaultPipelineDisplayedInKanbanViewPipeline(final Object object) {
-        Assert.assertTrue(pipelinePage.checkDefaultPipelineDisplayedInKanbanViewPipeline( ((TestCase) object).input.getString("pipelineName")));
+        Assert.assertTrue(pipelinePage.checkDefaultPipelineDisplayedInKanbanViewPipeline(((TestCase) object).input.getString("pipelineName")));
     }
 
+    @Test
+    public void verifyPipelineOrderInEditDrawerMatchesDropdown() {
+        Assert.assertTrue(pipelinePage.verifyPipelineOrderInEditDrawerMatchesDropdown());
+    }
 
 }
