@@ -141,9 +141,9 @@ public class CompanyDataFieldTest extends DataFieldTest {
             fieldStatus.setChoices(choices);
             companyDataField.checkMaximumLimit(fieldStatus);
 
-            if (i != 11) {
-                companyDataField.refresh();
-            }
+//            if (i != 11) {
+//                companyDataField.refresh();
+//            }
         }
         Assert.assertTrue(companyDataField.isLimitExceededNotificationDisplayed());
     }

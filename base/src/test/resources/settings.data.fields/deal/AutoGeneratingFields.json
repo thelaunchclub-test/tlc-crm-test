@@ -148,7 +148,7 @@
     "input": {
       "isDraggable": false,
       "fieldName": "Web Form",
-      "fieldType": "Dropdown",
+      "fieldType": "Text",
       "isAddView": true,
       "isRequired": false
     }

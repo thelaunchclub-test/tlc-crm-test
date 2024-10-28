@@ -337,6 +337,14 @@ public abstract class AbstractDataField extends Settings {
         return isDisplayed(findByXpath(xpath));
     }
 
+    protected boolean checkDependableFieldSpecificElement(final String fieldName, final String elementName) {
+        final String xpath = format(getDependableBlock(fieldName), elementName);
+
+        waitTillVisible(xpath);
+
+        return isDisplayed(findByXpath(xpath));
+    }
+
     protected boolean areChoicesPresent(final String[] options) {
         final Collection<String> choices = new ArrayList<>();
         waitTillVisible("//*[@role='menu']");
@@ -452,7 +460,7 @@ public abstract class AbstractDataField extends Settings {
 
             waitTillClickable(FieldElement.ADD_BUTTON);
             click(getCustomFieldAddButton());
-            refresh();
+            //refresh();
         }
 
         return isFieldPresent(customFieldName);
@@ -544,6 +552,7 @@ public abstract class AbstractDataField extends Settings {
      * @return true if the field is present, false otherwise.
      */
     protected boolean isFieldPresent(final String fieldName) {
+        System.out.println(fieldName);
         return getFields().contains(fieldName);
     }
 
@@ -700,13 +709,13 @@ public abstract class AbstractDataField extends Settings {
         if ((addView && !isChecked) || (!addView && isChecked)) {
             click(addViewCheckbox);
             click(findByXpath(format(fieldBlock, FieldElement.UPDATE_BUTTON)));
-            refresh();
+            //refresh();
         }
 
         if ((required && !isRequired) || (!required && isRequired)) {
             click(requiredCheckbox);
             click(findByXpath(format(fieldBlock, FieldElement.UPDATE_BUTTON)));
-            refresh();
+            //refresh();
         }
 
         hoverByXpath(fieldBlock);
@@ -774,7 +783,7 @@ public abstract class AbstractDataField extends Settings {
             // final String updateButton = format(fieldBlockXpath, FieldElement.UPDATE_BUTTON);
 
             click(findByText("Update"));
-            refresh();
+           // refresh();
         }
 
         return isFieldPresent(String.format("%s%s", actualName, newName));
@@ -805,7 +814,7 @@ public abstract class AbstractDataField extends Settings {
 
             waitTillClickable(eyeIconButton);
             click(findByXpath(eyeIconButton));
-            refresh();
+            //refresh();
         }
 
         return !isFieldPresent(systemFieldName);
@@ -830,7 +839,7 @@ public abstract class AbstractDataField extends Settings {
 
             waitTillClickable(XPathBuilder.getXPathByText("Delete"));
             click(findByText("Delete"));
-            refresh();
+           // refresh();
         }
 
         return !isFieldPresent(fieldName);
@@ -1044,7 +1053,7 @@ public abstract class AbstractDataField extends Settings {
      * @return true if all specified fields are present, false otherwise.
      */
     public boolean isPresentInSummary(final Collection<String> fieldsToBePresentInSummary) {
-        final Collection<WebPageElement> fieldsPresentInSummary = findElementsByXpath("//*[@class='css-itno5t']/div/div/table/tbody/tr/td[1]/p");
+        final Collection<WebPageElement> fieldsPresentInSummary = findElementsByXpath("//*[@class='css-itno5t']//child::div[@class='MuiBox-root css-1baulvz']");
         final Collection<String> fieldNames = new ArrayList<>();
 
         for (final WebPageElement field : fieldsPresentInSummary) {
@@ -1054,10 +1063,8 @@ public abstract class AbstractDataField extends Settings {
 
         for (final String fieldToBePresent : fieldsToBePresentInSummary) {
 
-            final String formattedField = String.format("%s%s%s", fieldToBePresent, " ", ":");
-
-            if (!fieldNames.contains(formattedField)) {
-                System.out.println(formattedField);
+            if (!fieldNames.contains(fieldToBePresent)) {
+                System.out.println(fieldToBePresent);
                 return false;
             }
         }
@@ -1076,19 +1083,20 @@ public abstract class AbstractDataField extends Settings {
     public boolean isPresentInAddForm(final Collection<String> fieldsToBePresentInAddForm) {
         final Collection<String> fieldsPresentInAddForm = new ArrayList<>();
         final Collection<WebPageElement> fields = findElementsByXpath("//*[@class='MuiTypography-root MuiTypography-body1 css-1b4365c']");
-        final Collection<WebPageElement> remainingFields = findElementsByXpath("//*[@class='css-1cdo4bs']/p");
+        //final Collection<WebPageElement> remainingFields = findElementsByXpath("//*[@class='css-1cdo4bs']/p");
 
         for (final WebPageElement field : fields) {
 
             fieldsPresentInAddForm.add(getText(field).replaceAll("\\*$", ""));
         }
 
-        for (final WebPageElement remainingField : remainingFields) {
-            fieldsPresentInAddForm.add(getText(remainingField).replaceAll("\\*$", ""));
-        }
+//        for (final WebPageElement remainingField : remainingFields) {
+//            fieldsPresentInAddForm.add(getText(remainingField).replaceAll("\\*$", ""));
+//        }
 
         for (final String field : fieldsToBePresentInAddForm) {
             if (!fieldsPresentInAddForm.contains(field)) {
+                System.out.println(field);
                 return false;
             }
         }
@@ -1114,8 +1122,10 @@ public abstract class AbstractDataField extends Settings {
 
         for (final Field field : fieldsToBePresentInColumnSettings) {
 
-            if (!fieldsPresentInAddForm.contains(field.getName())) {
-                System.out.println(field.getName());
+            final String fieldName = field.getName();
+
+            if (!fieldsPresentInAddForm.contains(fieldName)) {
+                System.out.println(fieldName);
                 return false;
             }
         }
@@ -1364,7 +1374,7 @@ public abstract class AbstractDataField extends Settings {
                     } catch (Exception exception) {
                         System.out.println(field.getName());
                     }
-                    refresh();
+                    //refresh();
                 }
             } catch (Exception exception) {
             }
@@ -1391,7 +1401,7 @@ public abstract class AbstractDataField extends Settings {
             } catch (Exception exception) {
                 System.out.println(fieldName);
             }
-            refresh();
+            //refresh();
 
         }
     }
@@ -1414,7 +1424,7 @@ public abstract class AbstractDataField extends Settings {
                 } catch (Exception exception) {
                     System.out.println(field.getName());
                 }
-                refresh();
+                //refresh();
             }
         }
     }
@@ -1457,7 +1467,7 @@ public abstract class AbstractDataField extends Settings {
             } catch (Exception e) {
                 System.out.println(fieldName);
             }
-            refresh();
+            //refresh();
         }
 
         return addView;
@@ -1511,7 +1521,7 @@ public abstract class AbstractDataField extends Settings {
         if ((addView && !updatedAddViewChecked) || (!addView && updatedAddViewChecked)) {
             click(addViewCheckbox);
             click(findByXpath(format(fieldBlock, FieldElement.UPDATE_BUTTON)));
-            refresh();
+            //refresh();
             waitTillVisible(fieldBlock);
             updatedAddViewChecked = isSelected(findByXpath(getPathOfSpecificCheckbox(fieldBlock,
                     FieldElement.ADD_VIEW_CHECKBOX)));
@@ -1543,7 +1553,7 @@ public abstract class AbstractDataField extends Settings {
         if ((required && !isRequired) || (!required && isRequired)) {
             click(requiredCheckbox);
             click(findByXpath(format(fieldBlock, FieldElement.UPDATE_BUTTON)));
-            refresh();
+            //refresh();
         }
 
         return true;
@@ -1579,25 +1589,26 @@ public abstract class AbstractDataField extends Settings {
      */
     public boolean addSystemField(final FieldStatus fieldStatus) {
         final String fieldName = fieldStatus.getFieldName();
+        final String fieldType = fieldStatus.getFieldType();
 
         System.out.println(fieldName);
-        final String fieldType = fieldStatus.getFieldType();
 
         if (!isFieldPresent(fieldName)) {
             addField(fieldName);
-            refresh();
+           // refresh();
         }
 
         final String fieldNameXPath = getFieldBlock(fieldName);
         final String fieldTypeXPath = format(getFieldBlock(fieldName), XPathBuilder.getXPathByText(fieldType));
 
-        //waitTillVisible("//div[@data-rbd-droppable-id='field-list']");
+        waitTillVisible("//div[@data-rbd-droppable-id='field-list']");
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//
+//        }
 
-        }
         return isDisplayed(findByXpath(fieldNameXPath)) && isDisplayed(findByXpath(fieldTypeXPath));
     }
 
@@ -1628,7 +1639,7 @@ public abstract class AbstractDataField extends Settings {
 
             waitTillClickable(FieldElement.UPDATE_BUTTON);
             click(findByXpath(format(fieldBlock, FieldElement.UPDATE_BUTTON)));
-            refresh();
+            //refresh();
         }
         waitTillVisible(fieldBlock);
 
@@ -1662,7 +1673,7 @@ public abstract class AbstractDataField extends Settings {
 
             waitTillClickable(FieldElement.UPDATE_BUTTON);
             click(findByXpath(format(fieldBlock, FieldElement.UPDATE_BUTTON)));
-            refresh();
+            //refresh();
         }
         waitTillVisible(fieldBlock);
 
@@ -1698,7 +1709,7 @@ public abstract class AbstractDataField extends Settings {
             try {
                 shortWaitTillVisible(format(fieldBlock, FieldElement.UPDATE_BUTTON));
             } catch (Exception exception) {
-                refresh();
+               // refresh();
             }
         }
         waitTillVisible(fieldBlock);
@@ -1735,7 +1746,7 @@ public abstract class AbstractDataField extends Settings {
             try {
                 shortWaitTillVisible(format(fieldBlock, FieldElement.UPDATE_BUTTON));
             } catch (Exception exception) {
-                refresh();
+               // refresh();
             }
         }
         waitTillVisible(fieldBlock);

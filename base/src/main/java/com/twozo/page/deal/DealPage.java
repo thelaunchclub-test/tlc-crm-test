@@ -173,6 +173,7 @@ public class DealPage extends BasePage {
 
 
     public void switchToColumnSettings() {
+        waitTillClickable(MAP.get("crm.deal.view.list"));
         click(getListViewButton());
         click(getColumnSettingsButton());
     }

@@ -82,7 +82,7 @@
     "input": {
       "isDraggable": false,
       "fieldName": "Tags",
-      "fieldType": "Dropdown",
+      "fieldType": "Multi Select",
       "isAddView": true,
       "isRequired": false
     }

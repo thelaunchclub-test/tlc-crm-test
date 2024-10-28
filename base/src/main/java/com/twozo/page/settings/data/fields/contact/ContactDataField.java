@@ -886,7 +886,7 @@ public class ContactDataField extends AbstractDataField {
 
     public boolean checkChoicesForUnsubscribeReason() {
         final String[] options = {"I no longer want to receive emails from you", "I receive too many emails from you",
-                "The emails are inappropriate", "The emails are spam", "Other unsubscribeReason"};
+                "The emails are inappropriate", "The emails are spam", "Other unsubscribe reason"};
 
         return areChoicesPresent(options);
     }
@@ -899,13 +899,14 @@ public class ContactDataField extends AbstractDataField {
             addField(subscriptionStatus);
         }
 
-        if (!checkSpecificElement(subscriptionStatus, FieldElement.DRAGGABLE)) {
+
+        if (!checkDependableFieldSpecificElement(subscriptionStatus, FieldElement.DRAGGABLE)) {
             System.out.println("1");
 
             return false;
         }
 
-        if (!checkSpecificElement(subscriptionStatus, FieldTypePath.DROPDOWN)) {
+        if (!checkDependableFieldSpecificElement(subscriptionStatus, FieldTypePath.DROPDOWN)) {
             System.out.println("2");
             return false;
         }
@@ -921,7 +922,7 @@ public class ContactDataField extends AbstractDataField {
 
         final String subscriptionTypes = ContactField.SUBSCRIPTION_TYPES.getName();
 
-        if (!checkSpecificElement(subscriptionTypes, FieldTypePath.MULTI_SELECT)) {
+        if (!checkDependableFieldSpecificElement(subscriptionTypes, FieldTypePath.MULTI_SELECT)) {
             System.out.println("4");
 
             return false;
@@ -936,7 +937,7 @@ public class ContactDataField extends AbstractDataField {
         click(findByXpath(MAP.get("body")));
         final String unsubscribeReason = ContactField.UNSUBSCRIBE_REASON.getName();
 
-        if (!checkSpecificElement(unsubscribeReason, FieldTypePath.DROPDOWN)) {
+        if (!checkDependableFieldSpecificElement(unsubscribeReason, FieldTypePath.DROPDOWN)) {
             System.out.println("6");
 
             return false;
@@ -949,7 +950,7 @@ public class ContactDataField extends AbstractDataField {
         }
         click(findByXpath(MAP.get("body")));
 
-        return checkSpecificElement(ContactField.OTHER_UNSUBSCRIBE_REASON.getName(), FieldTypePath.TEXT);
+        return checkDependableFieldSpecificElement(ContactField.OTHER_UNSUBSCRIBE_REASON.getName(), FieldTypePath.TEXT);
     }
 
     public boolean checkLifecycleStage() {
@@ -958,7 +959,7 @@ public class ContactDataField extends AbstractDataField {
         if (!isFieldPresent(lifecycleStage)) {
             addField(lifecycleStage);
         }
-        refresh();
+       // refresh();
 
         if (!checkSpecificElement(lifecycleStage, FieldElement.DRAGGABLE)) {
             return false;
@@ -977,7 +978,7 @@ public class ContactDataField extends AbstractDataField {
         if (!isFieldPresent(source)) {
             addField(source);
         }
-        refresh();
+       // refresh();
 
         if (!checkSpecificElement(source, FieldElement.DRAGGABLE)) {
             return false;
@@ -997,7 +998,7 @@ public class ContactDataField extends AbstractDataField {
         if (!isFieldPresent(timeZone)) {
             addField(timeZone);
         }
-        refresh();
+        //refresh();
 
         if (!checkSpecificElement(timeZone, FieldElement.DRAGGABLE)) {
             return false;

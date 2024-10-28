@@ -41,7 +41,7 @@ public class ProductDataField extends AbstractDataField {
         try {
             if (isDisplayed(findByXpath("//*[contains(text(),'Enables')]"))) {
                 click(findByXpath("//*[@class='MuiSwitch-root MuiSwitch-sizeMedium css-1v2eis']"));
-                refresh();
+               // refresh();
             }
         } catch (Exception exception) {
 
@@ -138,7 +138,7 @@ public class ProductDataField extends AbstractDataField {
     }
 
     public boolean choicesForActiveAndTaxable() {
-        String[] options = {
+        final String[] options = {
                 "Yes",
                 "No"
         };
@@ -147,7 +147,7 @@ public class ProductDataField extends AbstractDataField {
     }
 
     public boolean choicesForCategory() {
-        String[] options = {
+        final String[] options = {
                 "Unit",
                 "Subscription"
         };
@@ -156,7 +156,7 @@ public class ProductDataField extends AbstractDataField {
     }
 
     public boolean choicesForType() {
-        String[] options = {
+        final String[] options = {
                 "Hardware",
                 "Software"
         };
@@ -243,7 +243,7 @@ public class ProductDataField extends AbstractDataField {
     }
 
     public boolean isPresentInSummary(final Collection<String> fieldsToBePresentInSummary) {
-        final Collection<WebPageElement> fieldsPresentInSummary = findElementsByXpath("//*[@class='css-1t62lt9']/div/div/table/tbody/tr/td[1]/p");
+        final Collection<WebPageElement> fieldsPresentInSummary = findElementsByXpath("//*[@class='MuiTypography-root MuiTypography-body1 jss8 css-1hcm7kq']");
         final Collection<String> fieldNames = new ArrayList<>();
 
         for (final WebPageElement field : fieldsPresentInSummary) {
@@ -253,10 +253,11 @@ public class ProductDataField extends AbstractDataField {
 
         for (final String fieldToBePresent : fieldsToBePresentInSummary) {
 
-            final String formattedField = String.format("%s%s%s", fieldToBePresent, " ", ":");
+           // final String formattedField = String.format("%s%s%s", fieldToBePresent, " ", ":");
 
-            if (!fieldNames.contains(formattedField)) {
-                System.out.println();
+            if (!fieldNames.contains(fieldToBePresent)) {
+                System.out.println(fieldToBePresent);
+
                 return false;
             }
         }
@@ -301,12 +302,14 @@ public class ProductDataField extends AbstractDataField {
                 return false;
             }
         }
+
         return true;
     }
 
     @Override
     public boolean uncheckMandatoryFields() {
         final String[] mandatoryFields = new String[]{getNameDiv()};
+
         unCheck(mandatoryFields);
 
         return true;
@@ -316,6 +319,5 @@ public class ProductDataField extends AbstractDataField {
         final Collection<String> fieldsNotToDisplay = List.of("Unit Price");
 
         return getFieldsForSummary(fieldsNotToDisplay);
-
     }
 }

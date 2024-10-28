@@ -143,9 +143,9 @@ public class ContactDataFieldTest extends DataFieldTest {
             // fieldStatus.setChoices(choices);
             contactDataField.checkMaximumLimit(fieldStatus);
 
-            if (i != 11) {
-                contactDataField.refresh();
-            }
+//            if (i != 11) {
+//                contactDataField.refresh();
+//            }
         }
         Assert.assertTrue(contactDataField.isLimitExceededNotificationDisplayed());
     }

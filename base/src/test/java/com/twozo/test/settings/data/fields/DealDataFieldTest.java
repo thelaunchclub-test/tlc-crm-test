@@ -147,9 +147,9 @@ public class DealDataFieldTest extends DataFieldTest {
             fieldStatus.setChoices(choices);
             dealDataField.checkMaximumLimit(fieldStatus);
 
-            if (i!=11) {
-                dealDataField.refresh();
-            }
+//            if (i!=11) {
+//                dealDataField.refresh();
+//            }
         }
         Assert.assertTrue(dealDataField.isLimitExceededNotificationDisplayed());
     }
