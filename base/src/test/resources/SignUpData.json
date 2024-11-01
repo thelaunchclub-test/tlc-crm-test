@@ -3,11 +3,11 @@
     "testCaseID": 1,
     "title": "Sign up data",
     "input": {
-      "email": "fx1@gmail.com",
+      "email": "ax16@gmail.com",
       "name": "a",
       "password": "A$12345a",
       "confirmPassword": "A$12345a",
-      "company": "fx1",
+      "company": "ax16",
       "jobRole": "Marketing"
     },
     "output": {
@@ -18,11 +18,11 @@
     "testCaseID": 1,
     "title": "Sign up data",
     "input": {
-      "email": "fx2@gmail.com",
+      "email": "ax17@gmail.com",
       "name": "a",
       "password": "A$12345a",
       "confirmPassword": "A$12345a",
-      "company": "fx2",
+      "company": "ax17",
       "jobRole": "Marketing"
     },
     "output": {
@@ -33,11 +33,11 @@
     "testCaseID": 1,
     "title": "Sign up data",
     "input": {
-      "email": "fx3@gmail.com",
+      "email": "ax18@gmail.com",
       "name": "a",
       "password": "A$12345a",
       "confirmPassword": "A$12345a",
-      "company": "fx3",
+      "company": "ax18",
       "jobRole": "Marketing"
     },
     "output": {
@@ -48,11 +48,11 @@
     "testCaseID": 1,
     "title": "Sign up data",
     "input": {
-      "email": "fx4@gmail.com",
+      "email": "ax19@gmail.com",
       "name": "a",
       "password": "A$12345a",
       "confirmPassword": "A$12345a",
-      "company": "fx4",
+      "company": "ax19",
       "jobRole": "Marketing"
     },
     "output": {
@@ -63,11 +63,11 @@
     "testCaseID": 1,
     "title": "Sign up data",
     "input": {
-      "email": "fx5@gmail.com",
+      "email": "ax20@gmail.com",
       "name": "a",
       "password": "A$12345a",
       "confirmPassword": "A$12345a",
-      "company": "fx5",
+      "company": "ax20",
       "jobRole": "Marketing"
     },
     "output": {
@@ -78,11 +78,11 @@
     "testCaseID": 1,
     "title": "Sign up data",
     "input": {
-      "email": "fx6@gmail.com",
+      "email": "ax21@gmail.com",
       "name": "a",
       "password": "A$12345a",
       "confirmPassword": "A$12345a",
-      "company": "fx6",
+      "company": "ax21",
       "jobRole": "Marketing"
     },
     "output": {
@@ -93,11 +93,11 @@
     "testCaseID": 1,
     "title": "Sign up data",
     "input": {
-      "email": "fx7@gmail.com",
+      "email": "ax22@gmail.com",
       "name": "a",
       "password": "A$12345a",
       "confirmPassword": "A$12345a",
-      "company": "fx7",
+      "company": "ax22",
       "jobRole": "Marketing"
     },
     "output": {
@@ -108,11 +108,11 @@
     "testCaseID": 1,
     "title": "Sign up data",
     "input": {
-      "email": "fx8@gmail.com",
+      "email": "ax23@gmail.com",
       "name": "a",
       "password": "A$12345a",
       "confirmPassword": "A$12345a",
-      "company": "fx8",
+      "company": "ax23",
       "jobRole": "Marketing"
     },
     "output": {
@@ -123,11 +123,11 @@
     "testCaseID": 1,
     "title": "Sign up data",
     "input": {
-      "email": "fx9@gmail.com",
+      "email": "ax24@gmail.com",
       "name": "a",
       "password": "A$12345a",
       "confirmPassword": "A$12345a",
-      "company": "fx9",
+      "company": "ax24",
       "jobRole": "Marketing"
     },
     "output": {
@@ -138,11 +138,11 @@
     "testCaseID": 1,
     "title": "Sign up data",
     "input": {
-      "email": "fx10@gmail.com",
+      "email": "ax25@gmail.com",
       "name": "a",
       "password": "A$12345a",
       "confirmPassword": "A$12345a",
-      "company": "fx10",
+      "company": "ax25",
       "jobRole": "Marketing"
     },
     "output": {
@@ -153,11 +153,11 @@
     "testCaseID": 1,
     "title": "Sign up data",
     "input": {
-      "email": "fx11@gmail.com",
+      "email": "ax26@gmail.com",
       "name": "a",
       "password": "A$12345a",
       "confirmPassword": "A$12345a",
-      "company": "fx11",
+      "company": "ax26",
       "jobRole": "Marketing"
     },
     "output": {
@@ -168,11 +168,11 @@
     "testCaseID": 1,
     "title": "Sign up data",
     "input": {
-      "email": "fx12@gmail.com",
+      "email": "ax27@gmail.com",
       "name": "a",
       "password": "A$12345a",
       "confirmPassword": "A$12345a",
-      "company": "fx12",
+      "company": "ax27",
       "jobRole": "Marketing"
     },
     "output": {
@@ -183,11 +183,11 @@
     "testCaseID": 1,
     "title": "Sign up data",
     "input": {
-      "email": "fx13@gmail.com",
+      "email": "ax28@gmail.com",
       "name": "a",
       "password": "A$12345a",
       "confirmPassword": "A$12345a",
-      "company": "fx13",
+      "company": "ax28",
       "jobRole": "Marketing"
     },
     "output": {
@@ -198,11 +198,11 @@
     "testCaseID": 1,
     "title": "Sign up data",
     "input": {
-      "email": "fx14@gmail.com",
+      "email": "ax29@gmail.com",
       "name": "a",
       "password": "A$12345a",
       "confirmPassword": "A$12345a",
-      "company": "fx14",
+      "company": "ax29",
       "jobRole": "Marketing"
     },
     "output": {
@@ -213,11 +213,11 @@
     "testCaseID": 1,
     "title": "Sign up data",
     "input": {
-      "email": "fx15@gmail.com",
+      "email": "ax30@gmail.com",
       "name": "a",
       "password": "A$12345a",
       "confirmPassword": "A$12345a",
-      "company": "fx15",
+      "company": "ax30",
       "jobRole": "Marketing"
     },
     "output": {
@@ -228,11 +228,11 @@
     "testCaseID": 1,
     "title": "Sign up data",
     "input": {
-      "email": "fx16@gmail.com",
+      "email": "ax31@gmail.com",
       "name": "a",
       "password": "A$12345a",
       "confirmPassword": "A$12345a",
-      "company": "fx16",
+      "company": "ax31",
       "jobRole": "Marketing"
     },
     "output": {
@@ -243,11 +243,11 @@
     "testCaseID": 1,
     "title": "Sign up data",
     "input": {
-      "email": "fx17@gmail.com",
+      "email": "ax32@gmail.com",
       "name": "a",
       "password": "A$12345a",
       "confirmPassword": "A$12345a",
-      "company": "fx17",
+      "company": "ax32",
       "jobRole": "Marketing"
     },
     "output": {
@@ -258,11 +258,11 @@
     "testCaseID": 1,
     "title": "Sign up data",
     "input": {
-      "email": "fx18@gmail.com",
+      "email": "ax33@gmail.com",
       "name": "a",
       "password": "A$12345a",
       "confirmPassword": "A$12345a",
-      "company": "fx18",
+      "company": "ax33",
       "jobRole": "Marketing"
     },
     "output": {
@@ -273,11 +273,11 @@
     "testCaseID": 1,
     "title": "Sign up data",
     "input": {
-      "email": "fx19@gmail.com",
+      "email": "ax34@gmail.com",
       "name": "a",
       "password": "A$12345a",
       "confirmPassword": "A$12345a",
-      "company": "fx19",
+      "company": "ax34",
       "jobRole": "Marketing"
     },
     "output": {
@@ -288,26 +288,11 @@
     "testCaseID": 1,
     "title": "Sign up data",
     "input": {
-      "email": "fx20@gmail.com",
+      "email": "ax35@gmail.com",
       "name": "a",
       "password": "A$12345a",
       "confirmPassword": "A$12345a",
-      "company": "fx20",
-      "jobRole": "Marketing"
-    },
-    "output": {
-      "result": "pass"
-    }
-  },
-  {
-    "testCaseID": 1,
-    "title": "Sign up data",
-    "input": {
-      "email": "fx21@gmail.com",
-      "name": "a",
-      "password": "A$12345a",
-      "confirmPassword": "A$12345a",
-      "company": "fx21",
+      "company": "ax35",
       "jobRole": "Marketing"
     },
     "output": {

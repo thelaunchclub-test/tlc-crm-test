@@ -93,7 +93,7 @@
     "input": {
       "isDraggable": false,
       "fieldName": "Source",
-      "fieldType": "Text",
+      "fieldType": "Dropdown",
       "isAddView": true,
       "isRequired": false
     }

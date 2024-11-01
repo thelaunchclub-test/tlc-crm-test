@@ -133,13 +133,13 @@ public class ContactDataFieldTest extends DataFieldTest {
 
     @Test
     public void checkMaxLimit() {
-        final String fieldName = "CustomField";
+        final String fieldName = "q1";
         // final List<String> choices = List.of("a", "b");
 
         for (int i = 1; i <= 11; i++) {
             FieldStatus fieldStatus = new FieldStatus();
             fieldStatus.setFieldName(String.format("%s%d", fieldName, i));
-            fieldStatus.setFieldType("Text");
+            fieldStatus.setFieldType("Email");
             // fieldStatus.setChoices(choices);
             contactDataField.checkMaximumLimit(fieldStatus);
 

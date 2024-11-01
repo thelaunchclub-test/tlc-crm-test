@@ -185,11 +185,11 @@ public class DealPage extends BasePage {
 
     public void switchToPipeline() {
         click(getActivePipeline());
-       // waitTillVisible(MAP.get("crm.deal.button.manage"));
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-        }
+        waitTillClickable(MAP.get("crm.deal.button.manage"));
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//        }
         click(getManageButton());
     }
 

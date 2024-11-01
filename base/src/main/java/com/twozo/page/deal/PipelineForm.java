@@ -442,20 +442,20 @@ public class PipelineForm extends DealPage {
     }
 
     public boolean checkDuplicateStage() {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-        }
-        //waitTillVisible(MAP.get("crm.deal.pipeline.names"));
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//        }
+        waitTillVisible(MAP.get("crm.deal.pipeline.names"));
         hoverByXpath(MAP.get("crm.deal.pipeline.names"));
         click(findByXpath(MAP.get("crm.deal.pipeline.default.pipeline.kebab")));
         click(findByXpath(MAP.get("crm.deal.pipeline.kebab.edit")));
 
-        // waitTillVisible(MAP.get("crm.deal.pipeline.form.add.stage"));
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-        }
+        waitTillClickable(MAP.get("crm.deal.pipeline.form.add.stage"));
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//        }
         click(getAddStageButton());
         send(findByXpath(String.format(MAP.get("crm.deal.pipeline.form.edit.stage"), "")), MAP.get("crm.deal.pipeline.default.stage.new"));
         click(getUpdateButton());
@@ -481,11 +481,11 @@ public class PipelineForm extends DealPage {
         final String pipelineName = "New Pipeline to check stage position";
         final String newStage = "new stage";
 
-        // waitTillVisible(XPathBuilder.getXPathByText(MAP.get("crm.deal.pipeline.add")));
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-        }
+        waitTillClickable(XPathBuilder.getXPathByText(MAP.get("crm.deal.pipeline.add")));
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//        }
         click(getAddPipelineButton());
         send(getPipelineName(), pipelineName);
 
@@ -549,13 +549,13 @@ public class PipelineForm extends DealPage {
     }
 
     public boolean verifyStageDefaultProbability() {
-//        waitTillVisible("//*[@data-rbd-droppable-id='pipelines']");
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-
-        }
+        waitTillClickable("//*[@data-rbd-droppable-id='pipelines']");
+//
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//
+//        }
         click(findByXpath(MAP.get("crm.deal.pipeline.new.stage.check.probability")));
 
         return Objects.equals("100", getAttribute(findByXpath(format(String.format(MAP.get("crm.deal.pipeline.form.edit.stage"), "")
@@ -575,39 +575,45 @@ public class PipelineForm extends DealPage {
     }
 
     public boolean verifyPipelineNameMandatory() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-
-        }
-        // waitTillVisible(XPathBuilder.getXPathByText(MAP.get("crm.deal.pipeline.add")));
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//
+//        }
+        waitTillClickable(XPathBuilder.getXPathByText(MAP.get("crm.deal.pipeline.add")));
         click(getAddPipelineButton());
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+        waitTillClickable(MAP.get("crm.deal.pipeline.form.save"));
         click(getSaveButton());
 
-        //waitTillVisible(MAP.get("crm.deal.pipeline.form.pipeline.empty"));
+        waitTillVisible(MAP.get("crm.deal.pipeline.form.pipeline.empty"));
 
         return isDisplayed(findByXpath(MAP.get("crm.deal.pipeline.form.pipeline.empty")));
     }
 
     public boolean verifyDefaultPipelineMarkAsDefaultCannotBeUnchecked() {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-        }
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//        }
+        waitTillVisible(MAP.get("crm.deal.pipeline.default.pipeline.name.block"));
         hoverByXpath(MAP.get("crm.deal.pipeline.default.pipeline.name.block"));
+        waitTillClickable(MAP.get("crm.deal.pipeline.default.pipeline.kebab"));
         click(findByXpath(MAP.get("crm.deal.pipeline.default.pipeline.kebab")));
+        waitTillClickable(MAP.get("crm.deal.pipeline.kebab.edit"));
         click(findByXpath(MAP.get("crm.deal.pipeline.kebab.edit")));
         final WebPageElement markAsDefaultCheckbox = getMarkAsDefaultCheckbox();
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-        }
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//        }
+
+        waitTillVisible(MAP.get("crm.deal.pipeline.form.update"));
 
         if (isSelected(markAsDefaultCheckbox)) {
             try {
@@ -621,10 +627,10 @@ public class PipelineForm extends DealPage {
     }
 
     public boolean verifyMarkAsDefaultCanBeCheckedForNonDefaultPipelines() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-        }
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//        }
         final String newPipeline = format(getText(findByXpath(MAP.get("crm.deal.pipeline.default.pipeline.name"))), "createdForCheck");
         try {
             Thread.sleep(3000);

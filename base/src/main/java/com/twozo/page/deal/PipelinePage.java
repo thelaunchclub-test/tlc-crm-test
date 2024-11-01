@@ -58,16 +58,16 @@ public class PipelinePage extends DealPage {
     private void check(final String pipelineName) {
         final String pipelineBlock = String.format(MAP.get("crm.deal.pipeline.block"), pipelineName);
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-        }
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//        }
         hoverByXpath(format(pipelineBlock, MAP.get("crm.deal.pipeline.name")));
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-
-        }
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//
+//        }
         click(findByXpath(String.format(MAP.get("crm.deal.pipeline.kebab"), pipelineBlock)));
         final Collection<String> options = new ArrayList<>();
         final Collection<WebPageElement> optionsAsElement = findElementsByXpath(MAP.get("crm.deal.pipeline.kebab.options"));
@@ -81,11 +81,11 @@ public class PipelinePage extends DealPage {
         if (options.contains(markAsDefault)) {
             click(findByXpath(MAP.get("crm.deal.pipeline.kebab.mark.as.default.pipeline")));
 
-            try {
-                Thread.sleep(4000);
-            } catch (InterruptedException e) {
-
-            }
+//            try {
+//                Thread.sleep(4000);
+//            } catch (InterruptedException e) {
+//
+//            }
         }
 
         click(findByXpath(MAP.get("body")));

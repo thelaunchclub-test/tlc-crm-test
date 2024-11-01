@@ -422,48 +422,11 @@ public abstract class AbstractDataField extends Settings {
      * @return true if the field is added successfully, false if it is not added.
      */
     public boolean addCustomField(final FieldStatus fieldStatus) {
-        final String customFieldName = fieldStatus.getFieldName();
-        final String fieldType = fieldStatus.getFieldType();
-        List<String> choices = null;
-        String dropdownPath = null;
-        String multiSelectPath = null;
+        checkMaximumLimit(fieldStatus);
+        final String fieldBlock = getFieldBlock(fieldStatus.getFieldName());
 
-        if (Objects.nonNull(fieldStatus.getChoices())) {
-            choices = fieldStatus.getChoices();
-            dropdownPath = "(((//*[@data-rbd-droppable-id='dropdown-choices']/div/div/div/div)[%d])/div/div)[2]/div/div/div/input";
-            multiSelectPath = "(((//*[@data-rbd-droppable-id='multiselect-choices']/div/div/div/div)[%d])/div/div)[2]/div/input";
-        }
-
-        if (!isFieldPresent(customFieldName)) {
-
-            click(getAddCustomFieldButton());
-            send(getCustomFieldName(), customFieldName);
-            click(getSelectCustomFieldType());
-            dropdown(fieldType);
-
-            if (isDropdownOrMultiSelect(fieldType)) {
-                click(getChoice());
-                click(getAddChoice());
-
-                for (int i = 0; i < choices.size(); i++) {
-                    if ((fieldType.equalsIgnoreCase(FieldType.MULTI_SELECT) || fieldType.equalsIgnoreCase(FieldType.DROPDOWN)) && i > 1) {
-                        click(getAddChoice());
-                    }
-                    final String path = fieldType.equalsIgnoreCase(FieldType.DROPDOWN)
-                            ? dropdownPath
-                            : multiSelectPath;
-                    send(findByXpath(String.format(path, i + 1)), choices.get(i));
-                }
-
-            }
-            click(findByXpath("//body"));
-
-            waitTillClickable(FieldElement.ADD_BUTTON);
-            click(getCustomFieldAddButton());
-            //refresh();
-        }
-
-        return isFieldPresent(customFieldName);
+        waitTillVisible(fieldBlock);
+        return isDisplayed(findByXpath(fieldBlock)) && isDisplayed(findByXpath(format(fieldBlock, XPathBuilder.getXPathByText(fieldStatus.getFieldType()))));
     }
 
     /**
@@ -477,33 +440,32 @@ public abstract class AbstractDataField extends Settings {
         final String customFieldName = fieldStatus.getFieldName();
         final String fieldType = fieldStatus.getFieldType();
         final List<String> choices = fieldStatus.getChoices();
-        final String multiSelect = "multiselect";
-        final String dropdownPath = "(((//*[@data-rbd-droppable-id='%s-choices']/div/div/div/div)[%d])/div/div)[2]/div/div/div/input";
-        final String multiSelectPath = "(((//*[@data-rbd-droppable-id='%s-choices']/div/div/div/div)[%d])/div/div)[2]/div/input";
+        final String xPath = "(//*[@data-rbd-droppable-id='%s-choices']//child::input[@type='text'])[%d]";
 
-
+        waitTillVisible(MAP.get("body"));
         waitTillClickable(XPathBuilder.getXPathByText("Custom Field"));
         click(getAddCustomFieldButton());
         waitTillVisible("//div[@data-rbd-draggable-id='new_field1']");
         send(getCustomFieldName(), customFieldName);
+        waitTillClickable(Button.CUSTOM_FIELDS_FIELD_TYPE);
         click(getSelectCustomFieldType());
         dropdown(fieldType);
-
 
         if (isDropdownOrMultiSelect(fieldType)) {
             click(getChoice());
             click(getAddChoice());
 
             for (int i = 0; i < choices.size(); i++) {
-                if (fieldType.equalsIgnoreCase(FieldType.MULTI_SELECT) && i > 1) {
+                if (i > 1) {
                     click(getAddChoice());
                 }
-                final String path = fieldType.equalsIgnoreCase(FieldType.DROPDOWN)
-                        ? dropdownPath
-                        : multiSelectPath;
-                send(findByXpath(String.format(path, multiSelect, i + 1)), choices.get(i));
-            }
 
+                if (fieldType.equalsIgnoreCase(FieldType.DROPDOWN)) {
+                    send(findByXpath(String.format(xPath, "dropdown", i + 1)), choices.get(i));
+                } else {
+                    send(findByXpath(String.format(xPath, "multiselect", i + 1)), choices.get(i));
+                }
+            }
         }
         click(findByXpath("//body"));
 
@@ -783,7 +745,7 @@ public abstract class AbstractDataField extends Settings {
             // final String updateButton = format(fieldBlockXpath, FieldElement.UPDATE_BUTTON);
 
             click(findByText("Update"));
-           // refresh();
+            // refresh();
         }
 
         return isFieldPresent(String.format("%s%s", actualName, newName));
@@ -804,7 +766,7 @@ public abstract class AbstractDataField extends Settings {
 
         if (isFieldPresent(systemFieldName)) {
 
-            if (Objects.equals("Subscription Status",systemFieldName)) {
+            if (Objects.equals("Subscription Status", systemFieldName)) {
                 fieldBlock = getDependableBlock(systemFieldName);
             } else {
                 fieldBlock = getFieldBlock(systemFieldName);
@@ -814,7 +776,7 @@ public abstract class AbstractDataField extends Settings {
 
             waitTillClickable(eyeIconButton);
             click(findByXpath(eyeIconButton));
-            //refresh();
+            refresh();
         }
 
         return !isFieldPresent(systemFieldName);
@@ -839,7 +801,7 @@ public abstract class AbstractDataField extends Settings {
 
             waitTillClickable(XPathBuilder.getXPathByText("Delete"));
             click(findByText("Delete"));
-           // refresh();
+            // refresh();
         }
 
         return !isFieldPresent(fieldName);
@@ -1243,12 +1205,7 @@ public abstract class AbstractDataField extends Settings {
      * </p>
      */
     public void switchToSummary() {
-        //waitTillClickable("//*[@class='MuiTableRow-root css-rm8p5t']//td[2]/div");
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-
-        }
+        waitTillVisible("//*[@class='MuiTableRow-root css-rm8p5t']");
         click(findByXpath("//*[@class='MuiTableRow-root css-rm8p5t']//td[2]/div"));
     }
 
@@ -1258,12 +1215,7 @@ public abstract class AbstractDataField extends Settings {
      * </p>
      */
     public void switchToAddContactForm() {
-        //waitTillClickable(XPathBuilder.getXPathByText("Contact"));
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-
-        }
+        waitTillVisible("//*[@class='css-ra6dmh']");
         click(findByText("Contact"));
     }
 
@@ -1273,12 +1225,12 @@ public abstract class AbstractDataField extends Settings {
      * </p>
      */
     public void switchToAddCompanyForm() {
-        // waitTillClickable(XPathBuilder.getXPathByText("Company"));
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-
-        }
+        waitTillClickable(XPathBuilder.getXPathByText("Company"));
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//
+//        }
         click(findByText("Company"));
     }
 
@@ -1288,12 +1240,12 @@ public abstract class AbstractDataField extends Settings {
      * </p>
      */
     public void switchToAddDealForm() {
-        //waitTillClickable(XPathBuilder.getXPathByText("Deal"));
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-
-        }
+        waitTillClickable(XPathBuilder.getXPathByText("Deal"));
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//
+//        }
         click(findByText("Deal"));
     }
 
@@ -1303,11 +1255,12 @@ public abstract class AbstractDataField extends Settings {
      * </p>
      */
     public void switchToAddProductForm() {
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-
-        }
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//
+//        }
+        waitTillClickable(XPathBuilder.getXPathByText("Product"));
         click(findByText("Product"));
     }
 
@@ -1575,6 +1528,7 @@ public abstract class AbstractDataField extends Settings {
 //            Thread.sleep(1000);
 //        } catch (InterruptedException e) {
 //        }
+        hoverByXpath(getMenuBlock(fieldName));
         click(findByXpath(format(getMenuBlock(fieldName), "//*[@type='checkbox']")));
         click(getAddSelectedFieldsButton());
     }
@@ -1595,19 +1549,21 @@ public abstract class AbstractDataField extends Settings {
 
         if (!isFieldPresent(fieldName)) {
             addField(fieldName);
-           // refresh();
+            // refresh();
         }
 
         final String fieldNameXPath = getFieldBlock(fieldName);
         final String fieldTypeXPath = format(getFieldBlock(fieldName), XPathBuilder.getXPathByText(fieldType));
 
-        waitTillVisible("//div[@data-rbd-droppable-id='field-list']");
+        //waitTillVisible("//div[@data-rbd-droppable-id='field-list']");
 
 //        try {
 //            Thread.sleep(2000);
 //        } catch (InterruptedException e) {
 //
 //        }
+
+        waitTillVisible(fieldNameXPath);
 
         return isDisplayed(findByXpath(fieldNameXPath)) && isDisplayed(findByXpath(fieldTypeXPath));
     }
@@ -1709,7 +1665,7 @@ public abstract class AbstractDataField extends Settings {
             try {
                 shortWaitTillVisible(format(fieldBlock, FieldElement.UPDATE_BUTTON));
             } catch (Exception exception) {
-               // refresh();
+                // refresh();
             }
         }
         waitTillVisible(fieldBlock);
@@ -1746,7 +1702,7 @@ public abstract class AbstractDataField extends Settings {
             try {
                 shortWaitTillVisible(format(fieldBlock, FieldElement.UPDATE_BUTTON));
             } catch (Exception exception) {
-               // refresh();
+                // refresh();
             }
         }
         waitTillVisible(fieldBlock);

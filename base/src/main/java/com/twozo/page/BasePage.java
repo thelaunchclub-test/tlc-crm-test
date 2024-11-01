@@ -272,7 +272,6 @@ public class BasePage {
         return new Element(LocatorType.XPATH, xpath, true);
     }
 
-
     private ElementInformationProvider getElementInformationProvider(final WebPageElement webPageElement) {
         return webPageElement.getElementInformationProvider();
     }
