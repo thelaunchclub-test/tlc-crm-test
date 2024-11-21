@@ -13,11 +13,14 @@ import com.twozo.web.driver.service.WebAutomationDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
 
 public class CompanyDataFieldTest extends DataFieldTest {
+
+    private static final String COMPANY_DATA_FIELDS = Paths.get(DATA_FIELDS,"company").toString();
 
     private CompanyDataField companyDataField;
     private HomePage homePage;
@@ -25,17 +28,17 @@ public class CompanyDataFieldTest extends DataFieldTest {
 
     @DataProvider(name = "companySystemFields")
     private static Object[][] getCompanySystemFieldData() {
-        return new TestDataProvider().getTestCases("settings.data.fields/company/SystemFields.json");
+        return new TestDataProvider().getTestCases(getFilePath(COMPANY_DATA_FIELDS, "SystemFields.json"));
     }
 
     @DataProvider(name = "addViewAndRequired")
     private static Object[][] getAddView() {
-        return new TestDataProvider().getTestCases("settings.data.fields/company/AddViewAndRequired.json");
+        return new TestDataProvider().getTestCases(getFilePath(COMPANY_DATA_FIELDS, "AddViewAndRequired.json"));
     }
 
     @DataProvider(name = "autoGeneratingField")
     private static Object[][] getAutoGeneratingFieldData() {
-        return new TestDataProvider().getTestCases("settings.data.fields/company/AutoGeneratingFields.json");
+        return new TestDataProvider().getTestCases(getFilePath(COMPANY_DATA_FIELDS, "AutoGeneratingFields.json"));
     }
 
 //    @BeforeClass

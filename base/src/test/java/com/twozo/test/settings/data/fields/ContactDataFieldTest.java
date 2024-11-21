@@ -16,11 +16,13 @@ import com.twozo.web.element.model.LocatorType;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
 
 public class ContactDataFieldTest extends DataFieldTest {
+    private static final String CONTACT_DATA_FIELDS = Paths.get(DATA_FIELDS,"contact").toString();
 
     private ContactDataField contactDataField;
     private HomePage homePage;
@@ -28,17 +30,17 @@ public class ContactDataFieldTest extends DataFieldTest {
 
     @DataProvider(name = "contactSystemFields")
     private static Object[][] getContactSystemFieldData() {
-        return new TestDataProvider().getTestCases("settings.data.fields/contact/SystemFields.json");
+        return new TestDataProvider().getTestCases(getFilePath(CONTACT_DATA_FIELDS,"SystemFields.json"));
     }
 
     @DataProvider(name = "addViewAndRequired")
     private static Object[][] getAddView() {
-        return new TestDataProvider().getTestCases("settings.data.fields/contact/AddViewAndRequired.json");
+        return new TestDataProvider().getTestCases(getFilePath(CONTACT_DATA_FIELDS,"AddViewAndRequired.json"));
     }
 
     @DataProvider(name = "autoGeneratingField")
     private static Object[][] getAutoGeneratingFieldData() {
-        return new TestDataProvider().getTestCases("settings.data.fields/contact/AutoGeneratingFields.json");
+        return new TestDataProvider().getTestCases(getFilePath(CONTACT_DATA_FIELDS,"AutoGeneratingFields.json"));
     }
 
 //    @BeforeClass

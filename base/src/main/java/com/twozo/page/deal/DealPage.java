@@ -11,7 +11,7 @@ public class DealPage extends BasePage {
 
     private static DealPage dealPage;
 
-    private AddDeal addDeal;
+    private DealAddForm addDeal;
     private KanbanView kanbanView;
     private ForecastView forecastView;
     private ListView listView;
@@ -101,10 +101,10 @@ public class DealPage extends BasePage {
         return findElementsByClass(MAP.get("crm.deal.pipeline.stages"));
     }
 
-    public AddDeal getAddDeal() {
+    public DealAddForm getAddDeal() {
 
         if (Objects.isNull(addDeal)) {
-            addDeal = AddDeal.getInstance(webAutomationDriver);
+            addDeal = DealAddForm.getInstance(webAutomationDriver);
 
         }
 
@@ -147,7 +147,7 @@ public class DealPage extends BasePage {
         return filter;
     }
 
-    public AddDeal switchToAddDeal() {
+    public DealAddForm switchToAddDeal() {
         click(getAddDealButton());
 
         return getAddDeal();
@@ -178,7 +178,7 @@ public class DealPage extends BasePage {
         click(getColumnSettingsButton());
     }
 
-    public AddDeal addDeal() {
+    public DealAddForm addDeal() {
         click(getAddDealButton());
         return getAddDeal();
     }

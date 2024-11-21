@@ -8,35 +8,37 @@ import com.twozo.test.TestCase;
 import com.twozo.test.TestDataProvider;
 import com.twozo.test.settings.SettingsTest;
 import com.twozo.web.driver.service.WebNavigator;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public abstract class DataFieldTest extends SettingsTest {
+
+    protected static final String DATA_FIELDS = Paths.get(SETTINGS_PATH,"data","fields").toString();
+
     WebNavigator webNavigator;
 
     @DataProvider(name = "searchData")
     public static Object[][] getSearchData() {
-        return new TestDataProvider().getTestCases("settings.data.fields/SearchData.json");
+        return new TestDataProvider().getTestCases(getFilePath(DATA_FIELDS,"SearchData.json"));
     }
 
     @DataProvider(name = "customField")
     public static Object[][] getCustomField() {
-        return new TestDataProvider().getTestCases("settings.data.fields/CustomField.json");
+        return new TestDataProvider().getTestCases(getFilePath(DATA_FIELDS,"CustomField.json"));
     }
 
     @DataProvider(name = "editData")
     public static Object[][] getEditData() {
-        return new TestDataProvider().getTestCases("settings.data.fields/EditFieldName.json");
+        return new TestDataProvider().getTestCases(getFilePath(DATA_FIELDS,"EditFieldName.json"));
     }
 
     @DataProvider(name = "deleteField")
     public static Object[][] getDeleteFieldData() {
-        return new TestDataProvider().getTestCases("settings.data.fields/DeleteField.json");
+        return new TestDataProvider().getTestCases(getFilePath(DATA_FIELDS,"DeleteField.json"));
     }
 
     protected FieldStatus getFieldStatus(final Object object) {

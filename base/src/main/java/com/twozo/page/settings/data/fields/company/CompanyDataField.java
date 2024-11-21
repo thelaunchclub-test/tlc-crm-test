@@ -1,19 +1,14 @@
 package com.twozo.page.settings.data.fields.company;
 
-import com.twozo.commons.exception.ErrorCode;
-
 import com.twozo.page.settings.data.fields.AbstractDataField;
 import com.twozo.page.settings.data.fields.company.field.CompanyField;
 import com.twozo.page.settings.data.fields.field.Field;
 import com.twozo.page.settings.data.fields.field.FieldElement;
 import com.twozo.page.settings.data.fields.field.FieldTypePath;
 import com.twozo.page.settings.data.fields.field.SystemField;
-import com.twozo.page.url.settings.SettingsURL;
 import com.twozo.page.xpath.XPathBuilder;
 
 import com.twozo.web.driver.service.WebAutomationDriver;
-import com.twozo.web.element.service.WebPageElement;
-import com.twozo.web.error.code.WebDriverErrorCode;
 
 import java.util.*;
 
@@ -324,7 +319,7 @@ public class CompanyDataField extends AbstractDataField {
      * @return true if the field and its choices are verified successfully.
      */
     public boolean checkIndustryType() {
-        final String industryType = CompanyField.INDUSTRIAL_TYPE.getName();
+        final String industryType = CompanyField.INDUSTRY_TYPE.getName();
 
         if (!isFieldPresent(industryType)) {
             addField(industryType);

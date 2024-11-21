@@ -16,11 +16,13 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
 
 public class ProductDataFieldTest extends DataFieldTest {
+    private static final String PRODUCT_DATA_FIELDS = Paths.get(DATA_FIELDS,"deal").toString();
 
     private ProductDataField productDataField;
     private HomePage homePage;
@@ -28,17 +30,17 @@ public class ProductDataFieldTest extends DataFieldTest {
 
     @DataProvider(name = "productSystemFields")
     private static Object[][] getContactSystemFieldData() {
-        return new TestDataProvider().getTestCases("settings.data.fields/product/ProductSystemFields.json");
+        return new TestDataProvider().getTestCases(getFilePath(PRODUCT_DATA_FIELDS, "ProductSystemFields.json"));
     }
 
     @DataProvider(name = "addViewAndRequired")
     private static Object[][] getAddView() {
-        return new TestDataProvider().getTestCases("settings.data.fields/product/AddViewAndRequired.json");
+        return new TestDataProvider().getTestCases(getFilePath(PRODUCT_DATA_FIELDS, "AddViewAndRequired.json"));
     }
 
     @DataProvider(name = "autoGeneratingField")
     private static Object[][] getAutoGeneratingFieldData() {
-        return new TestDataProvider().getTestCases("settings.data.fields/product/AutoGeneratingFields.json");
+        return new TestDataProvider().getTestCases(getFilePath(PRODUCT_DATA_FIELDS, "AutoGeneratingFields.json"));
     }
 
     @BeforeMethod
@@ -119,7 +121,7 @@ public class ProductDataFieldTest extends DataFieldTest {
     @Test
     public void checkMaxLimit() {
         final String fieldName = "CustomField";
-        final List<String> choices = List.of("a","b");
+        final List<String> choices = List.of("a", "b");
 
         for (int i = 1; i <= 11; i++) {
             FieldStatus fieldStatus = new FieldStatus();
@@ -128,7 +130,7 @@ public class ProductDataFieldTest extends DataFieldTest {
             fieldStatus.setChoices(choices);
             productDataField.checkMaximumLimit(fieldStatus);
 
-            if (i!=11) {
+            if (i != 11) {
                 productDataField.refresh();
             }
         }

@@ -19,5 +19,4 @@ public class FieldStatus {
     private boolean isHideable;
     private boolean isDeletable;
     private List<String> choices;
-
 }

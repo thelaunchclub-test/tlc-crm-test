@@ -30,7 +30,7 @@ public enum CompanyField implements Field {
     EMPLOYEES("Employees", FieldType.NUMBER),
     PARENT_COMPANY("Parent Company", FieldType.COMPANY),
     ORGANIZATION_STATUS("Organization Status", FieldType.DROPDOWN),
-    INDUSTRIAL_TYPE("Industry Type", FieldType.DROPDOWN),
+    INDUSTRY_TYPE("Industry Type", FieldType.DROPDOWN),
     BUSINESS_TYPE("Business Type", FieldType.DROPDOWN),
     DESCRIPTION("Description", FieldType.TEXT),
     RECENT_NOTE("Recent Note", FieldType.LARGE_TEXT),

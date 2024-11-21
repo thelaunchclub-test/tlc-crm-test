@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Company extends BasePage {
 
     private static Company company;
-    private CompanyForm addCompany;
+    private CompanyAddForm addCompany;
 
     protected Company(final WebAutomationDriver webAutomationDriver) {
         super(webAutomationDriver);
@@ -25,10 +25,10 @@ public class Company extends BasePage {
         return company;
     }
 
-    private CompanyForm getAddCompany() {
+    private CompanyAddForm getAddCompany() {
 
         if (Objects.isNull(addCompany)) {
-            addCompany = CompanyForm.getInstance(webAutomationDriver);
+            addCompany = CompanyAddForm.getInstance(webAutomationDriver);
         }
 
         return addCompany;
@@ -38,7 +38,7 @@ public class Company extends BasePage {
         return findByText("Company");
     }
 
-    public CompanyForm addCompany() {
+    public CompanyAddForm addCompany() {
         waitTillVisible(XPathBuilder.getXPathByText("Company"));
         click(getAddCompanyButton());
 

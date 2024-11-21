@@ -14,6 +14,7 @@ import org.testng.annotations.BeforeTest;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
@@ -36,7 +37,7 @@ public class BaseTest {
         link = CONFIG.get("Domain");
         automationDriver.getWebNavigator().to(link);
         automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(3));
-        automationDriver.getExplicitWaitHandler().waitTillVisible(new Element(LocatorType.XPATH,"//*[text()='Sign In']",true));
+        automationDriver.getExplicitWaitHandler().waitTillVisible(new Element(LocatorType.XPATH, "//*[text()='Sign In']", true));
         SignIn.getInstance(automationDriver).signIn(MAP.get("login.id"), MAP.get("login.password"));
         cookies = automationDriver.getSessionCookie().getCookies();
 
@@ -51,5 +52,9 @@ public class BaseTest {
         final File file = new File(path);
 
         return path;
+    }
+
+    public static String getFilePath(final String directory, final String fileName) {
+        return Paths.get(directory,fileName).toString();
     }
 }

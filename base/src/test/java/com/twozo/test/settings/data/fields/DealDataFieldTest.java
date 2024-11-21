@@ -17,11 +17,13 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
 
 public class DealDataFieldTest extends DataFieldTest {
+    private static final String DEAL_DATA_FIELDS = Paths.get(DATA_FIELDS,"deal").toString();
 
     private DealDataField dealDataField;
     private HomePage homePage;
@@ -29,17 +31,17 @@ public class DealDataFieldTest extends DataFieldTest {
 
     @DataProvider(name = "dealSystemFields")
     private static Object[][] getDealSystemFieldData() {
-        return new TestDataProvider().getTestCases("settings.data.fields/deal/SystemFields.json");
+        return new TestDataProvider().getTestCases(getFilePath(DEAL_DATA_FIELDS, "SystemFields.json"));
     }
 
     @DataProvider(name = "addViewAndRequired")
     private static Object[][] getAddView() {
-        return new TestDataProvider().getTestCases("settings.data.fields/deal/AddViewAndRequired.json");
+        return new TestDataProvider().getTestCases(getFilePath(DEAL_DATA_FIELDS, "AddViewAndRequired.json"));
     }
 
     @DataProvider(name = "autoGeneratingField")
     private static Object[][] getAutoGeneratingFieldData() {
-        return new TestDataProvider().getTestCases("settings.data.fields/deal/AutoGeneratingFields.json");
+        return new TestDataProvider().getTestCases(getFilePath(DEAL_DATA_FIELDS, "AutoGeneratingFields.json"));
     }
 
 //    @BeforeClass
@@ -131,13 +133,13 @@ public class DealDataFieldTest extends DataFieldTest {
 
     @Test(dataProvider = "deleteField")
     public void deleteField(final Object object) {
-             Assert.assertTrue(dealDataField.deleteField(getFieldStatus(object).getFieldName()));
+        Assert.assertTrue(dealDataField.deleteField(getFieldStatus(object).getFieldName()));
     }
 
     @Test
     public void checkMaxLimit() {
         final String fieldName = "CustomField";
-        final List<String> choices = List.of("a","b");
+        final List<String> choices = List.of("a", "b");
 
 
         for (int i = 1; i <= 11; i++) {
@@ -180,7 +182,7 @@ public class DealDataFieldTest extends DataFieldTest {
     }
 
     @Test
-    public void checkType(){
+    public void checkType() {
         Assert.assertTrue(dealDataField.checkType());
     }
 

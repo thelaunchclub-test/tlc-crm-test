@@ -1,0 +1,122 @@
+[
+  {
+    "testCaseID": 1,
+    "title": "Verify First Name with value when required",
+    "input": {
+      "First Name": "John"
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 2,
+    "title": "Verify Last Name with value when required",
+    "input": {
+      "Last Name": "Doe"
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 3,
+    "title": "Verify Emails with value when required",
+    "input": {
+      "Emails": "john.doe@example.com"
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 4,
+    "title": "Verify Phones with value when required",
+    "input": {
+      "Phones": "1234567890"
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 5,
+    "title": "Verify Company with value when required",
+    "input": {
+      "Company": "Example Inc."
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 6,
+    "title": "Verify Designation with value when required",
+    "input": {
+      "Designation": "Manager"
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 7,
+    "title": "Verify Source with value when required",
+    "input": {
+      "Source": "Referral"
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 8,
+    "title": "Verify Territory with value when required",
+    "input": {
+      "Territory": "North America"
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 9,
+    "title": "Verify Tags with value when required",
+    "input": {
+      "Tags": ["VIP", "New Lead"]
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 10,
+    "title": "Verify Date Of Birth with value when required",
+    "input": {
+      "Date Of Birth": "1990-01-01"
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 11,
+    "title": "Verify Department with value when required",
+    "input": {
+      "Department": "Sales"
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 12,
+    "title": "Verify Address with value when required",
+    "input": {
+      "Address": "123 Example Street, City, Country"
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 13,
+    "title": "Verify Facebook with value when required",
+    "input": {
+      "Facebook": "facebook.com/johndoe"
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 14,
+    "title": "Verify Twitter with value when required",
+    "input": {
+      "Twitter": "@johndoe"
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 15,
+    "title": "Verify LinkedIn with value when required",
+    "input": {
+      "LinkedIn": "linkedin.com/in/johndoe"
+    },
+    "required": true
+  }
+]

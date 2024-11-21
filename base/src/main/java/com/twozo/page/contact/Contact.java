@@ -11,7 +11,7 @@ public class Contact extends BasePage {
 
     private static Contact contact;
 
-    private AddContact addContact;
+    private ContactAddForm addContact;
     private WebPageElement filterIcon;
     private WebPageElement firstName;
     private WebPageElement lastName;
@@ -47,8 +47,8 @@ public class Contact extends BasePage {
         return new Contact(webAutomationDriver);
     }
 
-    private AddContact getAddContact() {
-        return AddContact.getInstance(webAutomationDriver);
+    private ContactAddForm getAddContact() {
+        return ContactAddForm.getInstance(webAutomationDriver);
     }
 
     public WebPageElement getFilterIcon() {
@@ -187,7 +187,7 @@ public class Contact extends BasePage {
         return findByText("Contact");
     }
 
-    public AddContact addContact() {
+    public ContactAddForm addContact() {
         click(getAddContactButton());
 
         return getAddContact();
@@ -198,6 +198,5 @@ public class Contact extends BasePage {
 
         return Filter.getInstance(webAutomationDriver);
     }
-
 
 }

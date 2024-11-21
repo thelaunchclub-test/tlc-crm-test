@@ -9,7 +9,6 @@ import com.twozo.page.settings.data.fields.field.SystemField;
 import com.twozo.page.xpath.XPathBuilder;
 
 import com.twozo.web.driver.service.WebAutomationDriver;
-import com.twozo.web.element.service.WebPageElement;
 
 import java.util.*;
 
@@ -211,27 +210,7 @@ public class ContactDataField extends AbstractDataField {
                 "Webinar"
         };
 
-        final Collection<WebPageElement> choicesAsElements = findElementsByXpath("//*[@class='MuiBox-root css-173a8x7']//*[@class='css-h35jak']");
-        final Collection<WebPageElement> draggableChoicesAsElements = findElementsByXpath("//*[@class='MuiBox-root css-173a8x7']//*[@class='css-1c02ymu']");
-        final Collection<String> choices = new ArrayList<>();
-
-        for (final WebPageElement choicesAsElement : choicesAsElements) {
-            choices.add(getText(choicesAsElement));
-        }
-
-        for (final WebPageElement draggableChoicesAsElement : draggableChoicesAsElements) {
-            choices.add(getText(draggableChoicesAsElement));
-        }
-
-        for (final String source : sources) {
-
-            if (!choices.contains(source)) {
-                System.out.println(source);
-                return false;
-            }
-        }
-
-        return true;
+      return areChoicesPresent(sources);
     }
 
     public boolean checkChoicesForTimeZone() {
@@ -879,7 +858,8 @@ public class ContactDataField extends AbstractDataField {
     }
 
     public boolean checkChoicesForSubscriptionTypes() {
-        final String[] options = {"Newsletter", "Promotional", "Product updates", "Conference and events", "Non marketing emails from our company"};
+        final String[] options = {"Newsletter", "Promotional", "Product updates", "Conference and events",
+                "Non marketing emails from our company"};
 
         return areChoicesPresent(options);
     }
@@ -901,21 +881,16 @@ public class ContactDataField extends AbstractDataField {
 
 
         if (!checkDependableFieldSpecificElement(subscriptionStatus, FieldElement.DRAGGABLE)) {
-            System.out.println("1");
-
             return false;
         }
 
         if (!checkDependableFieldSpecificElement(subscriptionStatus, FieldTypePath.DROPDOWN)) {
-            System.out.println("2");
             return false;
         }
 
         click(findByXpath(format(getDependableBlock(subscriptionStatus), fiveChoices)));
 
         if (!checkChoicesForSubscriptionStatus()) {
-            System.out.println("3");
-
             return false;
         }
         click(findByXpath(MAP.get("body")));
@@ -923,29 +898,21 @@ public class ContactDataField extends AbstractDataField {
         final String subscriptionTypes = ContactField.SUBSCRIPTION_TYPES.getName();
 
         if (!checkDependableFieldSpecificElement(subscriptionTypes, FieldTypePath.MULTI_SELECT)) {
-            System.out.println("4");
-
             return false;
         }
         click(findByXpath(format(getDependableBlock(subscriptionTypes), fiveChoices)));
 
         if (!checkChoicesForSubscriptionTypes()) {
-            System.out.println("5");
-
             return false;
         }
         click(findByXpath(MAP.get("body")));
         final String unsubscribeReason = ContactField.UNSUBSCRIBE_REASON.getName();
 
         if (!checkDependableFieldSpecificElement(unsubscribeReason, FieldTypePath.DROPDOWN)) {
-            System.out.println("6");
-
             return false;
         }
         click(findByXpath(format(getDependableBlock(unsubscribeReason), fiveChoices)));
         if (!checkChoicesForUnsubscribeReason()) {
-            System.out.println("7");
-
             return false;
         }
         click(findByXpath(MAP.get("body")));
@@ -959,7 +926,6 @@ public class ContactDataField extends AbstractDataField {
         if (!isFieldPresent(lifecycleStage)) {
             addField(lifecycleStage);
         }
-       // refresh();
 
         if (!checkSpecificElement(lifecycleStage, FieldElement.DRAGGABLE)) {
             return false;

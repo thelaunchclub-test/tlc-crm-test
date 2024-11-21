@@ -8,7 +8,11 @@ import com.twozo.test.BaseTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.nio.file.Paths;
+
 public class SettingsTest extends BaseTest {
+
+    protected static final String  SETTINGS_PATH= "settings";
 
     //private static final Logger LOG = LoggerFactory.getLogger(SignInTest.class);
 
@@ -31,7 +35,7 @@ public class SettingsTest extends BaseTest {
 //
 //    }
 
-//    @BeforeMethod
+    //    @BeforeMethod
 //    public void initialize() {
 //
 //        System.out.println(link);
@@ -45,6 +49,5 @@ public class SettingsTest extends BaseTest {
 //        //  productDataField = homePage.switchToSettings().switchToProductDataFields();
 //
 //    }
-
 
 }

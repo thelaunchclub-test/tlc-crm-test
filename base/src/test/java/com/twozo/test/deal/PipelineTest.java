@@ -4,18 +4,29 @@ import com.twozo.commons.cookie.BrowserCookie;
 import com.twozo.page.deal.PipelinePage;
 import com.twozo.page.url.URL;
 import com.twozo.test.TestCase;
+import com.twozo.test.TestDataProvider;
 import com.twozo.web.driver.service.WebAutomationDriver;
 
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.nio.file.Paths;
 import java.time.Duration;
 
 public class PipelineTest extends DealTest {
+
+    protected static final String PIPELINE_PATH = Paths.get(DEAL_PATH, "pipeline").toString();
+
     private PipelinePage pipelinePage;
     private WebAutomationDriver automationDriver;
+
+    @DataProvider(name = "defaultPipeline")
+    public static Object[][] getPipelineForDefault() {
+        return new TestDataProvider().getTestCases(getFilePath(PIPELINE_PATH, "DefaultPipeline.json"));
+    }
 
     @BeforeMethod
     public void before() {

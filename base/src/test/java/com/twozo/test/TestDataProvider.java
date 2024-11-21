@@ -3,15 +3,18 @@ package com.twozo.test;
 import com.twozo.commons.json.Json;
 import com.twozo.commons.json.JsonArray;
 import com.twozo.commons.json.JsonObject;
+import com.twozo.commons.util.EnvUtility;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class TestDataProvider {
 
     public Object[][] getTestCases(final String fileName) {
-        final JsonArray jsonArray = Json.array(new File("C:\\Data fields log\\tlc-crm-test\\base\\src\\test\\resources", fileName));
+        System.out.println(Paths.get(EnvUtility.getConfDirectory(),fileName));
+        final JsonArray jsonArray = Json.array(new File(EnvUtility.getConfDirectory(),fileName));
         final Collection<TestCase> testCases1 = new ArrayList<>();
 
         for (int i = 0; i < jsonArray.size(); i++) {

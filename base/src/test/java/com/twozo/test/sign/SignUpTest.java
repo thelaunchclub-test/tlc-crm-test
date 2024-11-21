@@ -38,7 +38,7 @@ public final class SignUpTest extends BaseTest {
         return new TestDataProvider().getTestCases("SignUpData.json");
     }
 
-    protected FieldStatus getFieldStatus(final Object object) {
+    private FieldStatus getFieldStatus(final Object object) {
         final TestCase testCase = (TestCase) object;
         final JsonObject input = testCase.input;
         final FieldStatus fieldStatus = new FieldStatus();
