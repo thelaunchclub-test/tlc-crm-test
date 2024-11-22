@@ -6,7 +6,9 @@ import com.twozo.commons.json.JsonObject;
 import com.twozo.page.contact.ContactAddForm;
 import com.twozo.page.contact.ContactForm;
 import com.twozo.page.homepage.HomePage;
+import com.twozo.page.settings.data.fields.contact.ContactDataField;
 import com.twozo.page.url.URL;
+import com.twozo.page.url.settings.SettingsURL;
 import com.twozo.test.TestCase;
 import com.twozo.test.TestDataProvider;
 import com.twozo.test.add.form.AddFormTest;
@@ -16,10 +18,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AddContactTest extends AddFormTest {
 
@@ -39,10 +38,10 @@ public class AddContactTest extends AddFormTest {
         }
 
         automationDriver.getWebWindowHandler().maximize();
-        webNavigator.to(URL.CONTACTS);
+        webNavigator.to(SettingsURL.CONTACTS);
         automationDriver.getWebWindowHandler().maximize();
         homePage = HomePage.getInstance(automationDriver);
-        contactAddForm = ContactAddForm.getInstance(automationDriver);
+        //contactAddForm = ContactAddForm.getInstance(automationDriver);
     }
 
 //    @AfterMethod
@@ -194,6 +193,12 @@ public class AddContactTest extends AddFormTest {
 
     @Test(dataProvider = "contactSystemFields")
     public void fill(final Object object) {
+        final TestCase testCase = (TestCase) object;
+        final JsonObject input = testCase.input;
+        final Set<String> keys = input.getKeys();
+        final ContactDataField contactDataField = ContactDataField.getInstance(automationDriver);
+
+        contactAddForm = ContactAddForm.getInstance(automationDriver);
         contactAddForm.fill(getContactForm(object));
     }
 }

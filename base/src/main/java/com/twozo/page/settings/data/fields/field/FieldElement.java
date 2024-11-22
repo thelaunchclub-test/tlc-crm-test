@@ -15,8 +15,7 @@ public class FieldElement {
     public static final String CANCEL_BUTTON = XPathBuilder.getXPathByText("Cancel");
     public static final String ADD_BUTTON = XPathBuilder.getXPathByText("Add");
     public static final String UPDATE_BUTTON = XPathBuilder.getXPathByText("Update");
-    public static final String FIELD_BLOCK = "//*[@class='css-11x1d9z']//child::div[@class='MuiBox-root css-0']" +
-            "//*[text()='%s']/ancestor::div[@class='MuiBox-root css-19idom']";
+    public static final String FIELD_BLOCK = "//*[@data-rbd-droppable-id='field-list']//child::p[@aria-label='%s']/ancestor::div[@class='MuiStack-root twozo-css-prefix-bsk3e7']";
 
     public static final String DEPENDABLE_BLOCK = "//*[@class='css-11x1d9z']//child::div[@class='MuiBox-root css-0']" +
             "//*[text()='%s']/ancestor::div[@class='css-11x1d9z']";
