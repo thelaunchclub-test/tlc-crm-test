@@ -332,7 +332,12 @@ public abstract class AbstractDataField extends Settings {
     protected boolean checkSpecificElement(final String fieldName, final String elementName) {
         final String xpath = format(getFieldBlock(fieldName), elementName);
 
-        waitTillVisible(xpath);
+       // waitTillVisible(xpath);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+
+        }
 
         return isDisplayed(findByXpath(xpath));
     }
@@ -483,8 +488,8 @@ public abstract class AbstractDataField extends Settings {
     public Collection<String> getFields() {
         final Collection<String> fieldsPresent = new ArrayList<>();
 
-        waitTillVisible("//*[@class='css-1qqzcwf']");
-        final Collection<WebPageElement> fields = findElementsByXpath("//*[@class='css-1qqzcwf']/div/p");
+        waitTillVisible("//*[@data-rbd-droppable-id='field-list']");
+        final Collection<WebPageElement> fields = findElementsByXpath("//*[@class='MuiStack-root twozo-css-prefix-egd0kv']/div/p");
 
         for (final WebPageElement field : fields) {
             fieldsPresent.add(getText(field));
@@ -1015,7 +1020,7 @@ public abstract class AbstractDataField extends Settings {
      * @return true if all specified fields are present, false otherwise.
      */
     public boolean isPresentInSummary(final Collection<String> fieldsToBePresentInSummary) {
-        final Collection<WebPageElement> fieldsPresentInSummary = findElementsByXpath("//*[@class='css-itno5t']//child::div[@class='MuiBox-root css-1baulvz']");
+        final Collection<WebPageElement> fieldsPresentInSummary = findElementsByXpath("//*[@class='MuiStack-root twozo-css-prefix-u4p24i']//child::p[@class='MuiTypography-root MuiTypography-body1 jss8 twozo-css-prefix-1hcm7kq']");
         final Collection<String> fieldNames = new ArrayList<>();
 
         for (final WebPageElement field : fieldsPresentInSummary) {
@@ -1076,7 +1081,7 @@ public abstract class AbstractDataField extends Settings {
      */
     public boolean isPresentInColumnSettings(final Field[] fieldsToBePresentInColumnSettings) {
         final Collection<String> fieldsPresentInAddForm = new ArrayList<>();
-        final Collection<WebPageElement> fields = findElementsByXpath("//*[@class='css-eawmf1']/div/div/p");
+        final Collection<WebPageElement> fields = findElementsByXpath("//div[@data-rbd-droppable-id='tableHead_items']//child::p");
 
         for (final WebPageElement field : fields) {
             fieldsPresentInAddForm.add(getText(field));
@@ -1205,8 +1210,13 @@ public abstract class AbstractDataField extends Settings {
      * </p>
      */
     public void switchToSummary() {
-        waitTillVisible("//*[@class='MuiTableRow-root css-rm8p5t']");
-        click(findByXpath("//*[@class='MuiTableRow-root css-rm8p5t']//td[2]/div"));
+        //waitTillVisible("//*[@class='MuiTableRow-root css-rm8p5t']");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+
+        }
+        click(findByXpath("//*[@class='MuiTableBody-root twozo-css-prefix-1xnox0e']//td[2]/div"));
     }
 
     /**
@@ -1215,7 +1225,12 @@ public abstract class AbstractDataField extends Settings {
      * </p>
      */
     public void switchToAddContactForm() {
-        waitTillVisible("//*[@class='css-ra6dmh']");
+        //waitTillVisible("//*[@class='MuiStack-root twozo-css-prefix-1gqdsmd']");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+
+        }
         click(findByText("Contact"));
     }
 
@@ -1225,12 +1240,12 @@ public abstract class AbstractDataField extends Settings {
      * </p>
      */
     public void switchToAddCompanyForm() {
-        waitTillClickable(XPathBuilder.getXPathByText("Company"));
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//
-//        }
+        //waitTillClickable(XPathBuilder.getXPathByText("Company"));
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+
+        }
         click(findByText("Company"));
     }
 
@@ -1240,12 +1255,12 @@ public abstract class AbstractDataField extends Settings {
      * </p>
      */
     public void switchToAddDealForm() {
-        waitTillClickable(XPathBuilder.getXPathByText("Deal"));
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//
-//        }
+        //waitTillClickable(XPathBuilder.getXPathByText("Deal"));
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+
+        }
         click(findByText("Deal"));
     }
 
@@ -1255,12 +1270,12 @@ public abstract class AbstractDataField extends Settings {
      * </p>
      */
     public void switchToAddProductForm() {
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//
-//        }
-        waitTillClickable(XPathBuilder.getXPathByText("Product"));
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+
+        }
+       // waitTillClickable(XPathBuilder.getXPathByText("Product"));
         click(findByText("Product"));
     }
 

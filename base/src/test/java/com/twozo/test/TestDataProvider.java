@@ -13,8 +13,8 @@ import java.util.Collection;
 public class TestDataProvider {
 
     public Object[][] getTestCases(final String fileName) {
-        System.out.println(Paths.get(EnvUtility.getConfDirectory(),fileName));
-        final JsonArray jsonArray = Json.array(new File(EnvUtility.getConfDirectory(),fileName));
+        System.out.println(EnvUtility.getConfDirectory());
+        final JsonArray jsonArray = Json.array(new File(EnvUtility.getConfDirectory(), fileName));
         final Collection<TestCase> testCases1 = new ArrayList<>();
 
         for (int i = 0; i < jsonArray.size(); i++) {

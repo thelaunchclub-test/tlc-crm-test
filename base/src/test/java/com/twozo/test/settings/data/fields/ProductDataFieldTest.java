@@ -22,7 +22,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class ProductDataFieldTest extends DataFieldTest {
-    private static final String PRODUCT_DATA_FIELDS = Paths.get(DATA_FIELDS,"deal").toString();
+    private static final String PRODUCT_DATA_FIELDS = Paths.get(DATA_FIELDS,"product").toString();
 
     private ProductDataField productDataField;
     private HomePage homePage;

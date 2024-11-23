@@ -28,17 +28,17 @@ public abstract class DataFieldTest extends SettingsTest {
 
     @DataProvider(name = "customField")
     public static Object[][] getCustomField() {
-        return new TestDataProvider().getTestCases(getFilePath(DATA_FIELDS,"CustomField.json"));
+        return new TestDataProvider().getTestCases(getFilePath(SETTINGS_PATH,"CustomField.json"));
     }
 
     @DataProvider(name = "editData")
     public static Object[][] getEditData() {
-        return new TestDataProvider().getTestCases(getFilePath(DATA_FIELDS,"EditFieldName.json"));
+        return new TestDataProvider().getTestCases(getFilePath(SETTINGS_PATH,"EditFieldName.json"));
     }
 
     @DataProvider(name = "deleteField")
     public static Object[][] getDeleteFieldData() {
-        return new TestDataProvider().getTestCases(getFilePath(DATA_FIELDS,"DeleteField.json"));
+        return new TestDataProvider().getTestCases(getFilePath(SETTINGS_PATH,"DeleteField.json"));
     }
 
     protected FieldStatus getFieldStatus(final Object object) {

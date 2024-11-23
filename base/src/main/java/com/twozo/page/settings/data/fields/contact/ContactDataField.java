@@ -210,7 +210,7 @@ public class ContactDataField extends AbstractDataField {
                 "Webinar"
         };
 
-      return areChoicesPresent(sources);
+        return areChoicesPresent(sources);
     }
 
     public boolean checkChoicesForTimeZone() {
@@ -864,6 +864,13 @@ public class ContactDataField extends AbstractDataField {
         return areChoicesPresent(options);
     }
 
+    public boolean checkChoicesForLostReason() {
+        final String[] options = {"Junk Lead", "Not able to reach", "Not interested", "Budget",
+                "Lost of competitor"};
+
+        return areChoicesPresent(options);
+    }
+
     public boolean checkChoicesForUnsubscribeReason() {
         final String[] options = {"I no longer want to receive emails from you", "I receive too many emails from you",
                 "The emails are inappropriate", "The emails are spam", "Other unsubscribe reason"};
@@ -905,6 +912,7 @@ public class ContactDataField extends AbstractDataField {
         if (!checkChoicesForSubscriptionTypes()) {
             return false;
         }
+
         click(findByXpath(MAP.get("body")));
         final String unsubscribeReason = ContactField.UNSUBSCRIBE_REASON.getName();
 
@@ -922,20 +930,35 @@ public class ContactDataField extends AbstractDataField {
 
     public boolean checkLifecycleStage() {
         final String lifecycleStage = ContactField.LIFECYCLE_STAGE.getName();
+        final String lifecycleStatus = ContactField.LIFECYCLE_STATUS.getName();
+        final String lostReason = ContactField.LOST_REASON.getName();
 
         if (!isFieldPresent(lifecycleStage)) {
             addField(lifecycleStage);
         }
 
-        if (!checkSpecificElement(lifecycleStage, FieldElement.DRAGGABLE)) {
+        if (!checkDependableFieldSpecificElement(lifecycleStage, FieldElement.DRAGGABLE)) {
             return false;
         }
 
-        if (!checkSpecificElement(lifecycleStage, FieldTypePath.DROPDOWN)) {
+        if (!checkDependableFieldSpecificElement(lifecycleStage, FieldTypePath.DROPDOWN)) {
             return false;
         }
 
-        return checkSpecificElement(lifecycleStage, XPathBuilder.getXPathByText("4"));
+        if (!checkSpecificElement(lifecycleStage, XPathBuilder.getXPathByText("3"))) {
+            return false;
+        }
+
+        if (!checkDependableFieldSpecificElement(lostReason, FieldTypePath.DROPDOWN)) {
+            return false;
+        }
+
+        if (!checkSpecificElement(lostReason, XPathBuilder.getXPathByText("5"))) {
+            return false;
+        }
+        click(findByXpath(format(getDependableBlock(lostReason), "5")));
+
+        return checkChoicesForLostReason();
     }
 
     public boolean checkSource() {
@@ -944,7 +967,7 @@ public class ContactDataField extends AbstractDataField {
         if (!isFieldPresent(source)) {
             addField(source);
         }
-       // refresh();
+        // refresh();
 
         if (!checkSpecificElement(source, FieldElement.DRAGGABLE)) {
             return false;
