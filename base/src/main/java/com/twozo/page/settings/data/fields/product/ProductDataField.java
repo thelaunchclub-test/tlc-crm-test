@@ -242,43 +242,6 @@ public class ProductDataField extends AbstractDataField {
         return choicesForType();
     }
 
-    public boolean isPresentInSummary(final Collection<String> fieldsToBePresentInSummary) {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-
-        }
-        while (isDisplayed(findByXpath("//*[@class='css-1bv670y']"))) {
-            click(findByXpath("//*[@class='css-1bv670y']"));
-        }
-
-        final Collection<WebPageElement> fieldsPresentInSummary = findElementsByXpath("//*[@class='MuiTypography-root MuiTypography-body1 jss8 css-1hcm7kq']");
-        final Collection<String> fieldNames = new ArrayList<>();
-
-        for (final WebPageElement field : fieldsPresentInSummary) {
-            String fieldText = getText(field);
-            fieldNames.add(fieldText);
-        }
-
-        for (String fieldName : fieldNames) {
-            System.out.println(fieldName);
-        }
-
-
-        for (final String fieldToBePresent : fieldsToBePresentInSummary) {
-
-            // final String formattedField = String.format("%s%s%s", fieldToBePresent, " ", ":");
-
-            if (!fieldNames.contains(fieldToBePresent)) {
-                System.out.println(fieldToBePresent);
-
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     @Override
     protected Collection<Field> getDefaultFields() {
         return ProductField.getDefaultFields();

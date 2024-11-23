@@ -1020,7 +1020,20 @@ public abstract class AbstractDataField extends Settings {
      * @return true if all specified fields are present, false otherwise.
      */
     public boolean isPresentInSummary(final Collection<String> fieldsToBePresentInSummary) {
-        final Collection<WebPageElement> fieldsPresentInSummary = findElementsByXpath("//*[@class='MuiStack-root twozo-css-prefix-u4p24i']//child::p[@class='MuiTypography-root MuiTypography-body1 jss8 twozo-css-prefix-1hcm7kq']");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+
+        }
+        try {
+            System.out.println(isDisplayed(findByXpath("//*[@class='MuiStack-root twozo-css-prefix-pyletn']/button")));
+            while (isDisplayed(findByXpath("//*[@class='MuiStack-root twozo-css-prefix-pyletn']/button"))) {
+                click(findByXpath("//*[@class='MuiStack-root twozo-css-prefix-pyletn']"));
+            }
+        } catch (Exception exception) {
+        }
+
+        final Collection<WebPageElement> fieldsPresentInSummary = findElementsByXpath("//*[@class='MuiTypography-root MuiTypography-body1 jss8 css-1hcm7kq']");
         final Collection<String> fieldNames = new ArrayList<>();
 
         for (final WebPageElement field : fieldsPresentInSummary) {
@@ -1028,10 +1041,17 @@ public abstract class AbstractDataField extends Settings {
             fieldNames.add(fieldText);
         }
 
+        for (final String fieldName : fieldNames) {
+            System.out.println(fieldName);
+        }
+
         for (final String fieldToBePresent : fieldsToBePresentInSummary) {
+
+            // final String formattedField = String.format("%s%s%s", fieldToBePresent, " ", ":");
 
             if (!fieldNames.contains(fieldToBePresent)) {
                 System.out.println(fieldToBePresent);
+
                 return false;
             }
         }
