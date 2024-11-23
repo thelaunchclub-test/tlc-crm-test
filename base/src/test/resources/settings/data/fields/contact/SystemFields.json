@@ -1,16 +1,5 @@
 [
   {
-    "testCaseID": 1,
-    "title": "Lifecycle Stage with add view",
-    "input": {
-      "isDraggable": false,
-      "fieldName": "Lifecycle Stage",
-      "fieldType": "Dropdown",
-      "isAddView": true,
-      "isRequired": true
-    }
-  },
-  {
     "testCaseID": 2,
     "title": "Source with add view",
     "input": {

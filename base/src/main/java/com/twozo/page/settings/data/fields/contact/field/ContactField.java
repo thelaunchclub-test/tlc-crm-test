@@ -2,6 +2,7 @@ package com.twozo.page.settings.data.fields.contact.field;
 
 import com.twozo.page.settings.data.fields.FieldType;
 import com.twozo.page.settings.data.fields.field.Field;
+import com.twozo.page.settings.data.fields.field.FieldElement;
 
 import java.util.Collection;
 import java.util.List;
@@ -20,6 +21,8 @@ public enum ContactField implements Field {
     SOURCE("Source", FieldType.DROPDOWN),
     LINKED_IN("LinkedIn", FieldType.TEXT),
     LIFECYCLE_STAGE("Lifecycle Stage", FieldType.DROPDOWN),
+    LIFECYCLE_STATUS("Lifecycle Status",FieldType.DROPDOWN),
+    LOST_REASON("Lost Reason", FieldType.DROPDOWN),
     DEPARTMENT("Department", FieldType.TEXT),
     DATE_OF_BIRTH("Date Of Birth", FieldType.DATE),
     ADDRESS("Address", FieldType.ADDRESS),

@@ -64,7 +64,7 @@ public class BasePage {
     }
 
     public WebPageElement getColumnSettingsButton() {
-        return findByXpath("//*[@class='css-181x7hd']");
+        return findByXpath("//*[@class='MuiStack-root twozo-css-prefix-181x7hd']");
     }
 
     public void switchToColumnSettings() {
@@ -241,7 +241,7 @@ public class BasePage {
     }
 
     protected final void dropdown(final String option) {
-        click(findByXpath(format("//ul[@role='listbox']", XPathBuilder.getXPathByText(option))));
+        click(findByXpath(format("//ul[@role]", XPathBuilder.getXPathByText(option))));
     }
 
     protected final void hover(final Element element) {
