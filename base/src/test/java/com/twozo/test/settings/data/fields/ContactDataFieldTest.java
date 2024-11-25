@@ -1,7 +1,6 @@
 package com.twozo.test.settings.data.fields;
 
 import com.twozo.commons.cookie.BrowserCookie;
-import com.twozo.page.contact.Contact;
 import com.twozo.page.homepage.HomePage;
 import com.twozo.page.settings.data.fields.FieldStatus;
 import com.twozo.page.settings.data.fields.contact.ContactDataField;
@@ -11,18 +10,17 @@ import com.twozo.page.url.URL;
 import com.twozo.page.url.settings.SettingsURL;
 import com.twozo.test.TestDataProvider;
 import com.twozo.web.driver.service.WebAutomationDriver;
-import com.twozo.web.element.model.Element;
-import com.twozo.web.element.model.LocatorType;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 import java.nio.file.Paths;
-import java.time.Duration;
 import java.util.Collection;
-import java.util.List;
 
 public class ContactDataFieldTest extends DataFieldTest {
-    private static final String CONTACT_DATA_FIELDS = Paths.get(DATA_FIELDS,"contact").toString();
+    private static final String CONTACT_DATA_FIELDS = Paths.get(DATA_FIELDS, "contact").toString();
 
     private ContactDataField contactDataField;
     private HomePage homePage;
@@ -30,17 +28,17 @@ public class ContactDataFieldTest extends DataFieldTest {
 
     @DataProvider(name = "contactSystemFields")
     private static Object[][] getContactSystemFieldData() {
-        return new TestDataProvider().getTestCases(getFilePath(CONTACT_DATA_FIELDS,"SystemFields.json"));
+        return new TestDataProvider().getTestCases(getFilePath(CONTACT_DATA_FIELDS, "SystemFields.json"));
     }
 
     @DataProvider(name = "addViewAndRequired")
     private static Object[][] getAddView() {
-        return new TestDataProvider().getTestCases(getFilePath(CONTACT_DATA_FIELDS,"AddViewAndRequired.json"));
+        return new TestDataProvider().getTestCases(getFilePath(CONTACT_DATA_FIELDS, "AddViewAndRequired.json"));
     }
 
     @DataProvider(name = "autoGeneratingField")
     private static Object[][] getAutoGeneratingFieldData() {
-        return new TestDataProvider().getTestCases(getFilePath(CONTACT_DATA_FIELDS,"AutoGeneratingFields.json"));
+        return new TestDataProvider().getTestCases(getFilePath(CONTACT_DATA_FIELDS, "AutoGeneratingFields.json"));
     }
 
 //    @BeforeClass

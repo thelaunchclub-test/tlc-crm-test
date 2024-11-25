@@ -69,7 +69,7 @@ public class DealTest extends BaseTest {
             final JsonObject stages = input.getJsonObject("stage");
             final Map<String, String> stageMap = new LinkedHashMap<>();
 
-            for (final String key : stages.keySet()) {
+            for (final String key : stages.getKeys()) {
                 stageMap.put(key, stages.getString(key));
             }
 

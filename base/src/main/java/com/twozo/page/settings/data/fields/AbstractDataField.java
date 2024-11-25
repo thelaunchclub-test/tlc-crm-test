@@ -1,6 +1,7 @@
 package com.twozo.page.settings.data.fields;
 
 import com.twozo.page.settings.Settings;
+import com.twozo.page.settings.data.fields.contact.field.ContactField;
 import com.twozo.page.settings.data.fields.field.DependableField;
 import com.twozo.page.settings.data.fields.field.Field;
 import com.twozo.page.settings.data.fields.field.FieldElement;
@@ -332,12 +333,12 @@ public abstract class AbstractDataField extends Settings {
     protected boolean checkSpecificElement(final String fieldName, final String elementName) {
         final String xpath = format(getFieldBlock(fieldName), elementName);
 
-       // waitTillVisible(xpath);
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-
-        }
+        waitTillVisible(xpath);
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//
+//        }
 
         return isDisplayed(findByXpath(xpath));
     }
@@ -448,7 +449,7 @@ public abstract class AbstractDataField extends Settings {
         final String xPath = "(//*[@data-rbd-droppable-id='%s-choices']//child::input[@type='text'])[%d]";
 
         waitTillVisible(MAP.get("body"));
-        waitTillClickable(XPathBuilder.getXPathByText("Custom Field"));
+        waitTillVisible("//*[@class='MuiBox-root twozo-css-prefix-0']//*[text()='Custom Field']/ancestor::div[@class='MuiBox-root twozo-css-prefix-0']");
         click(getAddCustomFieldButton());
         waitTillVisible("//div[@data-rbd-draggable-id='new_field1']");
         send(getCustomFieldName(), customFieldName);
@@ -771,7 +772,7 @@ public abstract class AbstractDataField extends Settings {
 
         if (isFieldPresent(systemFieldName)) {
 
-            if (Objects.equals("Subscription Status", systemFieldName)) {
+            if (Objects.equals(ContactField.SUBSCRIPTION_STATUS.getName(), systemFieldName)) {
                 fieldBlock = getDependableBlock(systemFieldName);
             } else {
                 fieldBlock = getFieldBlock(systemFieldName);
@@ -781,7 +782,7 @@ public abstract class AbstractDataField extends Settings {
 
             waitTillClickable(eyeIconButton);
             click(findByXpath(eyeIconButton));
-            refresh();
+            //refresh();
         }
 
         return !isFieldPresent(systemFieldName);
@@ -1020,11 +1021,12 @@ public abstract class AbstractDataField extends Settings {
      * @return true if all specified fields are present, false otherwise.
      */
     public boolean isPresentInSummary(final Collection<String> fieldsToBePresentInSummary) {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-
-        }
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//
+//        }
+        waitTillClickable("//*[@class='MuiStack-root twozo-css-prefix-gesbk0']");
         try {
             System.out.println(isDisplayed(findByXpath("//*[@class='MuiStack-root twozo-css-prefix-pyletn']/button")));
             while (isDisplayed(findByXpath("//*[@class='MuiStack-root twozo-css-prefix-pyletn']/button"))) {
@@ -1230,12 +1232,12 @@ public abstract class AbstractDataField extends Settings {
      * </p>
      */
     public void switchToSummary() {
-        //waitTillVisible("//*[@class='MuiTableRow-root css-rm8p5t']");
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-
-        }
+        waitTillVisible("//*[@class='MuiTableRow-root twozo-css-prefix-rm8p5t']");
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//
+//        }
         click(findByXpath("//*[@class='MuiTableBody-root twozo-css-prefix-1xnox0e']//td[2]/div"));
     }
 
@@ -1260,13 +1262,13 @@ public abstract class AbstractDataField extends Settings {
      * </p>
      */
     public void switchToAddCompanyForm() {
-        //waitTillClickable(XPathBuilder.getXPathByText("Company"));
+        // waitTillClickable("//*[@class='MuiStack-root twozo-css-prefix-1gqdsmd']");
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
 
         }
-        click(findByText("Company"));
+//        click(findByText("Company"));
     }
 
     /**
@@ -1275,7 +1277,7 @@ public abstract class AbstractDataField extends Settings {
      * </p>
      */
     public void switchToAddDealForm() {
-        //waitTillClickable(XPathBuilder.getXPathByText("Deal"));
+//        waitTillClickable("//*[@class='MuiStack-root twozo-css-prefix-1gqdsmd']");
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -1295,7 +1297,7 @@ public abstract class AbstractDataField extends Settings {
         } catch (InterruptedException e) {
 
         }
-       // waitTillClickable(XPathBuilder.getXPathByText("Product"));
+        // waitTillClickable("//*[@class='MuiStack-root twozo-css-prefix-1gqdsmd']");
         click(findByText("Product"));
     }
 
@@ -1590,7 +1592,7 @@ public abstract class AbstractDataField extends Settings {
         final String fieldNameXPath = getFieldBlock(fieldName);
         final String fieldTypeXPath = format(getFieldBlock(fieldName), XPathBuilder.getXPathByText(fieldType));
 
-        //waitTillVisible("//div[@data-rbd-droppable-id='field-list']");
+        waitTillVisible("//div[@data-rbd-droppable-id='field-list']");
 
 //        try {
 //            Thread.sleep(2000);
