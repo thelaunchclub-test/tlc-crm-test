@@ -10,6 +10,7 @@ import java.util.Map;
 @Getter
 @Setter
 public class ContactForm implements Form {
+
     private String firstName;
     private String lastName;
     private List<Map<String, String>> emails;
@@ -20,7 +21,7 @@ public class ContactForm implements Form {
     private String lifecycleStage;
     private String source;
     private String territory;
-    private List <String> tags;
+    private List<String> tags;
     private String dateOfBirth;
     private String department;
     private Address address;
@@ -30,7 +31,6 @@ public class ContactForm implements Form {
     private String subscriptionStatus;
     private String subscriptionTypes;
     private String timeZone;
-
 
     @Getter
     @Setter

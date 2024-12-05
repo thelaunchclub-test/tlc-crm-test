@@ -346,7 +346,7 @@ public abstract class AbstractDataField extends Settings {
     protected boolean checkDependableFieldSpecificElement(final String fieldName, final String elementName) {
         final String xpath = format(getDependableBlock(fieldName), elementName);
 
-        waitTillVisible(xpath);
+        //waitTillVisible(xpath);
 
         return isDisplayed(findByXpath(xpath));
     }
@@ -448,10 +448,10 @@ public abstract class AbstractDataField extends Settings {
         final List<String> choices = fieldStatus.getChoices();
         final String xPath = "(//*[@data-rbd-droppable-id='%s-choices']//child::input[@type='text'])[%d]";
 
-        waitTillVisible(MAP.get("body"));
-        waitTillVisible("//*[@class='MuiBox-root twozo-css-prefix-0']//*[text()='Custom Field']/ancestor::div[@class='MuiBox-root twozo-css-prefix-0']");
+        //waitTillVisible(MAP.get("body"));
+        waitTillVisible("//*[contains(@class,'dnu8iz')]");
         click(getAddCustomFieldButton());
-        waitTillVisible("//div[@data-rbd-draggable-id='new_field1']");
+        waitTillVisible("//div[@data-rbd-draggable-id='new_field1']//child::div[contains(@class,'1eejj16')]");
         send(getCustomFieldName(), customFieldName);
         waitTillClickable(Button.CUSTOM_FIELDS_FIELD_TYPE);
         click(getSelectCustomFieldType());
@@ -490,7 +490,7 @@ public abstract class AbstractDataField extends Settings {
         final Collection<String> fieldsPresent = new ArrayList<>();
 
         waitTillVisible("//*[@data-rbd-droppable-id='field-list']");
-        final Collection<WebPageElement> fields = findElementsByXpath("//*[@class='MuiStack-root twozo-css-prefix-egd0kv']/div/p");
+        final Collection<WebPageElement> fields = findElementsByXpath("//*[contains(@class,'10vldmf')]");
 
         for (final WebPageElement field : fields) {
             fieldsPresent.add(getText(field));
@@ -782,8 +782,14 @@ public abstract class AbstractDataField extends Settings {
 
             waitTillClickable(eyeIconButton);
             click(findByXpath(eyeIconButton));
-            //refresh();
+            //waitTillInvisible(fieldBlock);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+
+            }
         }
+
 
         return !isFieldPresent(systemFieldName);
     }
@@ -1026,16 +1032,15 @@ public abstract class AbstractDataField extends Settings {
 //        } catch (InterruptedException e) {
 //
 //        }
-        waitTillClickable("//*[@class='MuiStack-root twozo-css-prefix-gesbk0']");
+        waitTillClickable("//*[@class='css-itno5t']");
         try {
-            System.out.println(isDisplayed(findByXpath("//*[@class='MuiStack-root twozo-css-prefix-pyletn']/button")));
-            while (isDisplayed(findByXpath("//*[@class='MuiStack-root twozo-css-prefix-pyletn']/button"))) {
-                click(findByXpath("//*[@class='MuiStack-root twozo-css-prefix-pyletn']"));
+            while (isDisplayed(findByXpath("//*[contains(@class,'1hyoz7m')]/button"))) {
+                click(findByXpath("//*[contains(@class,'1hyoz7m')]"));
             }
         } catch (Exception exception) {
         }
 
-        final Collection<WebPageElement> fieldsPresentInSummary = findElementsByXpath("//*[@class='MuiTypography-root MuiTypography-body1 jss8 css-1hcm7kq']");
+        final Collection<WebPageElement> fieldsPresentInSummary = findElementsByXpath("//*[contains(@class,'1hcm7kq')]");
         final Collection<String> fieldNames = new ArrayList<>();
 
         for (final WebPageElement field : fieldsPresentInSummary) {
@@ -1232,13 +1237,13 @@ public abstract class AbstractDataField extends Settings {
      * </p>
      */
     public void switchToSummary() {
-        waitTillVisible("//*[@class='MuiTableRow-root twozo-css-prefix-rm8p5t']");
+        waitTillClickable("//*[contains(@class,'1xnox0e')]//child::div");
 //        try {
 //            Thread.sleep(3000);
 //        } catch (InterruptedException e) {
 //
 //        }
-        click(findByXpath("//*[@class='MuiTableBody-root twozo-css-prefix-1xnox0e']//td[2]/div"));
+        click(findByXpath("//*[contains(@class,'1xnox0e')]//child::div"));
     }
 
     /**
@@ -1268,7 +1273,7 @@ public abstract class AbstractDataField extends Settings {
         } catch (InterruptedException e) {
 
         }
-//        click(findByText("Company"));
+        click(findByText("Company"));
     }
 
     /**
@@ -1381,11 +1386,16 @@ public abstract class AbstractDataField extends Settings {
      */
     public void enableAddView(final String fieldName) {
         final String fieldBlock = getFieldBlock(fieldName);
-        final WebPageElement addViewCheckbox = findByXpath(getPathOfSpecificCheckbox(fieldBlock,
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+        }
+        WebPageElement addViewCheckbox = findByXpath(getPathOfSpecificCheckbox(fieldBlock,
                 FieldElement.ADD_VIEW_CHECKBOX));
 
         if (!isSelected(addViewCheckbox)) {
-            click(addViewCheckbox);
+            click(findByXpath(getPathOfSpecificCheckbox(fieldBlock,
+                    FieldElement.ADD_VIEW_CHECKBOX)));
             try {
                 click(findByXpath(format(fieldBlock, FieldElement.UPDATE_BUTTON)));
             } catch (Exception exception) {
@@ -1789,7 +1799,6 @@ public abstract class AbstractDataField extends Settings {
         }
 
         for (int i = 1; i <= count; i++) {
-
             final String fieldBlock = String.format(FieldElement.BLOCK, i);
             final WebPageElement fieldElement = findByXpath(getPathOfSpecificCheckbox
                     (fieldBlock, addViewOrRequired));
@@ -1800,6 +1809,32 @@ public abstract class AbstractDataField extends Settings {
         }
 
         return fieldsPresent;
+    }
+
+    public void setFieldsForAddForm(final List<String> fields) {
+        waitTillVisible(XPathBuilder.getXPathByText(Button.SYSTEM_FIELDS));
+
+        List<String> fieldsToBeAdded = new ArrayList<>(fields);
+
+        fieldsToBeAdded.removeAll(getFields());
+
+        if (!fieldsToBeAdded.isEmpty()) {
+            click(getAddSystemFieldsButton());
+
+            for (final String field : fieldsToBeAdded) {
+
+                if (!isSelected(findByXpath(format(getMenuBlock(field), "//*[@type='checkbox']")))) {
+                    click(findByXpath(format(getMenuBlock(field), "//*[@type='checkbox']")));
+                }
+            }
+
+            click(getAddSelectedFieldsButton());
+
+        }
+
+        for (final String field : fields) {
+            enableAddView(field);
+        }
     }
 
     /**

@@ -56,7 +56,7 @@ public class AddCompanyTest extends AddFormTest {
         return new TestDataProvider().getTestCases(getFilePath(COMPANY_ADD_FORM, "AllFieldTypeValue.json"));
     }
 
-    private CompanyForm getCompanyForm(final Object object) {
+    protected CompanyForm getForm(final Object object) {
         final TestCase testCase = (TestCase) object;
         final JsonObject input = testCase.input;
         final CompanyForm companyForm = new CompanyForm();
@@ -173,6 +173,6 @@ public class AddCompanyTest extends AddFormTest {
 
     @Test(dataProvider = "companyAddFormFields")
     public void fill(final Object object) {
-        companyAddForm.fill(getCompanyForm(object));
+        companyAddForm.fill(getForm(object));
     }
 }

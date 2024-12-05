@@ -64,7 +64,7 @@ public class BasePage {
     }
 
     public WebPageElement getColumnSettingsButton() {
-        return findByXpath("//*[@class='MuiStack-root twozo-css-prefix-181x7hd']");
+        return findByXpath("//*[@class='css-181x7hd']");
     }
 
     public void switchToColumnSettings() {
@@ -95,6 +95,14 @@ public class BasePage {
 
     public void waitTillClickable(final String xpath) {
         explicitWaitHandler.WaitTillClickable(new Element(LocatorType.XPATH, xpath, true));
+    }
+
+    public void waitTillInvisible(final Element element) {
+        explicitWaitHandler.waitTillInvisible(element);
+    }
+
+    public void waitTillInvisible(final String xpath) {
+        explicitWaitHandler.waitTillVisible(new Element(LocatorType.XPATH, xpath, true));
     }
 
     public void shortWaitTillVisible(final String xpath) {
