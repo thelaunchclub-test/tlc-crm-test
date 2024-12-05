@@ -782,14 +782,8 @@ public abstract class AbstractDataField extends Settings {
 
             waitTillClickable(eyeIconButton);
             click(findByXpath(eyeIconButton));
-            //waitTillInvisible(fieldBlock);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-
-            }
+            //refresh();
         }
-
 
         return !isFieldPresent(systemFieldName);
     }

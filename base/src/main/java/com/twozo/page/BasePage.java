@@ -89,6 +89,14 @@ public class BasePage {
         explicitWaitHandler.waitTillVisible(element);
     }
 
+    public void waitTillInvisible(final Element element) {
+        explicitWaitHandler.waitTillInvisible(element);
+    }
+
+    public void waitTillInvisible(final String xpath) {
+        explicitWaitHandler.waitTillVisible(new Element(LocatorType.XPATH, xpath, true));
+    }
+
     public void waitTillVisible(final String xpath) {
         explicitWaitHandler.waitTillVisible(new Element(LocatorType.XPATH, xpath, true));
     }
