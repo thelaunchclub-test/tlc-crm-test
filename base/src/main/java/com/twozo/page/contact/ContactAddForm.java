@@ -16,7 +16,6 @@ public class ContactAddForm extends AddForm {
 
     protected ContactAddForm(final WebAutomationDriver webAutomationDriver) {
         super(webAutomationDriver);
-        switchToAddForm("Contact");
     }
 
     public static ContactAddForm getInstance(final WebAutomationDriver webAutomationDriver) {
@@ -167,18 +166,18 @@ public class ContactAddForm extends AddForm {
 //        sendEmail(contactForm);
 //        sendPhone(contactForm);
 
-        send(getCompany(), contactForm.getCompany());
-
-        final Collection<WebPageElement> company = findElementsByXpath("//*[@class='MuiAutocomplete-option MuiBox-root css-0']//child::p");
-
-        for (final WebPageElement option : company) {
-            String optionText = getText(option);
-
-            if (optionText.equals(contactForm.getCompany())) {
-                click(option);
-                break;
-            }
-        }
+//        send(getCompany(), contactForm.getCompany());
+//
+//        final Collection<WebPageElement> company = findElementsByXpath("//*[@class='MuiAutocomplete-option MuiBox-root css-0']//child::p");
+//
+//        for (final WebPageElement option : company) {
+//            String optionText = getText(option);
+//
+//            if (optionText.equals(contactForm.getCompany())) {
+//                click(option);
+//                break;
+//            }
+//        }
 
 //
 //        send(getDesignation(), contactForm.getDesignation());
@@ -230,6 +229,9 @@ public class ContactAddForm extends AddForm {
 //        click(getTimeZone());
 //        dropdown(contactForm.getTimeZone());
 //        click(getSaveButton());
+
+        setFirstName(contactForm);
+        setLastName(contactForm);
     }
 
 

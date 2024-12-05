@@ -188,10 +188,10 @@
   },
   {
     "testCaseID": 18,
-    "title": "Email Message Count with add view",
+    "title": "Email Messages Count with add view",
     "input": {
       "isDraggable": false,
-      "fieldName": "Email Message Count",
+      "fieldName": "Email Messages Count",
       "fieldType": "Number",
       "isAddView": true,
       "isRequired": true

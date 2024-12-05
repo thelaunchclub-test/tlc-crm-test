@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class BaseTest {
-    private static final Map<String, String> CONFIG = ConfigFileReader.get("Config.Properties");
+    private static final Map<String, String> CONFIG = ConfigFileReader.get("config.properties");
     protected static final Map<String, String> MAP = ConfigFileReader.get("locator/locator.Properties");
 
     protected WebAutomationDriver automationDriver;
