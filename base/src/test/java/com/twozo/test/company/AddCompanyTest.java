@@ -5,10 +5,12 @@ import com.twozo.commons.json.JsonArray;
 import com.twozo.commons.json.JsonObject;
 import com.twozo.page.company.CompanyAddForm;
 import com.twozo.page.company.CompanyForm;
-import com.twozo.page.contact.ContactAddForm;
-import com.twozo.page.contact.ContactForm;
 import com.twozo.page.homepage.HomePage;
+import com.twozo.page.settings.data.fields.company.CompanyDataField;
+import com.twozo.page.settings.data.fields.company.field.CompanyField;
+import com.twozo.page.settings.data.fields.contact.ContactDataField;
 import com.twozo.page.url.URL;
+import com.twozo.page.url.settings.SettingsURL;
 import com.twozo.test.TestCase;
 import com.twozo.test.TestDataProvider;
 import com.twozo.test.add.form.AddFormTest;
@@ -19,9 +21,7 @@ import org.testng.annotations.Test;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class AddCompanyTest extends AddFormTest {
     private static final String COMPANY_ADD_FORM = Paths.get(COMPANY_PATH, "add", "form").toString();
@@ -40,10 +40,8 @@ public class AddCompanyTest extends AddFormTest {
         }
 
         automationDriver.getWebWindowHandler().maximize();
-        webNavigator.to(URL.COMPANIES);
-        automationDriver.getWebWindowHandler().maximize();
-        homePage = HomePage.getInstance(automationDriver);
         companyAddForm = CompanyAddForm.getInstance(automationDriver);
+        webNavigator.to(SettingsURL.COMPANY_DATA_FIELDS);
     }
 
 //    @AfterMethod
@@ -61,118 +59,167 @@ public class AddCompanyTest extends AddFormTest {
         final JsonObject input = testCase.input;
         final CompanyForm companyForm = new CompanyForm();
 
-        if (input.containsKey("Name")) {
-            companyForm.setName(input.getString("Name"));
+        final String name = CompanyField.NAME.getName();
+        final String website = CompanyField.WEBSITE.getName();
+        final String salesOwner = CompanyField.SALES_OWNER.getName();
+        final String address = CompanyField.ADDRESS.getName();
+        final String facebook = CompanyField.FACEBOOK.getName();
+        final String twitter = CompanyField.TWITTER.getName();
+        final String linkedIn = CompanyField.LINKED_IN.getName();
+        final String annualRevenue = CompanyField.ANNUAL_REVENUE.getName();
+        final String sicCode = CompanyField.SIC_CODE.getName();
+        final String territory = CompanyField.TERRITORY.getName();
+        final String tags = CompanyField.TAGS.getName();
+        final String employees = CompanyField.EMPLOYEES.getName();
+        final String parentCompany = CompanyField.PARENT_COMPANY.getName();
+        final String organizationStatus = CompanyField.ORGANIZATION_STATUS.getName();
+        final String industryType = CompanyField.INDUSTRY_TYPE.getName();
+        final String businessType = CompanyField.BUSINESS_TYPE.getName();
+        final String description = CompanyField.DESCRIPTION.getName();
+        final String recentNote = CompanyField.RECENT_NOTE.getName();
+        final String openDeals = CompanyField.OPEN_DEALS.getName();
+        final String closedDeals = CompanyField.CLOSED_DEALS.getName();
+        final String wonDeals = CompanyField.WON_DEALS.getName();
+        final String lostDeals = CompanyField.LOST_DEALS.getName();
+        final String lastActivityDate = CompanyField.LAST_ACTIVITY_DATE.getName();
+        final String nextActivityDate = CompanyField.NEXT_ACTIVITY_DATE.getName();
+        final String lastActivityType = CompanyField.LAST_ACTIVITY_TYPE.getName();
+        final String doneActivities = CompanyField.DONE_ACTIVITIES.getName();
+        final String upcomingActivities = CompanyField.UPCOMING_ACTIVITIES.getName();
+        final String totalActivities = CompanyField.TOTAL_ACTIVITIES.getName();
+        final String emailMessagesCount = CompanyField.EMAIL_MESSAGES_COUNT.getName();
+        final String lastEmailReceived = CompanyField.LAST_EMAIL_RECEIVED.getName();
+        final String lastEmailSent = CompanyField.LAST_EMAIL_SENT.getName();
+        final String id = CompanyField.ID.getName();
+        final String updatedBy = CompanyField.UPDATED_BY.getName();
+        final String updatedAt = CompanyField.UPDATED_AT.getName();
+        final String createdBy = CompanyField.CREATED_BY.getName();
+        final String createdAt = CompanyField.CREATED_AT.getName();
+        final String lastAssignedAt = CompanyField.LAST_ASSIGNED_AT.getName();
+
+        if (input.containsKey(name)) {
+            companyForm.setName(input.getString(name));
         }
 
-        if (input.containsKey("Website")) {
-            companyForm.setWebsite(input.getString("Website"));
+        if (input.containsKey(website)) {
+            companyForm.setWebsite(input.getString(website));
         }
 
-        if (input.containsKey("Sales Owner")) {
-            companyForm.setSalesOwner(input.getString("Sales Owner"));
+        if (input.containsKey(salesOwner)) {
+            companyForm.setSalesOwner(input.getString(salesOwner));
         }
 
-        if (input.containsKey("Address")) {
-            final JsonObject addressJson = input.getJsonObject("Address");
-            final CompanyForm.Address address = new CompanyForm.Address();
+        if (input.containsKey(address)) {
+            final String addressLine1 = "Address Line 1";
+            final String addressLine2 = "Address Line 2";
+            final String city = "City";
+            final String state = "State";
+            final String country = "Country";
+            final String pincode = "Pincode";
+            final JsonObject addressJson = input.getJsonObject(address);
+            final CompanyForm.Address companyAddress = new CompanyForm.Address();
 
-            if (addressJson.containsKey("Address Line 1")) {
-                address.setAddressLine1(addressJson.getString("Address Line 1"));
+            if (addressJson.containsKey(addressLine1)) {
+                companyAddress.setAddressLine1(addressJson.getString(addressLine1));
             }
-            if (addressJson.containsKey("Address Line 2")) {
-                address.setAddressLine2(addressJson.getString("Address Line 2"));
+            if (addressJson.containsKey(addressLine2)) {
+                companyAddress.setAddressLine2(addressJson.getString(addressLine2));
             }
-            if (addressJson.containsKey("City")) {
-                address.setCity(addressJson.getString("City"));
+            if (addressJson.containsKey(city)) {
+                companyAddress.setCity(addressJson.getString(city));
             }
-            if (addressJson.containsKey("State")) {
-                address.setState(addressJson.getString("State"));
+            if (addressJson.containsKey(state)) {
+                companyAddress.setState(addressJson.getString(state));
             }
-            if (addressJson.containsKey("Country")) {
-                address.setCountry(addressJson.getString("Country"));
+            if (addressJson.containsKey(country)) {
+                companyAddress.setCountry(addressJson.getString(country));
             }
-            if (addressJson.containsKey("Pincode")) {
-                address.setPincode(addressJson.getString("Pincode"));
-            }
-
-            companyForm.setAddress(address);
-        }
-
-        if (input.containsKey("Facebook")) {
-            companyForm.setFacebook(input.getString("Facebook"));
-        }
-
-        if (input.containsKey("Twitter")) {
-            companyForm.setTwitter(input.getString("Twitter"));
-        }
-
-        if (input.containsKey("LinkedIn")) {
-            companyForm.setLinkedin(input.getString("LinkedIn"));
-        }
-
-        if (input.containsKey("Annual Revenue")) {
-            final JsonObject annualRevenueJson = input.getJsonObject("Annual Revenue");
-            final CompanyForm.AnnualRevenue annualRevenue = new CompanyForm.AnnualRevenue();
-
-            if (annualRevenueJson.containsKey("Value")) {
-                annualRevenue.setValue(annualRevenueJson.getString("Value"));
-            }
-            if (annualRevenueJson.containsKey("Currency")) {
-                annualRevenue.setCurrency(annualRevenueJson.getString("Currency"));
+            if (addressJson.containsKey(pincode)) {
+                companyAddress.setPincode(addressJson.getString(pincode));
             }
 
-            companyForm.setAnnualRevenue(annualRevenue);
+            companyForm.setAddress(companyAddress);
+        }
+
+        if (input.containsKey(facebook)) {
+            companyForm.setFacebook(input.getString(facebook));
+        }
+
+        if (input.containsKey(twitter)) {
+            companyForm.setTwitter(input.getString(twitter));
+        }
+
+        if (input.containsKey(linkedIn)) {
+            companyForm.setLinkedin(input.getString(linkedIn));
+        }
+
+        if (input.containsKey(annualRevenue)) {
+            final String value = "Value";
+            final String currency = "Currency";
+            final JsonObject annualRevenueJson = input.getJsonObject(annualRevenue);
+            final CompanyForm.AnnualRevenue companyAnnualRevenue = new CompanyForm.AnnualRevenue();
+
+            if (annualRevenueJson.containsKey(value)) {
+                companyAnnualRevenue.setValue(annualRevenueJson.getString(value));
+            }
+            if (annualRevenueJson.containsKey(currency)) {
+                companyAnnualRevenue.setCurrency(annualRevenueJson.getString(currency));
+            }
+
+            companyForm.setAnnualRevenue(companyAnnualRevenue);
         }
 
 
-        if (input.containsKey("SIC Code")) {
-            companyForm.setSICCode(input.getString("SIC Code"));
+        if (input.containsKey(sicCode)) {
+            companyForm.setSICCode(input.getString(sicCode));
         }
 
-        if (input.containsKey("Territory")) {
-            companyForm.setTerritory(input.getString("Territory"));
+        if (input.containsKey(territory)) {
+            companyForm.setTerritory(input.getString(territory));
         }
 
-        if (input.containsKey("Tags")) {
-            final JsonArray tagsArray = input.getJsonArray("Tags");
-            final List<String> tags = new ArrayList<>();
+        if (input.containsKey(tags)) {
+            final JsonArray tagsArray = input.getJsonArray(tags);
+            final List<String> companyTags = new ArrayList<>();
 
             for (int i = 0; i < tagsArray.size(); i++) {
-                tags.add(tagsArray.getString(i));
+                companyTags.add(tagsArray.getString(i));
             }
-            companyForm.setTags(tags);
+            companyForm.setTags(companyTags);
         }
 
-        if (input.containsKey("Employees")) {
-            companyForm.setEmployees(input.getString("Employees"));
+        if (input.containsKey(employees)) {
+            companyForm.setEmployees(input.getString(employees));
         }
 
-        if (input.containsKey("Parent Company")) {
-            companyForm.setParentCompany(input.getString("Parent Company"));
+        if (input.containsKey(parentCompany)) {
+            companyForm.setParentCompany(input.getString(parentCompany));
         }
 
-        if (input.containsKey("Organization Status")) {
-            companyForm.setOrganizationStatus(input.getString("Organization Status"));
+        if (input.containsKey(organizationStatus)) {
+            companyForm.setOrganizationStatus(input.getString(organizationStatus));
         }
 
-        if (input.containsKey("Industry Type")) {
-            companyForm.setIndustryType(input.getString("Industry Type"));
+        if (input.containsKey(industryType)) {
+            companyForm.setIndustryType(input.getString(industryType));
         }
 
-        if (input.containsKey("Business Type")) {
-            companyForm.setBusinessType(input.getString("Business Type"));
+        if (input.containsKey(businessType)) {
+            companyForm.setBusinessType(input.getString(businessType));
         }
 
-        if (input.containsKey("Description")) {
-            companyForm.setDescription(input.getString("Description"));
+        if (input.containsKey(description)) {
+            companyForm.setDescription(input.getString(description));
         }
 
         return companyForm;
     }
 
     @Test(dataProvider = "companyAddFormFields")
-    public void fill(final Object object) {
+    public void fill(final Object object) throws IllegalAccessException {
+        CompanyDataField.getInstance(automationDriver).setFieldsForAddForm(getFieldsForUpdate(getForm(object)));
+        webNavigator.to(URL.CONTACTS);
+        companyAddForm.switchToAddForm("Company");
         companyAddForm.fill(getForm(object));
     }
 }

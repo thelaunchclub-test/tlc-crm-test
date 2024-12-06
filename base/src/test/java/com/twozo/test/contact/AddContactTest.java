@@ -40,11 +40,8 @@ public class AddContactTest extends AddFormTest {
         }
 
         automationDriver.getWebWindowHandler().maximize();
-        webNavigator.to(URL.CONTACTS);
-        automationDriver.getWebWindowHandler().maximize();
         contactAddForm = ContactAddForm.getInstance(automationDriver);
         webNavigator.to(SettingsURL.CONTACT_DATA_FIELDS);
-
     }
 
 //    @AfterMethod

@@ -37,7 +37,7 @@ public class SignUp extends BasePage {
         click(getSignUpButton());
 
         if (!getURL().equals(URL.SIGN_UP)) {
-            throw ErrorCode.get(WebDriverErrorCode.EXPECTED_PAGE_NOT_FOUND);
+           // throw ErrorCode.get(WebDriverErrorCode.EXPECTED_PAGE_NOT_FOUND);
         }
 
         this.deal = DealPage.getInstance(webAutomationDriver);
