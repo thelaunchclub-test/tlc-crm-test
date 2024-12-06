@@ -105,14 +105,6 @@ public class BasePage {
         explicitWaitHandler.WaitTillClickable(new Element(LocatorType.XPATH, xpath, true));
     }
 
-    public void waitTillInvisible(final Element element) {
-        explicitWaitHandler.waitTillInvisible(element);
-    }
-
-    public void waitTillInvisible(final String xpath) {
-        explicitWaitHandler.waitTillVisible(new Element(LocatorType.XPATH, xpath, true));
-    }
-
     public void shortWaitTillVisible(final String xpath) {
         explicitWaitHandler.shortWaitTillVisible(new Element(LocatorType.XPATH, xpath, true));
     }
