@@ -449,9 +449,9 @@ public abstract class AbstractDataField extends Settings {
         final String xPath = "(//*[@data-rbd-droppable-id='%s-choices']//child::input[@type='text'])[%d]";
 
         //waitTillVisible(MAP.get("body"));
-        waitTillVisible("//*[contains(@class,'dnu8iz')]");
+        waitTillVisible("//main/div[3]");
         click(getAddCustomFieldButton());
-        waitTillVisible("//div[@data-rbd-draggable-id='new_field1']//child::div[contains(@class,'1eejj16')]");
+        waitTillVisible("//div[@data-rbd-draggable-id='new_field1']");
         send(getCustomFieldName(), customFieldName);
         waitTillClickable(Button.CUSTOM_FIELDS_FIELD_TYPE);
         click(getSelectCustomFieldType());
@@ -473,7 +473,7 @@ public abstract class AbstractDataField extends Settings {
                 }
             }
         }
-        click(findByXpath("//body"));
+        click(findByXpath(MAP.get("body")));
 
         waitTillClickable(FieldElement.ADD_BUTTON);
         click(getCustomFieldAddButton());
@@ -490,7 +490,7 @@ public abstract class AbstractDataField extends Settings {
         final Collection<String> fieldsPresent = new ArrayList<>();
 
         waitTillVisible("//*[@data-rbd-droppable-id='field-list']");
-        final Collection<WebPageElement> fields = findElementsByXpath("//*[contains(@class,'10vldmf')]");
+        final Collection<WebPageElement> fields = findElementsByXpath("//*[@data-rbd-droppable-id='field-list']//*[@aria-label]");
 
         for (final WebPageElement field : fields) {
             fieldsPresent.add(getText(field));
@@ -1070,7 +1070,7 @@ public abstract class AbstractDataField extends Settings {
      */
     public boolean isPresentInAddForm(final Collection<String> fieldsToBePresentInAddForm) {
         final Collection<String> fieldsPresentInAddForm = new ArrayList<>();
-        final Collection<WebPageElement> fields = findElementsByXpath("//*[@class='MuiTypography-root MuiTypography-body1 css-1b4365c']");
+        final Collection<WebPageElement> fields = findElementsByXpath("//*[contains(@class,'1b4365c')]");
         //final Collection<WebPageElement> remainingFields = findElementsByXpath("//*[@class='css-1cdo4bs']/p");
 
         for (final WebPageElement field : fields) {
@@ -1494,6 +1494,7 @@ public abstract class AbstractDataField extends Settings {
         } else {
             isDisplayed(findByXpath(format(fieldBlock, FieldElement.NON_DRAGGABLE)));
         }
+
         return true;
     }
 
@@ -1761,7 +1762,7 @@ public abstract class AbstractDataField extends Settings {
      */
     protected Collection<String> getFieldsForSummary(final Collection<String> fieldsNotToDisplay) {
         final Collection<String> fieldsPresent = new ArrayList<>();
-        final Collection<WebPageElement> fields = findElementsByXpath("//*[@class='css-1qqzcwf']/div/p");
+        final Collection<WebPageElement> fields = findElementsByXpath("//*[@data-rbd-droppable-id='field-list']//*[@aria-label]");
 
         for (final WebPageElement field : fields) {
             final String fieldName = getText(field);
@@ -1786,7 +1787,7 @@ public abstract class AbstractDataField extends Settings {
         final Collection<String> fieldsPresent = new ArrayList<>();
 
         int count = 0;
-        final Collection<WebPageElement> elementsByXpath = findElementsByXpath("//*[@class='MuiBox-root css-19idom']");
+        final Collection<WebPageElement> elementsByXpath = findElementsByXpath("//*[@data-rbd-draggable-context-id]");
 
         for (final WebPageElement webPageElement : elementsByXpath) {
             count++;
@@ -1798,7 +1799,7 @@ public abstract class AbstractDataField extends Settings {
                     (fieldBlock, addViewOrRequired));
 
             if (isSelected(fieldElement)) {
-                fieldsPresent.add(getText(findByXpath(String.format("(%s%s%s)", "((", fieldBlock, "/div)[1])//*[@class='MuiTypography-root MuiTypography-body1 MuiTypography-noWrap css-10vldmf']"))));
+                fieldsPresent.add(getText(findByXpath(format(fieldBlock,"//*[@aria-label]"))));
             }
         }
 
