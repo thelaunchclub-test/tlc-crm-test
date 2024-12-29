@@ -21,6 +21,16 @@ public class DealAddForm extends AddForm {
         super(webAutomationDriver);
     }
 
+    @Override
+    protected String[] getAutoGeneratingFields() {
+        return new String[0];
+    }
+
+    @Override
+    protected String[] getAddFormSystemFields() {
+        return new String[0];
+    }
+
     private WebPageElement getTitle() {
         return getTextFieldWebPageElement(DealField.TITLE.getName());
     }

@@ -7,7 +7,6 @@ import com.twozo.page.settings.data.fields.field.Field;
 import com.twozo.test.TestCase;
 import com.twozo.test.TestDataProvider;
 import com.twozo.test.settings.SettingsTest;
-import com.twozo.web.driver.service.WebNavigator;
 import org.testng.annotations.DataProvider;
 
 import java.nio.file.Paths;
@@ -17,31 +16,29 @@ import java.util.List;
 
 public abstract class DataFieldTest extends SettingsTest {
 
-    protected static final String DATA_FIELDS = Paths.get(SETTINGS_PATH,"data","fields").toString();
-
-    WebNavigator webNavigator;
+    protected static final String DATA_FIELDS = Paths.get(SETTINGS_PATH, "data", "fields").toString();
 
     @DataProvider(name = "searchData")
     public static Object[][] getSearchData() {
-        return new TestDataProvider().getTestCases(getFilePath(DATA_FIELDS,"SearchData.json"));
+        return TestDataProvider.getTestData(getFilePath(DATA_FIELDS, "SearchData.json"));
     }
 
     @DataProvider(name = "customField")
     public static Object[][] getCustomField() {
-        return new TestDataProvider().getTestCases(getFilePath(SETTINGS_PATH,"CustomField.json"));
+        return TestDataProvider.getTestData(getFilePath(SETTINGS_PATH, "CustomField.json"));
     }
 
     @DataProvider(name = "editData")
     public static Object[][] getEditData() {
-        return new TestDataProvider().getTestCases(getFilePath(SETTINGS_PATH,"EditFieldName.json"));
+        return TestDataProvider.getTestData(getFilePath(SETTINGS_PATH, "EditFieldName.json"));
     }
 
     @DataProvider(name = "deleteField")
     public static Object[][] getDeleteFieldData() {
-        return new TestDataProvider().getTestCases(getFilePath(SETTINGS_PATH,"DeleteField.json"));
+        return TestDataProvider.getTestData(getFilePath(SETTINGS_PATH, "DeleteField.json"));
     }
 
-    protected FieldStatus getFieldStatus(final Object object) {
+    public FieldStatus getFieldStatus(final Object object) {
         final TestCase testCase = (TestCase) object;
         final JsonObject input = testCase.input;
         final FieldStatus fieldStatus = new FieldStatus();

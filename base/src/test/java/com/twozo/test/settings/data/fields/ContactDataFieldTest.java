@@ -1,7 +1,6 @@
 package com.twozo.test.settings.data.fields;
 
 import com.twozo.commons.cookie.BrowserCookie;
-import com.twozo.page.homepage.HomePage;
 import com.twozo.page.settings.data.fields.FieldStatus;
 import com.twozo.page.settings.data.fields.contact.ContactDataField;
 import com.twozo.page.settings.data.fields.field.Field;
@@ -23,22 +22,21 @@ public class ContactDataFieldTest extends DataFieldTest {
     private static final String CONTACT_DATA_FIELDS = Paths.get(DATA_FIELDS, "contact").toString();
 
     private ContactDataField contactDataField;
-    private HomePage homePage;
     private WebAutomationDriver automationDriver;
 
     @DataProvider(name = "contactSystemFields")
     private static Object[][] getContactSystemFieldData() {
-        return new TestDataProvider().getTestCases(getFilePath(CONTACT_DATA_FIELDS, "SystemFields.json"));
+        return new TestDataProvider().getTestData(getFilePath(CONTACT_DATA_FIELDS, "SystemFields.json"));
     }
 
     @DataProvider(name = "addViewAndRequired")
     private static Object[][] getAddView() {
-        return new TestDataProvider().getTestCases(getFilePath(CONTACT_DATA_FIELDS, "AddViewAndRequired.json"));
+        return new TestDataProvider().getTestData(getFilePath(CONTACT_DATA_FIELDS, "AddViewAndRequired.json"));
     }
 
     @DataProvider(name = "autoGeneratingField")
     private static Object[][] getAutoGeneratingFieldData() {
-        return new TestDataProvider().getTestCases(getFilePath(CONTACT_DATA_FIELDS, "AutoGeneratingFields.json"));
+        return new TestDataProvider().getTestData(getFilePath(CONTACT_DATA_FIELDS, "AutoGeneratingFields.json"));
     }
 
 //    @BeforeClass
@@ -62,18 +60,16 @@ public class ContactDataFieldTest extends DataFieldTest {
     @BeforeMethod
     public void before() {
         automationDriver = WebAutomationDriver.get();
-        webNavigator = automationDriver.getWebNavigator();
-        webNavigator.to(link);
+        contactDataField = ContactDataField.getInstance(automationDriver);
+
+        contactDataField.navigateTo(link);
 
         for (final BrowserCookie cookie : cookies) {
-            automationDriver.getSessionCookie().addCookie(cookie);
+            contactDataField.addCookie(cookie);
         }
 
-        automationDriver.getWebWindowHandler().maximize();
-        webNavigator.to(SettingsURL.CONTACT_DATA_FIELDS);
-        automationDriver.getWebWindowHandler().maximize();
-        homePage = HomePage.getInstance(automationDriver);
-        contactDataField = ContactDataField.getInstance(automationDriver);
+        contactDataField.maximize();
+        contactDataField.navigateTo(SettingsURL.CONTACT_DATA_FIELDS);
     }
 
     @AfterMethod
@@ -172,12 +168,12 @@ public class ContactDataFieldTest extends DataFieldTest {
 
     @Test
     public void checkAddForm() {
-        Assert.assertTrue(isPresentInAddForm(contactDataField.getFieldsForAddViewAndRequired(FieldElement.ADD_VIEW_CHECKBOX)));
+        Assert.assertTrue(isPresentInAddForm(contactDataField.getFieldsEnabledAsAddView()));
     }
 
     @Test
     public void checkAddFormAsRequired() {
-        Assert.assertTrue(isPresentInAddForm(contactDataField.getFieldsForAddViewAndRequired(FieldElement.REQUIRED_CHECKBOX)));
+        Assert.assertTrue(isPresentInAddForm(contactDataField.getFieldsEnabledAsRequired()));
     }
 
     @Test
@@ -192,7 +188,7 @@ public class ContactDataFieldTest extends DataFieldTest {
 
     @Override
     public boolean isPresentInSummary(final Collection<String> fields) {
-        webNavigator.to(URL.CONTACTS);
+        contactDataField.navigateTo(URL.CONTACTS);
         contactDataField.switchToSummary();
 
         return contactDataField.isPresentInSummary(fields);
@@ -200,7 +196,7 @@ public class ContactDataFieldTest extends DataFieldTest {
 
     @Override
     public boolean isPresentInAddForm(final Collection<String> fields) {
-        webNavigator.to(URL.CONTACTS);
+        contactDataField.navigateTo(URL.CONTACTS);
         contactDataField.switchToAddContactForm();
 
         return contactDataField.isPresentInAddForm(fields);
@@ -208,7 +204,7 @@ public class ContactDataFieldTest extends DataFieldTest {
 
     @Override
     public boolean isPresentInColumnSettings(final Field[] fields) {
-        webNavigator.to(URL.CONTACTS);
+        contactDataField.navigateTo(URL.CONTACTS);
         contactDataField.switchToColumnSettings();
 
         return contactDataField.isPresentInColumnSettings(fields);

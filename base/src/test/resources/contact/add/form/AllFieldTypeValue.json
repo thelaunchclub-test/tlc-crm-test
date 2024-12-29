@@ -3,31 +3,22 @@
     "testCaseID": 1,
     "title": "Default fields of Add Form",
     "input": {
-      "First Name": "John",
       "Last Name": "Doe",
       "Emails": [
         {
           "type": "Personal",
           "email": "john.doe@workexample.com"
-        },
-        {
-          "type": "Other",
-          "email": "doe.com"
         }
       ],
       "Phones": [
         {
           "type": "Work",
           "phone": "123456789"
-        },
-        {
-          "type": "Other",
-          "phone": "123456789"
         }
       ],
       "Company": "Example Inc.",
       "Designation": "Manager",
-      "Sales Owner": "Jane Smith",
+      "Sales Owner": "a",
       "Lifecycle Stage": "Customer",
       "Source": "Referral",
       "Territory": "North America",

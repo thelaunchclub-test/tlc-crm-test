@@ -1,19 +1,15 @@
 package com.twozo.page.settings.data.fields.product;
 
-import com.twozo.commons.exception.ErrorCode;
 import com.twozo.page.settings.data.fields.AbstractDataField;
+import com.twozo.page.settings.data.fields.company.field.CompanyField;
 import com.twozo.page.settings.data.fields.field.Field;
 import com.twozo.page.settings.data.fields.field.FieldElement;
 import com.twozo.page.settings.data.fields.field.FieldTypePath;
 import com.twozo.page.settings.data.fields.field.SystemField;
 import com.twozo.page.settings.data.fields.product.field.ProductField;
-import com.twozo.page.url.settings.SettingsURL;
 import com.twozo.page.xpath.XPathBuilder;
 import com.twozo.web.driver.service.WebAutomationDriver;
-import com.twozo.web.element.service.WebPageElement;
-import com.twozo.web.error.code.WebDriverErrorCode;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -41,12 +37,10 @@ public class ProductDataField extends AbstractDataField {
         try {
             if (isDisplayed(findByXpath("//*[contains(text(),'Enables')]"))) {
                 click(findByXpath("//*[@class='MuiSwitch-root MuiSwitch-sizeMedium css-1v2eis']"));
-                // refresh();
             }
         } catch (Exception exception) {
 
         }
-
     }
 
     public boolean verifyActiveContactTab() {
@@ -74,64 +68,70 @@ public class ProductDataField extends AbstractDataField {
     }
 
     private SystemField getNameField() {
-        final String NameDiv = getNameDiv();
+        final String name = ProductField.NAME.getName();
 
         return new SystemField(
-                findByXpath(format(NameDiv, FieldElement.NON_DRAGGABLE)),
-                findByXpath(format(NameDiv, XPathBuilder.getXPathByText(ProductField.NAME.getName()))),
-                findByXpath(format(NameDiv, XPathBuilder.getXPathByText(ProductField.NAME.getFieldType()))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(NameDiv, FieldElement.ADD_VIEW_CHECKBOX))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(NameDiv, FieldElement.REQUIRED_CHECKBOX))),
-                null);
+                getDraggableElement(ProductField.NAME),
+                getFieldName(ProductField.NAME),
+                getFieldType(ProductField.NAME),
+                isSelected(getAddViewCheckboxOf(name)),
+                isSelected(getRequiredCheckboxOf(name)),
+                null
+        );
     }
 
     private SystemField getSalesOwnerField() {
-        final String salesOwnerDiv = getSalesOwnerDiv();
+        final String salesOwner = ProductField.SALES_OWNER.getName();
 
         return new SystemField(
-                findByXpath(format(salesOwnerDiv, FieldElement.DRAGGABLE)),
-                findByXpath(format(salesOwnerDiv, XPathBuilder.getXPathByText(ProductField.SALES_OWNER.getName()))),
-                findByXpath(format(salesOwnerDiv, XPathBuilder.getXPathByText(ProductField.SALES_OWNER.getFieldType()))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(salesOwnerDiv, FieldElement.ADD_VIEW_CHECKBOX))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(salesOwnerDiv, FieldElement.REQUIRED_CHECKBOX))),
-                null);
+                getDraggableElement(ProductField.SALES_OWNER),
+                getFieldName(ProductField.SALES_OWNER),
+                getFieldType(ProductField.SALES_OWNER),
+                isSelected(getAddViewCheckboxOf(salesOwner)),
+                isSelected(getRequiredCheckboxOf(salesOwner)),
+                null
+        );
     }
 
     private SystemField getProductCodeField() {
-        final String productDiv = getProductCodeDiv();
+        final String productCode = ProductField.PRODUCT_CODE.getName();
 
         return new SystemField(
-                findByXpath(format(productDiv, FieldElement.DRAGGABLE)),
-                findByXpath(format(productDiv, XPathBuilder.getXPathByText(ProductField.PRODUCT_CODE.getName()))),
-                findByXpath(format(productDiv, XPathBuilder.getXPathByText(ProductField.PRODUCT_CODE.getFieldType()))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(productDiv, FieldElement.ADD_VIEW_CHECKBOX))),
-                !isSelected(findByXpath(getPathOfSpecificCheckbox(productDiv, FieldElement.REQUIRED_CHECKBOX))),
-                null);
+                getDraggableElement(ProductField.PRODUCT_CODE),
+                getFieldName(ProductField.PRODUCT_CODE),
+                getFieldType(ProductField.PRODUCT_CODE),
+                isSelected(getAddViewCheckboxOf(productCode)),
+                !isSelected(getRequiredCheckboxOf(productCode)),
+                null
+        );
     }
 
     private SystemField getCategoryField() {
-        final String categoryDiv = getCategoryDiv();
+        final String category = ProductField.CATEGORY.getName();
 
         return new SystemField(
-                findByXpath(format(categoryDiv, FieldElement.DRAGGABLE)),
-                findByXpath(format(categoryDiv, XPathBuilder.getXPathByText(ProductField.CATEGORY.getName()))),
-                findByXpath(format(categoryDiv, XPathBuilder.getXPathByText(ProductField.CATEGORY.getFieldType()))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(categoryDiv, FieldElement.ADD_VIEW_CHECKBOX))),
-                !isSelected(findByXpath(getPathOfSpecificCheckbox(categoryDiv, FieldElement.REQUIRED_CHECKBOX))),
-                null);
+                getDraggableElement(ProductField.CATEGORY),
+                getFieldName(ProductField.CATEGORY),
+                getFieldType(ProductField.CATEGORY),
+                isSelected(getAddViewCheckboxOf(category)),
+                !isSelected(getRequiredCheckboxOf(category)),
+                null
+        );
     }
 
     private SystemField getUnitPriceField() {
-        final String unitPriceDiv = getUnitPriceDiv();
+        final String unitPrice = ProductField.UNIT_PRICE.getName();
 
         return new SystemField(
-                findByXpath(format(unitPriceDiv, FieldElement.DRAGGABLE)),
-                findByXpath(format(unitPriceDiv, XPathBuilder.getXPathByText(ProductField.UNIT_PRICE.getName()))),
-                findByXpath(format(unitPriceDiv, XPathBuilder.getXPathByText(ProductField.UNIT_PRICE.getFieldType()))),
-                !isSelected(findByXpath(getPathOfSpecificCheckbox(unitPriceDiv, FieldElement.ADD_VIEW_CHECKBOX))),
-                !isSelected(findByXpath(getPathOfSpecificCheckbox(unitPriceDiv, FieldElement.REQUIRED_CHECKBOX))),
-                null);
+                getDraggableElement(ProductField.UNIT_PRICE),
+                getFieldName(ProductField.UNIT_PRICE),
+                getFieldType(ProductField.UNIT_PRICE),
+                !isSelected(getAddViewCheckboxOf(unitPrice)),
+                !isSelected(getRequiredCheckboxOf(unitPrice)),
+                null
+        );
     }
+
 
     public boolean verifyActiveProductTab() {
         return isDisplayed(getActiveProductTab());
@@ -172,11 +172,11 @@ public class ProductDataField extends AbstractDataField {
         }
 
 
-        if (!checkSpecificElement(category, FieldElement.DRAGGABLE)) {
+        if (!isFieldSpecificElementDisplayed(category, FieldElement.DRAGGABLE)) {
             return false;
         }
 
-        if (!checkSpecificElement(category, FieldTypePath.DROPDOWN)) {
+        if (!isFieldSpecificElementDisplayed(category, FieldTypePath.DROPDOWN)) {
             return false;
         }
 
@@ -192,11 +192,11 @@ public class ProductDataField extends AbstractDataField {
             addField(active);
         }
 
-        if (!checkSpecificElement(active, FieldElement.DRAGGABLE)) {
+        if (!isFieldSpecificElementDisplayed(active, FieldElement.DRAGGABLE)) {
             return false;
         }
 
-        if (!checkSpecificElement(active, FieldTypePath.DROPDOWN)) {
+        if (!isFieldSpecificElementDisplayed(active, FieldTypePath.DROPDOWN)) {
             return false;
         }
         click(findByXpath(format(active, XPathBuilder.getXPathByText("2"))));
@@ -211,11 +211,11 @@ public class ProductDataField extends AbstractDataField {
             addField(taxable);
         }
 
-        if (!checkSpecificElement(taxable, FieldElement.DRAGGABLE)) {
+        if (!isFieldSpecificElementDisplayed(taxable, FieldElement.DRAGGABLE)) {
             return false;
         }
 
-        if (!checkSpecificElement(taxable, FieldTypePath.DROPDOWN)) {
+        if (!isFieldSpecificElementDisplayed(taxable, FieldTypePath.DROPDOWN)) {
             return false;
         }
         click(findByXpath(format(taxable, XPathBuilder.getXPathByText("2"))));
@@ -230,11 +230,11 @@ public class ProductDataField extends AbstractDataField {
             addField(type);
         }
 
-        if (!checkSpecificElement(type, FieldElement.DRAGGABLE)) {
+        if (!isFieldSpecificElementDisplayed(type, FieldElement.DRAGGABLE)) {
             return false;
         }
 
-        if (!checkSpecificElement(type, FieldTypePath.DROPDOWN)) {
+        if (!isFieldSpecificElementDisplayed(type, FieldTypePath.DROPDOWN)) {
             return false;
         }
         click(findByXpath(format(type, XPathBuilder.getXPathByText("2"))));
@@ -254,7 +254,7 @@ public class ProductDataField extends AbstractDataField {
 
     @Override
     protected List<String> getMandatoryFields() {
-        return Arrays.asList(getNameDiv(), getSalesOwnerDiv());
+        return Arrays.asList(ProductField.NAME.getName(), ProductField.SALES_OWNER.getName());
     }
 
     @Override
@@ -285,9 +285,9 @@ public class ProductDataField extends AbstractDataField {
 
     @Override
     public boolean uncheckMandatoryFields() {
-        final String[] mandatoryFields = new String[]{getNameDiv()};
+        final Field[] mandatoryFields = new ProductField[]{ProductField.NAME};
 
-        unCheck(mandatoryFields);
+        uncheck(mandatoryFields);
 
         return true;
     }

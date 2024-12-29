@@ -19,19 +19,16 @@ public class KanbanViewTest extends DealTest {
     @BeforeMethod
     public void before() {
         automationDriver = WebAutomationDriver.get();
-        webNavigator = automationDriver.getWebNavigator();
-        webNavigator.to(link);
+        kanbanView = KanbanView.getInstance(automationDriver);
+
+        kanbanView.navigateTo(link);
 
         for (final BrowserCookie cookie : cookies) {
-            automationDriver.getSessionCookie().addCookie(cookie);
+            kanbanView.addCookie(cookie);
         }
 
-        automationDriver.getWebWindowHandler().maximize();
-        automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(10));
-        automationDriver.getWebWindowHandler().maximize();
-        webNavigator.to(URL.DEALS);
-
-        kanbanView = KanbanView.getInstance(automationDriver);
+        kanbanView.maximize();
+        kanbanView.navigateTo(URL.DEALS);
     }
 
     @AfterMethod

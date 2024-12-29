@@ -11,6 +11,7 @@ import com.twozo.page.url.URL;
 import com.twozo.page.url.settings.SettingsURL;
 import com.twozo.test.TestDataProvider;
 import com.twozo.web.driver.service.WebAutomationDriver;
+
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -18,12 +19,11 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.nio.file.Paths;
-import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
 
 public class DealDataFieldTest extends DataFieldTest {
-    private static final String DEAL_DATA_FIELDS = Paths.get(DATA_FIELDS,"deal").toString();
+    private static final String DEAL_DATA_FIELDS = Paths.get(DATA_FIELDS, "deal").toString();
 
     private DealDataField dealDataField;
     private HomePage homePage;
@@ -31,17 +31,17 @@ public class DealDataFieldTest extends DataFieldTest {
 
     @DataProvider(name = "dealSystemFields")
     private static Object[][] getDealSystemFieldData() {
-        return new TestDataProvider().getTestCases(getFilePath(DEAL_DATA_FIELDS, "SystemFields.json"));
+        return new TestDataProvider().getTestData(getFilePath(DEAL_DATA_FIELDS, "SystemFields.json"));
     }
 
     @DataProvider(name = "addViewAndRequired")
     private static Object[][] getAddView() {
-        return new TestDataProvider().getTestCases(getFilePath(DEAL_DATA_FIELDS, "AddViewAndRequired.json"));
+        return new TestDataProvider().getTestData(getFilePath(DEAL_DATA_FIELDS, "AddViewAndRequired.json"));
     }
 
     @DataProvider(name = "autoGeneratingField")
     private static Object[][] getAutoGeneratingFieldData() {
-        return new TestDataProvider().getTestCases(getFilePath(DEAL_DATA_FIELDS, "AutoGeneratingFields.json"));
+        return new TestDataProvider().getTestData(getFilePath(DEAL_DATA_FIELDS, "AutoGeneratingFields.json"));
     }
 
 //    @BeforeClass
@@ -64,20 +64,15 @@ public class DealDataFieldTest extends DataFieldTest {
     @BeforeMethod
     public void before() {
         automationDriver = WebAutomationDriver.get();
-        webNavigator = automationDriver.getWebNavigator();
-        webNavigator.to(link);
+        dealDataField = DealDataField.getInstance(automationDriver);
+        dealDataField.navigateTo(link);
 
         for (final BrowserCookie cookie : cookies) {
             automationDriver.getSessionCookie().addCookie(cookie);
         }
 
         automationDriver.getWebWindowHandler().maximize();
-        automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(10));
         automationDriver.getWebNavigator().to(SettingsURL.DEAL_DATA_FIELDS);
-        automationDriver.getWebWindowHandler().maximize();
-
-        homePage = HomePage.getInstance(automationDriver);
-        dealDataField = DealDataField.getInstance(automationDriver);
     }
 
     @AfterMethod
@@ -158,12 +153,12 @@ public class DealDataFieldTest extends DataFieldTest {
 
     @Test
     public void checkAddForm() {
-        Assert.assertTrue(isPresentInAddForm(dealDataField.getFieldsForAddViewAndRequired(FieldElement.ADD_VIEW_CHECKBOX)));
+        Assert.assertTrue(isPresentInAddForm(dealDataField.getFieldsEnabledAsAddView()));
     }
 
     @Test
     public void checkAddFormAsRequired() {
-        Assert.assertTrue(isPresentInAddForm(dealDataField.getFieldsForAddViewAndRequired(FieldElement.REQUIRED_CHECKBOX)));
+        Assert.assertTrue(isPresentInAddForm(dealDataField.getFieldsEnabledAsRequired()));
     }
 
     @Test
@@ -188,7 +183,7 @@ public class DealDataFieldTest extends DataFieldTest {
 
     @Override
     public boolean isPresentInSummary(final Collection<String> fields) {
-        webNavigator.to(URL.DEALS);
+        dealDataField.navigateTo(URL.DEALS);
         dealDataField.switchToSummary();
 
         return dealDataField.isPresentInSummary(fields);
@@ -196,7 +191,7 @@ public class DealDataFieldTest extends DataFieldTest {
 
     @Override
     public boolean isPresentInAddForm(final Collection<String> fields) {
-        webNavigator.to(URL.DEALS);
+        dealDataField.navigateTo(URL.DEALS);
         dealDataField.switchToAddDealForm();
 
         return dealDataField.isPresentInAddForm(fields);
@@ -204,7 +199,7 @@ public class DealDataFieldTest extends DataFieldTest {
 
     @Override
     public boolean isPresentInColumnSettings(final Field[] fields) {
-        webNavigator.to(URL.DEALS);
+        dealDataField.navigateTo(URL.DEALS);
         DealPage.getInstance(automationDriver).switchToColumnSettings();
 
         return dealDataField.isPresentInColumnSettings(fields);

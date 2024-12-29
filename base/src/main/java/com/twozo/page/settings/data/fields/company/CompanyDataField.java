@@ -2,6 +2,7 @@ package com.twozo.page.settings.data.fields.company;
 
 import com.twozo.page.settings.data.fields.AbstractDataField;
 import com.twozo.page.settings.data.fields.company.field.CompanyField;
+import com.twozo.page.settings.data.fields.contact.field.ContactField;
 import com.twozo.page.settings.data.fields.field.Field;
 import com.twozo.page.settings.data.fields.field.FieldElement;
 import com.twozo.page.settings.data.fields.field.FieldTypePath;
@@ -87,13 +88,11 @@ public class CompanyDataField extends AbstractDataField {
      * @return SystemField The {@link SystemField} for the name field.
      */
     private SystemField getNameField() {
-        final String nameDiv = getNameDiv();
-
-        return new SystemField(findByXpath(format(nameDiv, FieldElement.NON_DRAGGABLE)),
-                findByXpath(format(nameDiv, XPathBuilder.getXPathByText(CompanyField.NAME.getName()))),
-                findByXpath(format(nameDiv, XPathBuilder.getXPathByText(CompanyField.NAME.getFieldType()))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(nameDiv, FieldElement.ADD_VIEW_CHECKBOX))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(nameDiv, FieldElement.REQUIRED_CHECKBOX))),
+        return new SystemField(getNonDraggableElement(CompanyField.NAME),
+                getFieldName(CompanyField.NAME),
+                getFieldType(CompanyField.NAME),
+                isSelected(getAddViewCheckboxOf(CompanyField.NAME)),
+                isSelected(getRequiredCheckboxOf(CompanyField.NAME)),
                 null);
     }
 
@@ -104,16 +103,14 @@ public class CompanyDataField extends AbstractDataField {
      *
      * @return SystemField The {@link SystemField} for the website field.
      */
-    private SystemField getWebsiteField() {
-        final String websiteDiv = getWebsiteDiv();
-
-        return new SystemField(findByXpath(format(websiteDiv, FieldElement.DRAGGABLE)),
-                findByXpath(format(websiteDiv, XPathBuilder.getXPathByText(CompanyField.WEBSITE.getName()))),
-                findByXpath(format(websiteDiv, XPathBuilder.getXPathByText(CompanyField.WEBSITE.getFieldType()))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(websiteDiv, FieldElement.ADD_VIEW_CHECKBOX))),
-                !isSelected(findByXpath(getPathOfSpecificCheckbox(websiteDiv, FieldElement.REQUIRED_CHECKBOX))),
-                null);
-    }
+        private SystemField getWebsiteField() {
+            return new SystemField(getDraggableElement(CompanyField.WEBSITE),
+                    getFieldName(CompanyField.WEBSITE),
+                    getFieldType(CompanyField.WEBSITE),
+                    isSelected(getAddViewCheckboxOf(CompanyField.WEBSITE)),
+                    !isSelected(getRequiredCheckboxOf(CompanyField.WEBSITE)),
+                    null);
+        }
 
     /**
      * <p>
@@ -123,14 +120,14 @@ public class CompanyDataField extends AbstractDataField {
      * @return SystemField The {@link SystemField} for the sales owner field.
      */
     private SystemField getSalesOwnerField() {
-        final String salesOwnerDiv = getSalesOwnerDiv();
-
-        return new SystemField(findByXpath(format(salesOwnerDiv, FieldElement.DRAGGABLE)),
-                findByXpath(format(salesOwnerDiv, XPathBuilder.getXPathByText(CompanyField.SALES_OWNER.getName()))),
-                findByXpath(format(salesOwnerDiv, XPathBuilder.getXPathByText(CompanyField.SALES_OWNER.getFieldType()))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(salesOwnerDiv, FieldElement.ADD_VIEW_CHECKBOX))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(salesOwnerDiv, FieldElement.REQUIRED_CHECKBOX))),
-                null);
+        return new SystemField(
+                getDraggableElement(CompanyField.SALES_OWNER),
+                getFieldName(CompanyField.SALES_OWNER),
+                getFieldType(CompanyField.SALES_OWNER),
+                isSelected(getAddViewCheckboxOf(CompanyField.SALES_OWNER)),
+                isSelected(getRequiredCheckboxOf(CompanyField.SALES_OWNER)),
+                null
+        );
     }
 
     /**
@@ -141,14 +138,15 @@ public class CompanyDataField extends AbstractDataField {
      * @return SystemField The {@link SystemField} for the address field.
      */
     private SystemField getAddressField() {
-        final String addressDiv = getAddressDiv();
+        return new SystemField(
+                getDraggableElement(CompanyField.ADDRESS),
+                getFieldName(CompanyField.ADDRESS),
+                getFieldType(CompanyField.ADDRESS),
+                isSelected(getAddViewCheckboxOf(CompanyField.ADDRESS)),
+                !isSelected(getRequiredCheckboxOf(CompanyField.ADDRESS)),
+                null
+        );
 
-        return new SystemField(findByXpath(format(addressDiv, FieldElement.DRAGGABLE)),
-                findByXpath(format(addressDiv, XPathBuilder.getXPathByText(CompanyField.ADDRESS.getName()))),
-                findByXpath(format(addressDiv, XPathBuilder.getXPathByText(CompanyField.ADDRESS.getFieldType()))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(addressDiv, FieldElement.ADD_VIEW_CHECKBOX))),
-                !isSelected(findByXpath(getPathOfSpecificCheckbox(addressDiv, FieldElement.REQUIRED_CHECKBOX))),
-                null);
     }
 
     /**
@@ -299,11 +297,11 @@ public class CompanyDataField extends AbstractDataField {
         }
         refresh();
 
-        if (!checkSpecificElement(organizationStatus, FieldElement.DRAGGABLE)) {
+        if (!isFieldSpecificElementDisplayed(organizationStatus, FieldElement.DRAGGABLE)) {
             return false;
         }
 
-        if (!checkSpecificElement(organizationStatus, FieldTypePath.DROPDOWN)) {
+        if (!isFieldSpecificElementDisplayed(organizationStatus, FieldTypePath.DROPDOWN)) {
             return false;
         }
         click(findByXpath(format(getFieldBlock(organizationStatus), XPathBuilder.getXPathByText("5"))));
@@ -326,11 +324,11 @@ public class CompanyDataField extends AbstractDataField {
         }
         refresh();
 
-        if (!checkSpecificElement(industryType, FieldElement.DRAGGABLE)) {
+        if (!isFieldSpecificElementDisplayed(industryType, FieldElement.DRAGGABLE)) {
             return false;
         }
 
-        if (!checkSpecificElement(industryType, FieldTypePath.DROPDOWN)) {
+        if (!isFieldSpecificElementDisplayed(industryType, FieldTypePath.DROPDOWN)) {
             return false;
         }
         click(findByXpath(format(getFieldBlock(industryType), XPathBuilder.getXPathByText("68"))));
@@ -353,11 +351,11 @@ public class CompanyDataField extends AbstractDataField {
         }
         refresh();
 
-        if (!checkSpecificElement(businessType, FieldElement.DRAGGABLE)) {
+        if (!isFieldSpecificElementDisplayed(businessType, FieldElement.DRAGGABLE)) {
             return false;
         }
 
-        if (!checkSpecificElement(businessType, FieldTypePath.DROPDOWN)) {
+        if (!isFieldSpecificElementDisplayed(businessType, FieldTypePath.DROPDOWN)) {
             return false;
         }
         click(findByXpath(format(getFieldBlock(businessType), XPathBuilder.getXPathByText("13"))));
@@ -399,8 +397,8 @@ public class CompanyDataField extends AbstractDataField {
     @Override
     protected Collection<String> getMandatoryFields() {
         return Arrays.asList(
-                getNameDiv(),
-                getSalesOwnerDiv()
+                CompanyField.NAME.getName(),
+                CompanyField.SALES_OWNER.getName()
         );
     }
 
@@ -450,11 +448,11 @@ public class CompanyDataField extends AbstractDataField {
      */
     @Override
     public boolean uncheckMandatoryFields() {
-        final String[] mandatoryFields = new String[]{
-                getNameDiv(),
-                getSalesOwnerDiv(),
+        final Field[] mandatoryFields = new CompanyField[]{
+                CompanyField.NAME,
+                CompanyField.SALES_OWNER
         };
-        unCheck(mandatoryFields);
+        uncheck(mandatoryFields);
 
         return true;
     }

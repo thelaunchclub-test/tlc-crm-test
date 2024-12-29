@@ -1,5 +1,6 @@
 package com.twozo.page.settings.data.fields;
 
+import com.twozo.page.settings.data.fields.field.Field;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,7 @@ import java.util.List;
 public class FieldStatus {
 
     private boolean isDraggable;
-    private String fieldName;
+    private Field field;
     private String append;
     private String fieldType;
     private boolean isAddView;

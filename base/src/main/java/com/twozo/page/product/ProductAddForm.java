@@ -13,6 +13,16 @@ public class ProductAddForm extends AddForm {
         super(webAutomationDriver);
     }
 
+    @Override
+    protected String[] getAutoGeneratingFields() {
+        return new String[0];
+    }
+
+    @Override
+    protected String[] getAddFormSystemFields() {
+        return new String[0];
+    }
+
 
     public static ProductAddForm getInstance(final WebAutomationDriver webAutomationDriver) {
         addProduct = new ProductAddForm(webAutomationDriver);

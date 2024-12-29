@@ -130,11 +130,6 @@ public class SignIn extends BasePage {
         return HomePage.getInstance(webAutomationDriver);
     }
 
-    public void facebookLogin() {
-        send(findByXpath("//*[@name='email']"), "9566452216");
-        send(findByXpath("//*[@type='password']"), "Shab$2015");
-        click(findByText("Log in"));
-    }
 
     public WebPageElement getEmailValidationText() {
         emailValidationText = initializeElement(emailValidationText, () -> findByText("Please enter a valid work email id"));

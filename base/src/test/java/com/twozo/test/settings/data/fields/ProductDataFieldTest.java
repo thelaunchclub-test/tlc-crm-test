@@ -1,7 +1,6 @@
 package com.twozo.test.settings.data.fields;
 
 import com.twozo.commons.cookie.BrowserCookie;
-import com.twozo.page.homepage.HomePage;
 import com.twozo.page.settings.data.fields.FieldStatus;
 import com.twozo.page.settings.data.fields.field.Field;
 import com.twozo.page.settings.data.fields.field.FieldElement;
@@ -17,7 +16,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.nio.file.Paths;
-import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
 
@@ -25,41 +23,35 @@ public class ProductDataFieldTest extends DataFieldTest {
     private static final String PRODUCT_DATA_FIELDS = Paths.get(DATA_FIELDS,"product").toString();
 
     private ProductDataField productDataField;
-    private HomePage homePage;
     private WebAutomationDriver automationDriver;
 
     @DataProvider(name = "productSystemFields")
     private static Object[][] getContactSystemFieldData() {
-        return new TestDataProvider().getTestCases(getFilePath(PRODUCT_DATA_FIELDS, "ProductSystemFields.json"));
+        return new TestDataProvider().getTestData(getFilePath(PRODUCT_DATA_FIELDS, "ProductSystemFields.json"));
     }
 
     @DataProvider(name = "addViewAndRequired")
     private static Object[][] getAddView() {
-        return new TestDataProvider().getTestCases(getFilePath(PRODUCT_DATA_FIELDS, "AddViewAndRequired.json"));
+        return new TestDataProvider().getTestData(getFilePath(PRODUCT_DATA_FIELDS, "AddViewAndRequired.json"));
     }
 
     @DataProvider(name = "autoGeneratingField")
     private static Object[][] getAutoGeneratingFieldData() {
-        return new TestDataProvider().getTestCases(getFilePath(PRODUCT_DATA_FIELDS, "AutoGeneratingFields.json"));
+        return new TestDataProvider().getTestData(getFilePath(PRODUCT_DATA_FIELDS, "AutoGeneratingFields.json"));
     }
 
     @BeforeMethod
     public void before() {
         automationDriver = WebAutomationDriver.get();
-        webNavigator = automationDriver.getWebNavigator();
-        webNavigator.to(link);
+        productDataField = ProductDataField.getInstance(automationDriver);
+        productDataField.navigateTo(link);
 
         for (final BrowserCookie cookie : cookies) {
-            automationDriver.getSessionCookie().addCookie(cookie);
+            productDataField.addCookie(cookie);
         }
 
-        automationDriver.getWebWindowHandler().maximize();
-        automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(10));
-        automationDriver.getWebNavigator().to(SettingsURL.PRODUCT_DATA_FIELDS);
-        automationDriver.getWebWindowHandler().maximize();
-
-        homePage = HomePage.getInstance(automationDriver);
-        productDataField = ProductDataField.getInstance(automationDriver);
+        productDataField.maximize();
+        productDataField.navigateTo(SettingsURL.PRODUCT_DATA_FIELDS);
     }
 
     @AfterMethod
@@ -159,12 +151,12 @@ public class ProductDataFieldTest extends DataFieldTest {
 
     @Test
     public void checkAddForm() {
-        Assert.assertTrue(isPresentInAddForm(productDataField.getFieldsForAddViewAndRequired(FieldElement.ADD_VIEW_CHECKBOX)));
+        Assert.assertTrue(isPresentInAddForm(productDataField.getFieldsEnabledAsAddView()));
     }
 
     @Test
     public void checkAddFormAsRequired() {
-        Assert.assertTrue(isPresentInAddForm(productDataField.getFieldsForAddViewAndRequired(FieldElement.REQUIRED_CHECKBOX)));
+        Assert.assertTrue(isPresentInAddForm(productDataField.getFieldsEnabledAsRequired()));
     }
 
     @Test
@@ -179,7 +171,7 @@ public class ProductDataFieldTest extends DataFieldTest {
 
     @Override
     public boolean isPresentInSummary(final Collection<String> fields) {
-        webNavigator.to(URL.PRODUCTS);
+        productDataField.navigateTo(URL.PRODUCTS);
         productDataField.switchToSummary();
 
         return productDataField.isPresentInSummary(fields);
@@ -187,7 +179,7 @@ public class ProductDataFieldTest extends DataFieldTest {
 
     @Override
     public boolean isPresentInAddForm(final Collection<String> fields) {
-        webNavigator.to(URL.PRODUCTS);
+        productDataField.navigateTo(URL.PRODUCTS);
         productDataField.switchToAddProductForm();
 
         return productDataField.isPresentInAddForm(fields);
@@ -195,7 +187,7 @@ public class ProductDataFieldTest extends DataFieldTest {
 
     @Override
     public boolean isPresentInColumnSettings(final Field[] fields) {
-        webNavigator.to(URL.PRODUCTS);
+        productDataField.navigateTo(URL.PRODUCTS);
         productDataField.switchToColumnSettings();
 
         return productDataField.isPresentInColumnSettings(fields);

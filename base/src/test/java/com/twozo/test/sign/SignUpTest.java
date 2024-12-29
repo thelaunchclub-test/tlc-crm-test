@@ -9,22 +9,13 @@ import com.twozo.test.BaseTest;
 import com.twozo.test.TestCase;
 import com.twozo.test.TestDataProvider;
 import com.twozo.web.driver.service.WebAutomationDriver;
-import com.twozo.web.element.model.Element;
-import com.twozo.web.element.model.LocatorType;
-import com.twozo.web.element.service.WebPageElement;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public final class SignUpTest extends BaseTest {
@@ -35,7 +26,7 @@ public final class SignUpTest extends BaseTest {
 
     @DataProvider(name = "signUpData")
     public static Object[][] getSearchData() {
-        return new TestDataProvider().getTestCases("SignUpData.json");
+        return new TestDataProvider().getTestData("SignUpData.json");
     }
 
     private FieldStatus getFieldStatus(final Object object) {
@@ -87,6 +78,7 @@ public final class SignUpTest extends BaseTest {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
         }
+
         SignUp.getInstance(automationDriver).signUp(account);
     }
 

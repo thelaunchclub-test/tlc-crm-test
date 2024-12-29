@@ -1,7 +1,9 @@
 package com.twozo.page;
 
+import com.github.javafaker.Faker;
 import com.twozo.commons.cookie.BrowserCookie;
 import com.twozo.commons.util.ConfigFileReader;
+import com.twozo.page.url.URL;
 import com.twozo.page.xpath.XPath;
 import com.twozo.page.xpath.XPathBuilder;
 import com.twozo.web.driver.service.*;
@@ -12,14 +14,19 @@ import com.twozo.web.element.service.ElementInformationProvider;
 import com.twozo.web.element.service.ElementInteraction;
 import com.twozo.web.element.service.WebPageElement;
 import com.twozo.web.mouse.service.actions.MouseActions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
 import java.util.*;
 import java.util.function.Supplier;
 
 public class BasePage {
 
-    protected static final Map<String, String> MAP = ConfigFileReader.get("locator/locator.Properties");
+    protected static final Map<String, String> LOCATORS = ConfigFileReader.get("locator/locator.properties");
+    protected static final Map<String, String> TEXT = ConfigFileReader.get("Text.properties");
     protected static final String TWO_STRING_FORMAT = "%s%s";
+    protected static final Logger LOGGER = LoggerFactory.getLogger(BasePage.class);
 
     public WebAutomationDriver webAutomationDriver;
     public ElementFinder elementFinder;
@@ -29,6 +36,8 @@ public class BasePage {
     public MouseActions mouseActions;
     public ExplicitWaitHandler explicitWaitHandler;
     public ImplicitWaitHandler implicitWaitHandler;
+    public WebWindow webWindowHandler;
+    public Faker faker;
     private static BasePage basePage;
 
     protected BasePage(final WebAutomationDriver webAutomationDriver) {
@@ -39,7 +48,9 @@ public class BasePage {
         this.mouseActions = webAutomationDriver.getMouseActionsHandler();
         this.implicitWaitHandler = webAutomationDriver.getImplicitWaitHandler();
         this.explicitWaitHandler = webAutomationDriver.getExplicitWaitHandler();
+        this.webWindowHandler = webAutomationDriver.getWebWindowHandler();
         this.sessionCookie = webAutomationDriver.getSessionCookie();
+        this.faker = new Faker();
     }
 
     public static BasePage getInstance(final WebAutomationDriver webAutomationDriver) {
@@ -48,23 +59,12 @@ public class BasePage {
         return basePage;
     }
 
-    public Set<BrowserCookie> getCookies() {
-        //System.out.println(sessionCookie.getCookies());
-//        for (Cookie cookie : sessionCookie.getCookies()) {
-//            System.out.println(cookie);
-//        }
-        return sessionCookie.getCookies();
-    }
-
-    public void addCookies(final Set<BrowserCookie> cookies) {
-        //System.out.println(sessionCookie.getCookies());
-        for (BrowserCookie cookie : cookies) {
-            sessionCookie.addCookie(cookie);
-        }
+    public void addCookie(final BrowserCookie cookie) {
+        sessionCookie.addCookie(cookie);
     }
 
     public WebPageElement getColumnSettingsButton() {
-        return findByXpath("//*[@class='css-181x7hd']");
+        return findByXpath("//*[@class='css-1jk9avb']");
     }
 
     public void switchToColumnSettings() {
@@ -81,8 +81,75 @@ public class BasePage {
         webAutomationDriver.close();
     }
 
+    public Faker getFaker() {
+        return faker;
+    }
+
+    public void navigateTo(final String link) {
+        webNavigator.to(link);
+    }
+
+    public void maximize() {
+        webWindowHandler.maximize();
+    }
+
+    public void implicitWait(final Duration duration) {
+        implicitWaitHandler.implicitWait(duration);
+    }
+
     protected String format(final String div, final String element) {
         return String.format(TWO_STRING_FORMAT, div, element);
+    }
+
+    public void switchToContact() {
+        navigateTo(URL.CONTACTS);
+    }
+
+    public void switchToCompany() {
+        navigateTo(URL.COMPANIES);
+    }
+
+    public void switchToDeal() {
+        navigateTo(URL.DEALS);
+    }
+
+    public void switchToProduct() {
+        navigateTo(URL.PRODUCTS);
+    }
+
+    public void switchToActivity() {
+        navigateTo(URL.ACTIVITIES);
+    }
+
+    public void switchToContactAddForm() {
+        if (!Objects.equals(getURL(), URL.CONTACTS)) {
+            navigateTo(URL.CONTACTS);
+        }
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+
+        }
+        click(findByText("Contact"));
+        waitTillVisible(LOCATORS.get("crm.add.form"));
+    }
+
+    public void switchToCompanyAddForm() {
+        navigateTo(URL.COMPANIES);
+        click(findByText("Company"));
+        waitTillVisible(LOCATORS.get("crm.add.form"));
+    }
+
+    public void switchToDealAddForm() {
+        navigateTo(URL.DEALS);
+        click(findByText("Deals"));
+        waitTillVisible(LOCATORS.get("crm.add.form"));
+    }
+
+    public void switchToProductAddForm() {
+        navigateTo(URL.PRODUCTS);
+        click(findByText("Product"));
+        waitTillVisible(LOCATORS.get("crm.add.form"));
     }
 
     public void waitTillVisible(final Element element) {
@@ -192,12 +259,12 @@ public class BasePage {
     protected final void chooseDate(final String fieldName, final String date) {
         final String[] part = date.split("-");
 
-        click(findByXpath(String.format(MAP.get("crm.calendar.icon"), fieldName)));
-        click(findByXpath(MAP.get("crm.calendar.switch.to.year.view")));
+        click(findByXpath(String.format(LOCATORS.get("crm.calendar.icon"), fieldName)));
+        click(findByXpath(LOCATORS.get("crm.calendar.switch.to.year.view")));
         click(findByNumber(Integer.parseInt(part[3])));
 
-        while (!getText(findByXpath(MAP.get("crm.calendar.month.and.year"))).contains(Month.fromInt(Integer.parseInt(part[2])))) {
-            click(findByXpath(MAP.get("crm.calendar.next.month.button")));
+        while (!getText(findByXpath(LOCATORS.get("crm.calendar.month.and.year"))).contains(Month.fromInt(Integer.parseInt(part[2])))) {
+            click(findByXpath(LOCATORS.get("crm.calendar.next.month.button")));
         }
 
         click(findByNumber(Integer.parseInt(part[1])));
@@ -286,6 +353,15 @@ public class BasePage {
     public void refresh() {
         webNavigator.refresh();
     }
+
+    public void enableFieldInColumnSettings(final String fieldName) {
+        final String fieldCheckboxXpath = String.format(LOCATORS.get("crm.column.settings.field.checkbox"), fieldName);
+
+        if (!isSelected(findByXpath(fieldCheckboxXpath))) {
+            click(findByXpath(fieldCheckboxXpath));
+        }
+    }
+
 
 //    public WebPageElement getStatus() {
 //

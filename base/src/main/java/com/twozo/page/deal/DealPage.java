@@ -2,6 +2,7 @@ package com.twozo.page.deal;
 
 import com.twozo.page.BasePage;
 import com.twozo.page.Filter;
+import com.twozo.page.url.URL;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import com.twozo.web.element.service.WebPageElement;
 
@@ -14,7 +15,6 @@ public class DealPage extends BasePage {
     private DealAddForm addDeal;
     private KanbanView kanbanView;
     private ForecastView forecastView;
-    private ListView listView;
     private PipelineForm addPipeline;
     private Filter filter;
     private WebPageElement signInButton;
@@ -46,11 +46,11 @@ public class DealPage extends BasePage {
     }
 
     public WebPageElement getListViewButton() {
-        return findByXpath(MAP.get("crm.deal.view.list"));
+        return findByXpath(LOCATORS.get("crm.deal.view.list"));
     }
 
     public WebPageElement getKanbanViewButton() {
-        return findByText(MAP.get("crm.deal.view.kanban"));
+        return findByText(LOCATORS.get("crm.deal.view.kanban"));
     }
 
     public WebPageElement getForecastViewButton() {
@@ -58,23 +58,23 @@ public class DealPage extends BasePage {
     }
 
     public WebPageElement getAllDealButton() {
-        return findByText(MAP.get("crm.deal.filter.all.deal"));
+        return findByText(LOCATORS.get("crm.deal.filter.all.deal"));
     }
 
     public WebPageElement getImportDealsButton() {
-        return findByText(MAP.get("crm.deal.button.import.deal"));
+        return findByText(LOCATORS.get("crm.deal.button.import.deal"));
     }
 
     public WebPageElement getAddDealButton() {
-        return findByXpath(MAP.get("crm.deal.button.add.deal"));
+        return findByXpath(LOCATORS.get("crm.deal.button.add.deal"));
     }
 
     public WebPageElement getContactIcon() {
-        return findByXpath(MAP.get("crm.contact.icon"));
+        return findByXpath(LOCATORS.get("crm.contact.icon"));
     }
 
     public WebPageElement getFilterIcon() {
-        return findByXpath(MAP.get("crm.source.filter.icon"));
+        return findByXpath(LOCATORS.get("crm.source.filter.icon"));
     }
 
 //    public WebPageElement getNewDeal() {
@@ -90,15 +90,15 @@ public class DealPage extends BasePage {
 //    }
 
     public WebPageElement getManageButton() {
-        return findByXpath(MAP.get("crm.deal.button.manage"));
+        return findByXpath(LOCATORS.get("crm.deal.button.manage"));
     }
 
     public WebPageElement getActivePipeline() {
-        return findByXpath(MAP.get("crm.deal.pipeline.active"));
+        return findByXpath(LOCATORS.get("crm.deal.pipeline.active"));
     }
 
     public Collection<WebPageElement> getStagesOfPipeline() {
-        return findElementsByClass(MAP.get("crm.deal.pipeline.stages"));
+        return findElementsByClass(LOCATORS.get("crm.deal.pipeline.stages"));
     }
 
     public DealAddForm getAddDeal() {
@@ -173,7 +173,7 @@ public class DealPage extends BasePage {
 
 
     public void switchToColumnSettings() {
-        waitTillClickable(MAP.get("crm.deal.view.list"));
+        waitTillClickable(LOCATORS.get("crm.deal.view.list"));
         click(getListViewButton());
         click(getColumnSettingsButton());
     }
@@ -184,8 +184,9 @@ public class DealPage extends BasePage {
     }
 
     public void switchToPipeline() {
+        navigateTo(URL.DEALS);
         click(getActivePipeline());
-        waitTillClickable(MAP.get("crm.deal.button.manage"));
+        waitTillClickable(LOCATORS.get("crm.deal.button.manage"));
 //        try {
 //            Thread.sleep(3000);
 //        } catch (InterruptedException e) {
@@ -194,7 +195,7 @@ public class DealPage extends BasePage {
     }
 
     public boolean verifyPipelineChangeInKanbanReflectedInAddDealForm() {
-        final String activePipelineXPath = MAP.get("crm.deal.pipeline.active");
+        final String activePipelineXPath = LOCATORS.get("crm.deal.pipeline.active");
         String newPipeline = null;
         waitTillVisible(activePipelineXPath);
 
@@ -202,7 +203,7 @@ public class DealPage extends BasePage {
 
         System.out.println(currentPipeline);
         click(getActivePipeline());
-        final Collection<WebPageElement> pipelinesAsElement = findElementsByXpath(MAP.get("crm.deal.pipelines"));
+        final Collection<WebPageElement> pipelinesAsElement = findElementsByXpath(LOCATORS.get("crm.deal.pipelines"));
         boolean isPipelineChanged = false;
 
         for (final WebPageElement pipelineAsElement : pipelinesAsElement) {

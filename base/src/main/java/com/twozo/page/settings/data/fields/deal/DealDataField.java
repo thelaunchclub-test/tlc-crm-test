@@ -1,6 +1,7 @@
 package com.twozo.page.settings.data.fields.deal;
 
 import com.twozo.page.settings.data.fields.AbstractDataField;
+import com.twozo.page.settings.data.fields.company.field.CompanyField;
 import com.twozo.page.settings.data.fields.deal.field.DealField;
 import com.twozo.page.settings.data.fields.field.*;
 import com.twozo.page.xpath.XPathBuilder;
@@ -74,130 +75,133 @@ public class DealDataField extends AbstractDataField {
     }
 
     private SystemField getTitleField() {
-        final String titleDiv = getTitleDiv();
+        final String title = DealField.TITLE.getName();
 
         return new SystemField(
-                findByXpath(format(titleDiv, FieldElement.NON_DRAGGABLE)),
-                findByXpath(format(titleDiv, XPathBuilder.getXPathByText(DealField.TITLE.getName()))),
-                findByXpath(format(titleDiv, XPathBuilder.getXPathByText(DealField.TITLE.getFieldType()))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(titleDiv, FieldElement.ADD_VIEW_CHECKBOX))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(titleDiv, FieldElement.REQUIRED_CHECKBOX))),
-                null);
+                getDraggableElement(DealField.TITLE),
+                getFieldName(DealField.TITLE),
+                getFieldType(DealField.TITLE),
+                isSelected(getAddViewCheckboxOf(title)
+                ), isSelected(getRequiredCheckboxOf(title)), null);
     }
 
     private SystemField getPipelineField() {
-        final String pipelineDiv = getPipelineDiv();
+        final String pipeline = DealField.PIPELINE.getName();
 
         return new SystemField(
-                findByXpath(format(pipelineDiv, FieldElement.NON_DRAGGABLE)),
-                findByXpath(format(pipelineDiv, XPathBuilder.getXPathByText(DealField.PIPELINE.getName()))),
-                findByXpath(format(pipelineDiv, XPathBuilder.getXPathByText(DealField.PIPELINE.getFieldType()))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(pipelineDiv, FieldElement.ADD_VIEW_CHECKBOX))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(pipelineDiv, FieldElement.REQUIRED_CHECKBOX))),
-                null);
+                getDraggableElement(DealField.PIPELINE),
+                getFieldName(DealField.PIPELINE),
+                getFieldType(DealField.PIPELINE),
+                isSelected(getAddViewCheckboxOf(pipeline)),
+                isSelected(getRequiredCheckboxOf(pipeline)),
+                null
+        );
     }
 
     private DependableField getStageField() {
-        final String stageDiv = getStageDiv();
-
         return new DependableField(
-                findByXpath(format(stageDiv, XPathBuilder.getXPathByText(DealField.STAGE.getName()))),
-                findByXpath(format(stageDiv, XPathBuilder.getXPathByText(DealField.STAGE.getFieldType()))));
+                getFieldName(DealField.STAGE),
+                getFieldType(DealField.STAGE)
+        );
     }
 
     private DependableField getWonReasonField() {
-        final String wonReasonDiv = getWonReasonDiv();
-
         return new DependableField(
-                findByXpath(format(wonReasonDiv, XPathBuilder.getXPathByText(DealField.WON_REASON.getName()))),
-                findByXpath(format(wonReasonDiv, XPathBuilder.getXPathByText(DealField.WON_REASON.getFieldType()))));
+                getFieldName(DealField.WON_REASON),
+                getFieldType(DealField.WON_REASON)
+        );
     }
 
     private DependableField getLostReasonField() {
-        final String lostReasonDiv = getLostReasonDiv();
-
         return new DependableField(
-                findByXpath(format(lostReasonDiv, XPathBuilder.getXPathByText(DealField.LOST_REASON.getName()))),
-                findByXpath(format(lostReasonDiv, XPathBuilder.getXPathByText(DealField.LOST_REASON.getFieldType()))));
+                getFieldName(DealField.LOST_REASON),
+                getFieldType(DealField.LOST_REASON)
+        );
     }
 
     private DependableField getDealClosedOnField() {
-        final String dealClosedOnDiv = getDealClosedOnDiv();
-
         return new DependableField(
-                findByXpath(format(dealClosedOnDiv, XPathBuilder.getXPathByText(DealField.DEAL_CLOSED_ON.getName()))),
-                findByXpath(format(dealClosedOnDiv, XPathBuilder.getXPathByText(DealField.DEAL_CLOSED_ON.getFieldType()))));
+                getFieldName(DealField.DEAL_CLOSED_ON),
+                getFieldType(DealField.DEAL_CLOSED_ON)
+        );
     }
 
     private SystemField getPrimaryContactField() {
-        final String primaryContactDiv = getPrimaryContactDiv();
+        final String primaryContactName = DealField.PRIMARY_CONTACT.getName();
 
         return new SystemField(
-                findByXpath(format(primaryContactDiv, FieldElement.NON_DRAGGABLE)),
-                findByXpath(format(primaryContactDiv, XPathBuilder.getXPathByText(DealField.PRIMARY_CONTACT.getName()))),
-                findByXpath(format(primaryContactDiv, XPathBuilder.getXPathByText(DealField.PRIMARY_CONTACT.getFieldType()))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(primaryContactDiv, FieldElement.ADD_VIEW_CHECKBOX))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(primaryContactDiv, FieldElement.REQUIRED_CHECKBOX))),
-                null);
+                getDraggableElement(DealField.PRIMARY_CONTACT),
+                getFieldName(DealField.PRIMARY_CONTACT),
+                getFieldType(DealField.PRIMARY_CONTACT),
+                isSelected(getAddViewCheckboxOf(primaryContactName)),
+                isSelected(getRequiredCheckboxOf(primaryContactName)),
+                null
+        );
     }
 
     private SystemField getCompanyField() {
-        final String companyDiv = getCompanyDiv();
+        final String company = DealField.COMPANY.getName();
 
         return new SystemField(
-                findByXpath(format(companyDiv, FieldElement.DRAGGABLE)),
-                findByXpath(format(companyDiv, XPathBuilder.getXPathByText(DealField.COMPANY.getName()))),
-                findByXpath(format(companyDiv, FieldTypePath.COMPANY)),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(companyDiv, FieldElement.ADD_VIEW_CHECKBOX))),
-                !isSelected(findByXpath(getPathOfSpecificCheckbox(companyDiv, FieldElement.REQUIRED_CHECKBOX))),
-                null);
+                getDraggableElement(DealField.COMPANY),
+                getFieldName(DealField.COMPANY),
+                findByXpath(format(getCompanyDiv(), FieldTypePath.COMPANY)),
+                isSelected(getAddViewCheckboxOf(company)),
+                !isSelected(getRequiredCheckboxOf(company)),
+                null
+        );
     }
 
     private SystemField getRelatedContactsField() {
-        final String relatedContactsDiv = getRelatedContactsDiv();
+        final String relatedContacts = DealField.RELATED_CONTACTS.getName();
 
         return new SystemField(
-                findByXpath(format(relatedContactsDiv, FieldElement.DRAGGABLE)),
-                findByXpath(format(relatedContactsDiv, XPathBuilder.getXPathByText(DealField.RELATED_CONTACTS.getName()))),
-                findByXpath(format(relatedContactsDiv, FieldTypePath.CONTACT)),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(relatedContactsDiv, FieldElement.ADD_VIEW_CHECKBOX))),
-                !isSelected(findByXpath(getPathOfSpecificCheckbox(relatedContactsDiv, FieldElement.REQUIRED_CHECKBOX))),
-                null);
+                getDraggableElement(DealField.RELATED_CONTACTS),
+                getFieldName(DealField.RELATED_CONTACTS),
+                findByXpath(format(getRelatedContactsDiv(), FieldTypePath.CONTACT)),
+                isSelected(getAddViewCheckboxOf(relatedContacts)),
+                !isSelected(getRequiredCheckboxOf(relatedContacts)),
+                null
+        );
     }
 
     private SystemField getDealValueField() {
-        final String dealValueDiv = getDealValueDiv();
+        final String dealValue = DealField.DEAL_VALUE.getName();
 
         return new SystemField(
-                findByXpath(format(dealValueDiv, FieldElement.DRAGGABLE)),
-                findByXpath(format(dealValueDiv, XPathBuilder.getXPathByText(DealField.DEAL_VALUE.getName()))),
-                findByXpath(format(dealValueDiv, XPathBuilder.getXPathByText(DealField.DEAL_VALUE.getFieldType()))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(dealValueDiv, FieldElement.ADD_VIEW_CHECKBOX))),
-                !isSelected(findByXpath(getPathOfSpecificCheckbox(dealValueDiv, FieldElement.REQUIRED_CHECKBOX))),
-                null);
+                getDraggableElement(DealField.DEAL_VALUE),
+                getFieldName(DealField.DEAL_VALUE),
+                getFieldType(DealField.DEAL_VALUE),
+                isSelected(getAddViewCheckboxOf(dealValue)),
+                !isSelected(getRequiredCheckboxOf(dealValue)),
+                null
+        );
     }
 
     private SystemField getSalesOwnerField() {
-        final String salesOwnerDiv = getSalesOwnerDiv();
+        final String salesOwner = DealField.SALES_OWNER.getName();
 
         return new SystemField(
-                findByXpath(format(salesOwnerDiv, FieldElement.DRAGGABLE)),
-                findByXpath(format(salesOwnerDiv, XPathBuilder.getXPathByText(DealField.SALES_OWNER.getName()))),
-                findByXpath(format(salesOwnerDiv, XPathBuilder.getXPathByText(DealField.SALES_OWNER.getFieldType()))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(salesOwnerDiv, FieldElement.ADD_VIEW_CHECKBOX))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(salesOwnerDiv, FieldElement.REQUIRED_CHECKBOX))),
-                null);
+                getDraggableElement(DealField.SALES_OWNER),
+                getFieldName(DealField.SALES_OWNER),
+                getFieldType(DealField.SALES_OWNER),
+                isSelected(getAddViewCheckboxOf(salesOwner)),
+                isSelected(getRequiredCheckboxOf(salesOwner)),
+                null
+        );
     }
 
     private SystemField getProductQuantityField() {
-        final String productQuantityDiv = getProductQuantityDiv();
+        final String productQuantity = DealField.PRODUCT_QUANTITY.getName();
+
         return new SystemField(
-                findByXpath(format(productQuantityDiv, FieldElement.DRAGGABLE)),
-                findByXpath(format(productQuantityDiv, XPathBuilder.getXPathByText(DealField.PRODUCT_QUANTITY.getName()))),
-                findByXpath(format(productQuantityDiv, XPathBuilder.getXPathByText(DealField.PRODUCT_QUANTITY.getFieldType()))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(productQuantityDiv, FieldElement.ADD_VIEW_CHECKBOX))),
-                isSelected(findByXpath(getPathOfSpecificCheckbox(productQuantityDiv, FieldElement.REQUIRED_CHECKBOX))),
-                null);
+                getDraggableElement(DealField.PRODUCT_QUANTITY),
+                getFieldName(DealField.PRODUCT_QUANTITY),
+                getFieldType(DealField.PRODUCT_QUANTITY),
+                isSelected(getAddViewCheckboxOf(productQuantity)),
+                isSelected(getRequiredCheckboxOf(productQuantity)),
+                null
+        );
     }
 
     public boolean verifyActiveDealTab() {
@@ -247,7 +251,7 @@ public class DealDataField extends AbstractDataField {
                 "Offline",
         };
 
-       return areChoicesPresent(paymentStatus);
+        return areChoicesPresent(paymentStatus);
     }
 
 
@@ -258,29 +262,29 @@ public class DealDataField extends AbstractDataField {
             addField(pipeline);
         }
 
-        if (!checkSpecificElement(pipeline, FieldElement.NON_DRAGGABLE)) {
+        if (!isFieldSpecificElementDisplayed(pipeline, FieldElement.NON_DRAGGABLE)) {
             return false;
         }
 
-        if (!checkSpecificElement(pipeline, FieldTypePath.DROPDOWN)) {
+        if (!isFieldSpecificElementDisplayed(pipeline, FieldTypePath.DROPDOWN)) {
             return false;
         }
 
-        if (!checkSpecificElement(pipeline, XPathBuilder.getXPathByText("1"))) {
+        if (!isFieldSpecificElementDisplayed(pipeline, XPathBuilder.getXPathByText("1"))) {
             return false;
         }
         final String stage = DealField.STAGE.getName();
 
-        if (!checkSpecificElement(stage, FieldTypePath.DROPDOWN)) {
+        if (!isFieldSpecificElementDisplayed(stage, FieldTypePath.DROPDOWN)) {
             return false;
         }
-        if (!checkSpecificElement(stage, XPathBuilder.getXPathByText("0"))) {
+        if (!isFieldSpecificElementDisplayed(stage, XPathBuilder.getXPathByText("0"))) {
             return false;
         }
 
         final String wonReason = DealField.WON_REASON.getName();
 
-        if (!checkSpecificElement(wonReason, FieldTypePath.DROPDOWN)) {
+        if (!isFieldSpecificElementDisplayed(wonReason, FieldTypePath.DROPDOWN)) {
             return false;
         }
 
@@ -289,10 +293,10 @@ public class DealDataField extends AbstractDataField {
             return false;
         }
 
-        click(findByXpath(MAP.get("body")));
+        click(findByXpath(LOCATORS.get("body")));
 
         final String lostReason = DealField.LOST_REASON.getName();
-        if (!checkSpecificElement(lostReason, FieldTypePath.DROPDOWN)) {
+        if (!isFieldSpecificElementDisplayed(lostReason, FieldTypePath.DROPDOWN)) {
             return false;
         }
 
@@ -301,9 +305,9 @@ public class DealDataField extends AbstractDataField {
             return false;
         }
 
-        click(findByXpath(MAP.get("body")));
+        click(findByXpath(LOCATORS.get("body")));
 
-        return checkSpecificElement(DealField.DEAL_CLOSED_ON.getName(), FieldTypePath.DATE);
+        return isFieldSpecificElementDisplayed(DealField.DEAL_CLOSED_ON.getName(), FieldTypePath.DATE);
     }
 
 
@@ -314,11 +318,11 @@ public class DealDataField extends AbstractDataField {
             addField(type);
         }
 
-        if (!checkSpecificElement(type, FieldElement.DRAGGABLE)) {
+        if (!isFieldSpecificElementDisplayed(type, FieldElement.DRAGGABLE)) {
             return false;
         }
 
-        if (!checkSpecificElement(type, FieldTypePath.DROPDOWN)) {
+        if (!isFieldSpecificElementDisplayed(type, FieldTypePath.DROPDOWN)) {
             return false;
         }
         click(findByXpath(format(type, XPathBuilder.getXPathByText("3"))));
@@ -333,11 +337,11 @@ public class DealDataField extends AbstractDataField {
             addField(paymentStatus);
         }
 
-        if (!checkSpecificElement(paymentStatus, FieldElement.DRAGGABLE)) {
+        if (!isFieldSpecificElementDisplayed(paymentStatus, FieldElement.DRAGGABLE)) {
             return false;
         }
 
-        if (!checkSpecificElement(paymentStatus, FieldTypePath.DROPDOWN)) {
+        if (!isFieldSpecificElementDisplayed(paymentStatus, FieldTypePath.DROPDOWN)) {
             return false;
         }
         click(findByXpath(format(paymentStatus, XPathBuilder.getXPathByText("2"))));
@@ -364,10 +368,10 @@ public class DealDataField extends AbstractDataField {
     @Override
     protected List<String> getMandatoryFields() {
         return Arrays.asList(
-                getTitleDiv(),
-                getPipelineDiv(),
-                getPrimaryContactDiv(),
-                getSalesOwnerDiv()
+                DealField.TITLE.getName(),
+                DealField.PIPELINE.getName(),
+                DealField.PRIMARY_CONTACT.getName(),
+                DealField.SALES_OWNER.getName()
         );
     }
 
@@ -402,13 +406,13 @@ public class DealDataField extends AbstractDataField {
 
     @Override
     public boolean uncheckMandatoryFields() {
-        final String[] mandatoryFields = new String[]{
-                getTitleDiv(),
-                getPipelineDiv(),
-                getPrimaryContactDiv(),
-                getSalesOwnerDiv()
+        final Field[] mandatoryFields = new DealField[]{
+                DealField.TITLE,
+                DealField.PIPELINE,
+                DealField.PRIMARY_CONTACT,
+                DealField.SALES_OWNER
         };
-        unCheck(mandatoryFields);
+        uncheck(mandatoryFields);
 
         return true;
     }

@@ -8,13 +8,12 @@ import com.twozo.page.url.URL;
 import com.twozo.test.BaseTest;
 import com.twozo.test.TestCase;
 import com.twozo.web.driver.service.WebAutomationDriver;
-import com.twozo.web.driver.service.WebNavigator;
+
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -23,25 +22,21 @@ public class DealTest extends BaseTest {
     protected static final String DEAL_PATH = "deal";
 
     private DealPage dealPage;
-    WebNavigator webNavigator;
     private WebAutomationDriver automationDriver;
 
     @BeforeMethod
     public void before() {
         automationDriver = WebAutomationDriver.get();
-        webNavigator = automationDriver.getWebNavigator();
-        webNavigator.to(link);
+        dealPage = DealPage.getInstance(automationDriver);
+
+        dealPage.navigateTo(link);
 
         for (final BrowserCookie cookie : cookies) {
-            automationDriver.getSessionCookie().addCookie(cookie);
+            dealPage.addCookie(cookie);
         }
 
-        automationDriver.getWebWindowHandler().maximize();
-        automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(10));
-        automationDriver.getWebWindowHandler().maximize();
-        webNavigator.to(URL.DEALS);
-
-        dealPage = DealPage.getInstance(automationDriver);
+        dealPage.maximize();
+        dealPage.navigateTo(URL.DEALS);
     }
 
     @AfterMethod
@@ -82,6 +77,5 @@ public class DealTest extends BaseTest {
     @Test
     public void verifyPipelineChangeInKanbanReflectedInAddDealForm() {
         Assert.assertTrue(dealPage.verifyPipelineChangeInKanbanReflectedInAddDealForm());
-        //dealPage.verifyPipelineChangeInKanbanReflectedInAddDealForm();
     }
 }

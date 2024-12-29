@@ -2,7 +2,6 @@ package com.twozo.test.deal;
 
 import com.twozo.commons.cookie.BrowserCookie;
 import com.twozo.page.deal.PipelinePage;
-import com.twozo.page.url.URL;
 import com.twozo.test.TestCase;
 import com.twozo.test.TestDataProvider;
 import com.twozo.web.driver.service.WebAutomationDriver;
@@ -14,7 +13,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.nio.file.Paths;
-import java.time.Duration;
 
 public class PipelineTest extends DealTest {
 
@@ -25,25 +23,21 @@ public class PipelineTest extends DealTest {
 
     @DataProvider(name = "defaultPipeline")
     public static Object[][] getPipelineForDefault() {
-        return new TestDataProvider().getTestCases(getFilePath(PIPELINE_PATH, "DefaultPipeline.json"));
+        return new TestDataProvider().getTestData(getFilePath(PIPELINE_PATH, "DefaultPipeline.json"));
     }
 
     @BeforeMethod
     public void before() {
         automationDriver = WebAutomationDriver.get();
-        webNavigator = automationDriver.getWebNavigator();
-        webNavigator.to(link);
+        pipelinePage = PipelinePage.getInstance(automationDriver);
+
+        pipelinePage.navigateTo(link);
 
         for (final BrowserCookie cookie : cookies) {
-            automationDriver.getSessionCookie().addCookie(cookie);
+            pipelinePage.addCookie(cookie);
         }
 
-        automationDriver.getWebWindowHandler().maximize();
-        automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(10));
-        automationDriver.getWebWindowHandler().maximize();
-        webNavigator.to(URL.DEALS);
-
-        pipelinePage = PipelinePage.getInstance(automationDriver);
+        pipelinePage.maximize();
         pipelinePage.switchToPipeline();
     }
 

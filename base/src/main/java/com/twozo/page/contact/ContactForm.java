@@ -19,6 +19,7 @@ public class ContactForm implements Form {
     private String designation;
     private String salesOwner;
     private String lifecycleStage;
+    private String lifecycleStatus;
     private String source;
     private String territory;
     private List<String> tags;

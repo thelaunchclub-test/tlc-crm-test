@@ -160,7 +160,7 @@ public class SignUp extends BasePage {
         return completeSignUpButton;
     }
 
-    public HomePage signUp(final Account account) {
+    public void signUp(final Account account) {
         send(getEmailField(), account.email);
         click(getNextButton());
         send(getNameField(), account.getName());
@@ -171,8 +171,6 @@ public class SignUp extends BasePage {
         click(getJobRoleDropDown());
         dropdown(account.getJobRole());
         click(getCompleteSignUpButton());
-
-        return HomePage.getInstance(webAutomationDriver);
     }
 
     public SignIn signIn() {

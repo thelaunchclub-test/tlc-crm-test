@@ -2,7 +2,6 @@ package com.twozo.test.deal;
 
 import com.twozo.commons.cookie.BrowserCookie;
 import com.twozo.page.deal.PipelineForm;
-import com.twozo.page.url.URL;
 import com.twozo.test.TestCase;
 import com.twozo.test.TestDataProvider;
 import com.twozo.web.driver.service.WebAutomationDriver;
@@ -13,7 +12,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.nio.file.Paths;
-import java.time.Duration;
 
 public class PipelineFormTest extends DealTest {
 
@@ -24,60 +22,56 @@ public class PipelineFormTest extends DealTest {
 
     @DataProvider(name = "editPipelineName")
     public static Object[][] getNewPipelineName() {
-        return new TestDataProvider().getTestCases(getFilePath(PIPELINE_PATH, "EditPipelineName.json"));
+        return new TestDataProvider().getTestData(getFilePath(PIPELINE_PATH, "EditPipelineName.json"));
     }
 
     @DataProvider(name = "editPipelineStage")
     public static Object[][] getNewPipelineStage() {
-        return new TestDataProvider().getTestCases(getFilePath(PIPELINE_PATH, "EditPipelineStage.json"));
+        return new TestDataProvider().getTestData(getFilePath(PIPELINE_PATH, "EditPipelineStage.json"));
     }
 
     @DataProvider(name = "editPipelineRottingDays")
     public static Object[][] getPipelineRottingDays() {
-        return new TestDataProvider().getTestCases(getFilePath(PIPELINE_PATH, "EditPipelineRottingDays.json"));
+        return new TestDataProvider().getTestData(getFilePath(PIPELINE_PATH, "EditPipelineRottingDays.json"));
     }
 
     @DataProvider(name = "addStage")
     public static Object[][] getAddStageName() {
-        return new TestDataProvider().getTestCases(getFilePath(PIPELINE_PATH, "AddStage.json"));
+        return new TestDataProvider().getTestData(getFilePath(PIPELINE_PATH, "AddStage.json"));
     }
 
     @DataProvider(name = "deleteStage")
     public static Object[][] getDeleteStageName() {
-        return new TestDataProvider().getTestCases(getFilePath(PIPELINE_PATH, "DeleteStage.json"));
+        return new TestDataProvider().getTestData(getFilePath(PIPELINE_PATH, "DeleteStage.json"));
     }
 
     @DataProvider(name = "editProbability")
     public static Object[][] getNewProbability() {
-        return new TestDataProvider().getTestCases(getFilePath(PIPELINE_PATH, "EditProbability.json"));
+        return new TestDataProvider().getTestData(getFilePath(PIPELINE_PATH, "EditProbability.json"));
     }
 
     @DataProvider(name = "deletePipeline")
     public static Object[][] getDeletePipelineName() {
-        return new TestDataProvider().getTestCases(getFilePath(PIPELINE_PATH,"DeletePipeline.json"));
+        return new TestDataProvider().getTestData(getFilePath(PIPELINE_PATH, "DeletePipeline.json"));
     }
 
     @DataProvider(name = "createPipeline")
     public static Object[][] getPipelineName() {
-        return new TestDataProvider().getTestCases(getFilePath(PIPELINE_PATH,"CreatePipeline.json"));
+        return new TestDataProvider().getTestData(getFilePath(PIPELINE_PATH, "CreatePipeline.json"));
     }
 
     @BeforeMethod
     public void before() {
         automationDriver = WebAutomationDriver.get();
-        webNavigator = automationDriver.getWebNavigator();
-        webNavigator.to(link);
+        pipelineForm = PipelineForm.getInstance(automationDriver);
+
+        pipelineForm.navigateTo(link);
 
         for (final BrowserCookie cookie : cookies) {
-            automationDriver.getSessionCookie().addCookie(cookie);
+            pipelineForm.addCookie(cookie);
         }
 
-        automationDriver.getWebWindowHandler().maximize();
-        automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(10));
-        automationDriver.getWebWindowHandler().maximize();
-        webNavigator.to(URL.DEALS);
-
-        pipelineForm = PipelineForm.getInstance(automationDriver);
+        pipelineForm.maximize();
         pipelineForm.switchToPipeline();
     }
 

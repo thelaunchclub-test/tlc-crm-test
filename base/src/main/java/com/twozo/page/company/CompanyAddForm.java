@@ -3,6 +3,7 @@ package com.twozo.page.company;
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.twozo.page.add.form.AddForm;
 import com.twozo.page.settings.data.fields.company.field.CompanyField;
+import com.twozo.page.url.URL;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import com.twozo.web.element.model.Element;
 import com.twozo.web.element.model.LocatorType;
@@ -18,7 +19,16 @@ public class CompanyAddForm extends AddForm {
 
     protected CompanyAddForm(final WebAutomationDriver webAutomationDriver) {
         super(webAutomationDriver);
-        switchToAddForm("Company");
+    }
+
+    @Override
+    protected String[] getAutoGeneratingFields() {
+        return new String[0];
+    }
+
+    @Override
+    protected String[] getAddFormSystemFields() {
+        return new String[0];
     }
 
     public static CompanyAddForm getInstance(final WebAutomationDriver webAutomationDriver) {
