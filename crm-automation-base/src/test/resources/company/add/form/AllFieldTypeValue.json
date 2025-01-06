@@ -1,0 +1,35 @@
+[
+  {
+    "testCaseID": 1,
+    "title": "Default fields of Add Form",
+    "input": {
+      "Name": "TechCorp",
+      "Website": "https://www.techcorp.com",
+      "Sales Owner": "ixi1",
+      "Address": {
+        "Address Line 1": "123 Main Street",
+        "Address Line 2": "Suite 400",
+        "City": "San Francisco",
+        "State": "California",
+        "Country": "Angola",
+        "Pincode": "94105"
+      },
+      "Facebook": "https://facebook.com/TechCorp",
+      "Twitter": "https://twitter.com/TechCorp",
+      "LinkedIn": "https://linkedin.com/company/TechCorp",
+      "Annual Revenue": {
+        "Value": "5000000",
+        "Currency": "USD"
+      },
+      "SIC Code": "12345",
+      "Territory": "North America",
+      "Tags": ["Technology", "Innovation", "Software"],
+      "Employees": "250",
+      "Parent Company": "Company 1",
+      "Organization Status": "Active",
+      "Industry Type": "Accounting",
+      "Business Type": "Analyst",
+      "Description": "TechCorp is a leading provider of innovative software solutions for businesses worldwide."
+    }
+  }
+]

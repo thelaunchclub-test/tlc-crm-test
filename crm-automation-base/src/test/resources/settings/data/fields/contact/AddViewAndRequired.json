@@ -1,0 +1,211 @@
+[
+  {
+    "testCaseID": 1,
+    "title": "First Name with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "First Name",
+      "fieldType": "Text",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 2,
+    "title": "Last Name with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Last Name",
+      "fieldType": "Text",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 3,
+    "title": "Emails with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Emails",
+      "fieldType": "Emails",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 4,
+    "title": "Phones with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Phones",
+      "fieldType": "Phones",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 5,
+    "title": "Company with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Company",
+      "fieldType": "Company",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 6,
+    "title": "Designation with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Designation",
+      "fieldType": "Text",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 7,
+    "title": "Sales Owner with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Sales Owner",
+      "fieldType": "Owner",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 8,
+    "title": "Lifecycle Stage with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Lifecycle Stage",
+      "fieldType": "Dropdown",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 9,
+    "title": "Source with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Source",
+      "fieldType": "Dropdown",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 10,
+    "title": "Territory with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Territory",
+      "fieldType": "Dropdown",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 11,
+    "title": "Tags with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Tags",
+      "fieldType": "Multi Select",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 12,
+    "title": "Date Of Birth with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Date Of Birth",
+      "fieldType": "Date",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 13,
+    "title": "Department with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Department",
+      "fieldType": "Text",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 14,
+    "title": "Address with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Address",
+      "fieldType": "Address",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 15,
+    "title": "Facebook with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Facebook",
+      "fieldType": "Text",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 16,
+    "title": "Twitter with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Twitter",
+      "fieldType": "Text",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 17,
+    "title": "LinkedIn with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "LinkedIn",
+      "fieldType": "Text",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 18,
+    "title": "Subscription Status with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Subscription Status",
+      "fieldType": "Dropdown",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 19,
+    "title": "Time Zone with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Time Zone",
+      "fieldType": "Dropdown",
+      "isAddView": true,
+      "isRequired": true
+    }
+  }
+]

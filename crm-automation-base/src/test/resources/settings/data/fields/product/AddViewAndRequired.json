@@ -1,0 +1,127 @@
+[
+  {
+    "testCaseID": 1,
+    "title": "Product Code with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Product Code",
+      "fieldType": "Text",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 2,
+    "title": "Unit Price with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Unit Price",
+      "fieldType": "Monetary",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 3,
+    "title": "Category with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Category",
+      "fieldType": "Dropdown",
+      "choicesAdded": 2,
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 4,
+    "title": "Active with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Active",
+      "fieldType": "Dropdown",
+      "choicesAdded": 2,
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 5,
+    "title": "Taxable with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Taxable",
+      "fieldType": "Dropdown",
+      "choicesAdded": 2,
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 6,
+    "title": "Quantity Ordered with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Quantity Ordered",
+      "fieldType": "Number",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 7,
+    "title": "Quantity In Stock with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Quantity In Stock",
+      "fieldType": "Number",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 8,
+    "title": "Description with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Description",
+      "fieldType": "Text",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 9,
+    "title": "Type with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Type",
+      "fieldType": "Dropdown",
+      "choicesAdded": 2,
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 10,
+    "title": "SKU Number with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "SKU Number",
+      "fieldType": "Text",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 11,
+    "title": "Valid Till with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Valid Till",
+      "fieldType": "Date",
+      "isAddView": true,
+      "isRequired": true
+    }
+  }
+]

@@ -1,0 +1,131 @@
+[
+  {
+    "testCaseID": 1,
+    "title": "Verify that First Name field accepts valid data",
+    "input": {
+      "First Name": "John"
+    }
+  },
+  {
+    "testCaseID": 2,
+    "title": "Verify that Last Name field accepts valid data",
+    "input": {
+      "Last Name": "Doe"
+    }
+  },
+  {
+    "testCaseID": 3,
+    "title": "Verify that Emails field accepts valid email format",
+    "input": {
+      "Emails": "john.doe@example.com"
+    }
+  },
+  {
+    "testCaseID": 4,
+    "title": "Verify that Phones field accepts valid phone number",
+    "input": {
+      "Phones": "1234567890"
+    }
+  },
+  {
+    "testCaseID": 5,
+    "title": "Verify that Company field accepts valid data",
+    "input": {
+      "Company": "Example Inc."
+    }
+  },
+  {
+    "testCaseID": 6,
+    "title": "Verify that Designation field accepts valid data",
+    "input": {
+      "Designation": "Manager"
+    }
+  },
+  {
+    "testCaseID": 7,
+    "title": "Verify that Lifecycle Stage field accepts valid data",
+    "input": {
+      "Lifecycle Stage": "Customer"
+    }
+  },
+  {
+    "testCaseID": 8,
+    "title": "Verify that Source field accepts valid data",
+    "input": {
+      "Source": "Referral"
+    }
+  },
+  {
+    "testCaseID": 9,
+    "title": "Verify that Territory field accepts valid data",
+    "input": {
+      "Territory": "North America"
+    }
+  },
+  {
+    "testCaseID": 10,
+    "title": "Verify that Tags field accepts valid tags",
+    "input": {
+      "Tags": [
+        "VIP",
+        "New Lead"
+      ]
+    }
+  },
+  {
+    "testCaseID": 11,
+    "title": "Verify that Date Of Birth field accepts valid date format",
+    "input": {
+      "Date Of Birth": "1990-01-01"
+    }
+  },
+  {
+    "testCaseID": 12,
+    "title": "Verify that Department field accepts valid data",
+    "input": {
+      "Department": "Sales"
+    }
+  },
+  {
+    "testCaseID": 13,
+    "title": "Verify that Address field accepts valid address format",
+    "input": {
+      "Address": "123 Example Street, City, Country"
+    }
+  },
+  {
+    "testCaseID": 14,
+    "title": "Verify that Facebook field accepts valid URL",
+    "input": {
+      "Facebook": "facebook.com/johndoe"
+    }
+  },
+  {
+    "testCaseID": 15,
+    "title": "Verify that Twitter field accepts valid handle",
+    "input": {
+      "Twitter": "@johndoe"
+    }
+  },
+  {
+    "testCaseID": 16,
+    "title": "Verify that LinkedIn field accepts valid URL",
+    "input": {
+      "LinkedIn": "linkedin.com/in/johndoe"
+    }
+  },
+  {
+    "testCaseID": 17,
+    "title": "Verify that Subscription Status field accepts valid data",
+    "input": {
+      "Subscription Status": "Subscribed"
+    }
+  },
+  {
+    "testCaseID": 18,
+    "title": "Verify that Time Zone field accepts valid data",
+    "input": {
+      "Time Zone": "GMT-5"
+    }
+  }
+]
