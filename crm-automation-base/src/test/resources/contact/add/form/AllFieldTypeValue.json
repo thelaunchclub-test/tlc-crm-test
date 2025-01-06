@@ -1,0 +1,46 @@
+[
+  {
+    "testCaseID": 1,
+    "title": "Default fields of Add Form",
+    "input": {
+      "Last Name": "Doe",
+      "Emails": [
+        {
+          "type": "Personal",
+          "email": "john.doe@workexample.com"
+        }
+      ],
+      "Phones": [
+        {
+          "type": "Work",
+          "phone": "123456789"
+        }
+      ],
+      "Company": "Example Inc.",
+      "Designation": "Manager",
+      "Sales Owner": "a",
+      "Lifecycle Stage": "Customer",
+      "Source": "Referral",
+      "Territory": "Tirunelveli",
+      "Tags": [
+        "VIP",
+        "New Lead"
+      ],
+      "Date Of Birth": "1990-01-01",
+      "Department": "Sales",
+      "Address": {
+        "Address Line 1": "123 Example Street",
+        "Address Line 2": "Suite 100",
+        "City": "City",
+        "State": "State",
+        "Country": "Country",
+        "Pincode": "123456"
+      },
+      "Facebook": "https://in.linkedin.com/in/petchimuthu-pitchiah-6b2262230",
+      "Twitter": "https://in.linkedin.com/in/petchimuthu-pitchiah-6b2262230",
+      "LinkedIn": "https://in.linkedin.com/in/petchimuthu-pitchiah-6b2262230",
+      "Subscription Status": "Subscribed",
+      "Time Zone": "GMT-5"
+    }
+  }
+]

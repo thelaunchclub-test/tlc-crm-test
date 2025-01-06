@@ -7,6 +7,6 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>base</module>
+        <module>crm-automation-base</module>
     </modules>
 </project>
