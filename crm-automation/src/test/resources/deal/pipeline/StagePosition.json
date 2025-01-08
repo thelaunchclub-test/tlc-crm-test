@@ -1,0 +1,11 @@
+[
+  {
+    "testCaseID": 4,
+    "title": "Adding new pipeline",
+    "input": {
+      "pipelineName": "IPhone 16 pro max",
+      "dealRotAfter": "1",
+      "stage": "Interested"
+    }
+  }
+]

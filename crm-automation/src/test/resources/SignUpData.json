@@ -1,0 +1,317 @@
+[
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "wst1@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "wst1",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "wst2@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "wst2",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "wst3@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "wst3",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "wst4@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "wst4",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "wst5@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "wst5",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "wst6@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "wst6",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "wst7@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "wst7",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "wst8@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "wst8",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "wst9@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "wst9",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "wst10@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "wst10",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "wst11@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "wst11",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "wst12@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "wst12",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "wst13@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "wst13",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "wst14@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "wst14",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "wst15@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "wst15",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "wst16@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "wst16",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "wst17@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "wst17",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "wst18@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "wst18",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "wst19@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "wst19",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "wst20@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "wst20",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "wst21@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "wst21",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  }
+]

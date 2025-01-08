@@ -1,0 +1,131 @@
+[
+  {
+    "testCaseID": 1,
+    "title": "Verify that First Name field displays a validation message when invalid data is entered",
+    "input": {
+      "First Name": "@!#$$"
+    }
+  },
+  {
+    "testCaseID": 2,
+    "title": "Verify that Last Name field displays a validation message when invalid data is entered",
+    "input": {
+      "Last Name": "123456"
+    }
+  },
+  {
+    "testCaseID": 3,
+    "title": "Verify that Emails field displays a validation message when invalid email format is entered",
+    "input": {
+      "Emails": "john.doe@.com"
+    }
+  },
+  {
+    "testCaseID": 4,
+    "title": "Verify that Phones field displays a validation message when invalid phone number is entered",
+    "input": {
+      "Phones": "abcd12345"
+    }
+  },
+  {
+    "testCaseID": 5,
+    "title": "Verify that Company field displays a validation message when invalid data is entered",
+    "input": {
+      "Company": "12345"
+    }
+  },
+  {
+    "testCaseID": 6,
+    "title": "Verify that Designation field displays a validation message when invalid data is entered",
+    "input": {
+      "Designation": "@!#$$"
+    }
+  },
+  {
+    "testCaseID": 7,
+    "title": "Verify that Lifecycle Stage field displays a validation message when invalid data is entered",
+    "input": {
+      "Lifecycle Stage": "12345"
+    }
+  },
+  {
+    "testCaseID": 8,
+    "title": "Verify that Source field displays a validation message when invalid data is entered",
+    "input": {
+      "Source": "###"
+    }
+  },
+  {
+    "testCaseID": 9,
+    "title": "Verify that Territory field displays a validation message when invalid data is entered",
+    "input": {
+      "Territory": "!!!"
+    }
+  },
+  {
+    "testCaseID": 10,
+    "title": "Verify that Tags field displays a validation message when invalid tags are entered",
+    "input": {
+      "Tags": [
+        "!@#",
+        "12345"
+      ]
+    }
+  },
+  {
+    "testCaseID": 11,
+    "title": "Verify that Date Of Birth field displays a validation message when invalid date format is entered",
+    "input": {
+      "Date Of Birth": "32-13-2020"
+    }
+  },
+  {
+    "testCaseID": 12,
+    "title": "Verify that Department field displays a validation message when invalid data is entered",
+    "input": {
+      "Department": "@@@@"
+    }
+  },
+  {
+    "testCaseID": 13,
+    "title": "Verify that Address field displays a validation message when invalid address format is entered",
+    "input": {
+      "Address": "!!!"
+    }
+  },
+  {
+    "testCaseID": 14,
+    "title": "Verify that Facebook field displays a validation message when invalid URL is entered",
+    "input": {
+      "Facebook": "facebook@@com"
+    }
+  },
+  {
+    "testCaseID": 15,
+    "title": "Verify that Twitter field displays a validation message when invalid handle is entered",
+    "input": {
+      "Twitter": "john doe"
+    }
+  },
+  {
+    "testCaseID": 16,
+    "title": "Verify that LinkedIn field displays a validation message when invalid URL is entered",
+    "input": {
+      "LinkedIn": "linkedin.com/in//johndoe"
+    }
+  },
+  {
+    "testCaseID": 17,
+    "title": "Verify that Subscription Status field displays a validation message when invalid data is entered",
+    "input": {
+      "Subscription Status": "NotSubscribed123"
+    }
+  },
+  {
+    "testCaseID": 18,
+    "title": "Verify that Time Zone field displays a validation message when invalid data is entered",
+    "input": {
+      "Time Zone": "GMT+25"
+    }
+  }
+]
