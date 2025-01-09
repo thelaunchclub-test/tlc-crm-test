@@ -7,6 +7,7 @@ import com.twozo.web.driver.service.WebAutomationDriver;
 import com.twozo.web.element.model.Element;
 import com.twozo.web.element.model.LocatorType;
 import com.twozo.web.element.service.WebPageElement;
+import org.openqa.selenium.Keys;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,24 +33,14 @@ import java.util.List;
 public class Tags extends BasePage {
 
     private static final String TAG_NAME = "tagName";
-    private static final String DELETE = "isDelete";
-    private static final String UPDATE = "isUpdate";
     private static final String VALUE_ENTERED = " is entered in the TagNameField";
     private static final String ADD_BTN_CLICKED = "Add button is clicked";
-    private static final String TAGS_LIST_BLOCK = "//*[@class='css-l5c1s3']";
+    private static final String TAGS_LIST_BLOCK = map.get("crm.settings.tags.list.block");
+    private static final String TAGS_NAME_LIST = map.get("crm.settings,tags.list.tagName");
 
 
     public Tags(final WebAutomationDriver webAutomationDriver) {
         super(webAutomationDriver);
-    }
-
-    /**
-     * Retrieves the {@link WebPageElement} for the "Record Tags" button on the tags page.
-     *
-     * @return {@link WebPageElement} for the "Record Tags" button
-     */
-    public WebPageElement getRecordTagsButton() {
-        return this.findByXpath("//*[text()='Record Tags']");
     }
 
     /**
@@ -58,7 +49,7 @@ public class Tags extends BasePage {
      * @return {@link WebPageElement} for the "Email Template Tags" button
      */
     public WebPageElement getEmailTemplateButton() {
-        return this.findByXpath("//*[text()='Email Template Tags']");
+        return this.findByXpath(map.get("crm.settings.tags.email.template.button"));
     }
 
     /**
@@ -67,7 +58,7 @@ public class Tags extends BasePage {
      * @return {@link WebPageElement} for the "Add New Tag" button
      */
     public WebPageElement getAddNewTagButton() {
-        return this.findByXpath("//*[text()='Add New Tag']");
+        return this.findByXpath(map.get("crm.settings.tags.addNewTag.button"));
     }
 
     /**
@@ -89,21 +80,12 @@ public class Tags extends BasePage {
     }
 
     /**
-     * Retrieves the {@link WebPageElement} for the "Cancel" button, which cancels the tag creation or update.
-     *
-     * @return {@link WebPageElement} for the "Cancel" button
-     */
-    public WebPageElement getCancelButton() {
-        return this.findByXpath("//*[text()='Cancel']");
-    }
-
-    /**
      * Retrieves the {@link WebPageElement} for the "Update" icon used to modify an existing tag.
      *
      * @return {@link WebPageElement} for the "Update" icon
      */
     public WebPageElement getUpdate() {
-        return this.findByXpath("(//*[@class='MuiBox-root css-k008qs'])[15]");
+        return this.findByXpath("(//button[contains(@class,'1q67rw')])[2]");
     }
 
     /**
@@ -111,6 +93,10 @@ public class Tags extends BasePage {
      *
      * @return {@link WebPageElement} for the error message
      */
+    public WebPageElement errorMsgForMaximum() {
+        return this.findByText("Max. of 255 characters are allowed");
+    }
+
     public WebPageElement errorMsg() {
         return this.findByText("Error!");
     }
@@ -121,7 +107,7 @@ public class Tags extends BasePage {
      * @return {@link WebPageElement} for the delete icon
      */
     public WebPageElement getDelete() {
-        return this.findByXpath("(//*[@class='MuiBox-root css-k008qs'])[16]");
+        return this.findByXpath("(//button[contains(@class,'1q67rw')])[3]");
     }
 
     /**
@@ -143,44 +129,299 @@ public class Tags extends BasePage {
     }
 
     /**
-     * Checks if a tag with the specified name exists in the list of tags.
+     * Retrieves the web element representing the message displayed after adding a tag.
      *
-     * @param tagName The name of the tag to search for
-     * @return true if the tag is found; false otherwise
+     * @return A WebPageElement representing the "You added a tag." message.
      */
-    public boolean getTagBlock(final String tagName) {
-        final Collection<WebPageElement> currencyOptions = findElementsByXpath(TAGS_LIST_BLOCK);
-        for (WebPageElement option : currencyOptions) {
-            String currencyText = option.getElementInformationProvider().getText().trim();
+    public  WebPageElement getAddTagMsg() {
+        return findByXpath("//*[text()='You added a tag.']");
+    }
 
-            if (currencyText.contains(tagName)) {
+    /**
+     * Adds a tag in a regular context.
+     *
+     * @param testCase The test case containing the input data, including the tag name.
+     * @return True if the tag is added successfully, false otherwise.
+     */
+    public boolean addTag(final TestCase testCase) {
+        return addTagCommon(testCase, false);
+    }
+
+    /**
+     * Adds a tag in a email context.
+     *
+     * @param testCase The test case containing the input data, including the tag name.
+     * @return True if the tag is added successfully, false otherwise.
+     */
+    public boolean addEmailTag(final TestCase testCase) {
+        return addTagCommon(testCase, true);
+    }
+
+    /**
+     * Common logic for adding a tag or an email tag.
+     *
+     * @param testCase The test case containing the input tag name.
+     * @param isEmailTag Flag to determine if it's an email tag addition.
+     * @return true if the tag was successfully added, false otherwise.
+     */
+    private boolean addTagCommon(final TestCase testCase, boolean isEmailTag) {
+        final String tagName = testCase.input.getString(TAG_NAME);
+
+        if (isEmailTag) {
+            click(getEmailTemplateButton());
+        }
+        click(getAddNewTagButton());
+        ExtentLogger.pass("Add New Tag button is clicked");
+
+        final Collection<String> availableTags = getAvailableTags();
+
+        if (!availableTags.contains(tagName)) {
+            addNewTag(tagName);
+        }
+
+        return isTagPresent(tagName);
+    }
+
+    /**
+     * Fetches available tags from the specified list block XPath.
+     *
+     * @return A collection of available tag names.
+     */
+    private Collection<String> getAvailableTags() {
+        final Collection<WebPageElement> tagOptions = findElementsByXpath(Tags.TAGS_LIST_BLOCK);
+        final Collection<String> availableTags = new ArrayList<>();
+        for (WebPageElement option : tagOptions) {
+            availableTags.add(getText(option).trim());
+        }
+        return availableTags;
+    }
+
+    /**
+     * Adds a new tag using the provided tag name.
+     *
+     * @param tagName The name of the tag to be added.
+     */
+    private void addNewTag(final String tagName) {
+        send(getEnterTagNameField(), tagName);
+        ExtentLogger.pass(tagName + VALUE_ENTERED);
+        sleep(2000);
+        click(getAddButton());
+        ExtentLogger.pass(ADD_BTN_CLICKED);
+        sleep(2000);
+    }
+
+    /**
+     * Checks if a tag is present in the specified tag name list XPath.
+     *
+     * @param tagName The name of the tag to search for.
+     * @return true if the tag is present, false otherwise.
+     */
+    private boolean isTagPresent(final String tagName) {
+        final Collection<WebPageElement> tagElements = findElementsByXpath(Tags.TAGS_NAME_LIST);
+        for (WebPageElement option : tagElements) {
+            if (getText(option).trim().contains(tagName)) {
                 return true;
             }
         }
-
         return false;
     }
 
     /**
-     * Adds a new tag based on the provided test case. If the tag does not already exist, it will be created.
+     * Utility method to pause execution.
+     * Replace with proper wait mechanisms (e.g., WebDriverWait) where possible.
      *
-     * @param testCase The test case containing the tag name to be added
+     * @param millis Duration to sleep in milliseconds.
      */
-    public void addTag(final TestCase testCase) {
-        final String tagName = testCase.input.getString(TAG_NAME);
-        click(getAddNewTagButton());
-        ExtentLogger.pass("Add new button is clicked");
-        final Collection<WebPageElement> currencyOptions = findElementsByXpath(TAGS_LIST_BLOCK);
-        for (WebPageElement option : currencyOptions) {
-            String currencyText = option.getElementInformationProvider().getText().trim();
+    private void sleep(final long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-            if (!currencyText.contains(tagName)) {
-                send(getEnterTagNameField(), tagName);
-                ExtentLogger.pass(tagName + VALUE_ENTERED);
-                click(getAddButton());
-                ExtentLogger.pass(ADD_BTN_CLICKED);
+    /**
+     * Updates a tag in the list for a regular context.
+     *
+     * @param testCase The test case containing the input data, including the tag name and updates.
+     * @return True if the tag update succeeds, false otherwise.
+     */
+    public boolean updateTags(final TestCase testCase) {
+        return updateTagCommon(testCase, false);
+    }
+
+    /**
+     * Updates a tag in the list for a email context.
+     *
+     * @param testCase The test case containing the input data, including the tag name and updates.
+     * @return True if the tag update succeeds, false otherwise.
+     */
+    public boolean updateEmailTags(final TestCase testCase) {
+        return updateTagCommon(testCase, true);
+    }
+
+    /**
+     * Deletes a tag in the list for a regular context.
+     *
+     * @param testCase The test case containing the input data, including the tag name and updates.
+     * @return True if the tag update succeeds, false otherwise.
+     */
+    public boolean deleteTag(final TestCase testCase) {
+        return deleteTagCommon(testCase, false);
+    }
+
+    /**
+     * Deletes a tag in the list for a email context.
+     *
+     * @param testCase The test case containing the input data, including the tag name and updates.
+     * @return True if the tag update succeeds, false otherwise.
+     */
+    public boolean deleteEmailTag(final TestCase testCase) {
+        return deleteTagCommon(testCase, true);
+    }
+
+    /**
+     * Common logic for updating a tag or email tag.
+     *
+     * @param testCase The test case containing the input data.
+     * @param isEmailTag Flag to determine if it's an email tag update.
+     * @return true if the tag was successfully updated, false otherwise.
+     */
+    private boolean updateTagCommon(final TestCase testCase, boolean isEmailTag) {
+        final String tagName = testCase.input.getString(TAG_NAME);
+        final String changes = testCase.input.getString("changes");
+
+        if (isEmailTag) {
+            click(getEmailTemplateButton());
+        }
+
+        ensureTagExists(tagName, isEmailTag);
+
+        hover(new Element(LocatorType.XPATH, getTagNameBlock(tagName), true));
+        ExtentLogger.pass(tagName + " is Hovered");
+        click(getUpdate());
+        ExtentLogger.pass("Update icon is clicked");
+
+        updateTagName(changes);
+        ExtentLogger.pass("The given " + changes + VALUE_ENTERED);
+
+        return getAvailableTagsInListView().contains(changes);
+    }
+
+    /**
+     * Common logic for deleting a tag or email tag.
+     *
+     * @param testCase The test case containing the input data.
+     * @param isEmailTag Flag to determine if it's an email tag deletion.
+     * @return true if the tag was successfully deleted, false otherwise.
+     */
+    private boolean deleteTagCommon(final TestCase testCase, boolean isEmailTag) {
+        final String tagName = testCase.input.getString(TAG_NAME);
+
+        if (isEmailTag) {
+            click(getEmailTemplateButton());
+        }
+
+        ensureTagExists(tagName, isEmailTag);
+
+        hover(new Element(LocatorType.XPATH, getTagNameBlock(tagName), true));
+        ExtentLogger.pass(tagName + " is Hovered");
+        click(getDelete());
+        ExtentLogger.pass("Delete icon is clicked");
+
+        confirmDeletion();
+
+        return !getAvailableTagsInListView().contains(tagName);
+    }
+
+    /**
+     * Ensures the tag exists; creates it if not present.
+     *
+
+     * @param tagName The name of the tag to ensure existence.
+     * @param isEmailTag Flag to determine if it's an email tag.
+     */
+    private void ensureTagExists(final String tagName, boolean isEmailTag) {
+        if (!isTagsAvailableInListView(tagName)) {
+            createTag(tagName);
+            ExtentLogger.pass(tagName + " is created successfully");
+            if (isEmailTag) {
+                click(getEmailTemplateButton());
             }
         }
+    }
+
+    /**
+     * Updates the tag name with the specified changes.
+     *
+     * @param changes The new tag name to set.
+     */
+    private void updateTagName(final String changes) {
+        click(getEnterTagNameField());
+        sleep(2000);
+        mouseActions.keyDown(Keys.CONTROL).sendKeys("A").keyUp(Keys.CONTROL).sendKeys(changes).perform();
+        click(getUpdateButton());
+        ExtentLogger.pass("Update button is clicked");
+        sleep(2000);
+    }
+
+    /**
+     * Confirms deletion by clicking the delete button.
+     */
+    private void confirmDeletion() {
+        sleep(2000);
+        click(getDeleteButton());
+        ExtentLogger.pass("Delete button is clicked");
+    }
+
+    /**
+     * Checks the existence of a tag in the tag list for a regular context.
+     *
+     * @param testCase The test case containing the input data, including the tag name.
+     * @return True if the tag check succeeds, false otherwise.
+     */
+    public boolean checkTag(final TestCase testCase) {
+        return checkTagCommon(testCase, false);
+    }
+
+    /**
+     * Checks the existence of a tag in the tag list for a email context.
+     *
+     * @param testCase The test case containing the input data, including the tag name.
+     * @return True if the tag check succeeds, false otherwise.
+     */
+    public boolean checkEmailTag(final TestCase testCase) {
+        return checkTagCommon(testCase, true);
+    }
+
+    /**
+     * Common method to check if a tag or email tag exists and validate maximum tag limit error.
+     *
+     * @param testCase The test case containing input data.
+     * @param isEmailTag Flag to determine if it's an email tag.
+     * @return true if the maximum tag limit error is displayed, false otherwise.
+     */
+    private boolean checkTagCommon(final TestCase testCase, boolean isEmailTag) {
+        final String tagName = testCase.input.getString(TAG_NAME);
+
+        if (isEmailTag) {
+            click(getEmailTemplateButton());
+        }
+
+        click(getAddNewTagButton());
+        ExtentLogger.pass("Add new button is clicked");
+
+        final Collection<WebPageElement> tagOptions = findElementsByXpath(TAGS_NAME_LIST);
+        for (WebPageElement option : tagOptions) {
+            String tagText = option.getElementInformationProvider().getText().trim();
+
+            if (!tagText.contains(tagName)) {
+                send(getEnterTagNameField(), tagName);
+                ExtentLogger.pass(tagName + VALUE_ENTERED);
+            }
+        }
+
+        return isDisplayed(errorMsgForMaximum());
     }
 
     /**
@@ -189,6 +430,21 @@ public class Tags extends BasePage {
      * @param testCase The test case containing the tag name to be added
      */
     public void isTagNameExists(final TestCase testCase) {
+        final String tagName = testCase.input.getString(TAG_NAME);
+        click(getAddNewTagButton());
+        ExtentLogger.pass("Add new button is clicked");
+        send(getEnterTagNameField(), tagName);
+        ExtentLogger.pass(tagName + VALUE_ENTERED);
+        click(getAddButton());
+        ExtentLogger.pass(ADD_BTN_CLICKED);
+    }
+
+    /**
+     * Attempts to add a tag with the specified name from the test case. Assumes that the tag name does not already exist.
+     *
+     * @param testCase The test case containing the tag name to be added
+     */
+    public void isEmailTagNameExists(final TestCase testCase) {
         final String tagName = testCase.input.getString(TAG_NAME);
         click(getAddNewTagButton());
         ExtentLogger.pass("Add new button is clicked");
@@ -208,122 +464,22 @@ public class Tags extends BasePage {
         isTagNameExists(testCase);
         refresh();
         isTagNameExists(testCase);
-
+        waitTillVisible("//*[text()='Error!']");
         return isDisplayed(errorMsg());
     }
 
     /**
-     * Adds a new email tag based on the provided test case. If the tag does not already exist, it will be created.
+     * Verifies that a tag name cannot be duplicated by attempting to add it twice and checking for an error message.
      *
-     * @param testCase The test case containing the tag name to be added
+     * @param testCase The test case containing the tag name to verify
+     * @return true if an error message is displayed indicating duplication; false otherwise
      */
-    public void addEmailTag(final TestCase testCase) {
-        final String tagName = testCase.input.getString(TAG_NAME);
+    public boolean verifyEmailTagNameCannotBeDuplicated(final TestCase testCase) {
+        isEmailTagNameExists(testCase);
+        refresh();
+        isEmailTagNameExists(testCase);
 
-        click(getEmailTemplateButton());
-        click(getAddNewTagButton());
-        ExtentLogger.pass("Add Email Template button is clicked");
-        final Collection<WebPageElement> currencyOptions = findElementsByXpath(TAGS_LIST_BLOCK);
-        for (WebPageElement option : currencyOptions) {
-            String currencyText = option.getElementInformationProvider().getText().trim();
-
-            if (!currencyText.contains(tagName)) {
-                send(getEnterTagNameField(), tagName);
-                ExtentLogger.pass(tagName + VALUE_ENTERED);
-                click(getAddButton());
-                ExtentLogger.pass(ADD_BTN_CLICKED);
-            }
-        }
-    }
-
-    /**
-     * Updates an existing tag based on the specified test case. The tag will be hovered over, and its name will be updated with the provided changes.
-     *
-     * @param testCase The test case containing the tag name and the new value to update
-     */
-    public void updateTags(final TestCase testCase) {
-        if (testCase.input.containsKey(UPDATE)) {
-            testCase.input.optBoolean(UPDATE, false);
-        }
-
-        final String tagName = testCase.input.getString(TAG_NAME);
-        final String changes = testCase.input.getString("changes");
-
-        hover(new Element(LocatorType.XPATH, getTagNameBlock(tagName), true));
-
-        ExtentLogger.pass(tagName + " is Hovered");
-        click(getUpdate());
-        ExtentLogger.pass("update icon is clicked");
-        clear(getEnterTagNameField());
-        send(getEnterTagNameField(), changes);
-        ExtentLogger.pass("The given " + changes + VALUE_ENTERED);
-        click(getUpdateButton());
-        ExtentLogger.pass("Update button is clicked");
-    }
-
-    /**
-     * Updates an existing email tag based on the specified test case. The tag will be selected, and its name will be updated with the provided changes.
-     *
-     * @param testCase The test case containing the tag name and the new value to update
-     */
-    public void updateEmailTags(final TestCase testCase) {
-        if (testCase.input.containsKey(UPDATE)) {
-            testCase.input.optBoolean(UPDATE, false);
-        }
-
-        final String tagName = testCase.input.getString(TAG_NAME);
-        final String changes = testCase.input.getString("changes");
-
-        click(getEmailTemplateButton());
-        hover(new Element(LocatorType.XPATH, getTagNameBlock(tagName), true));
-        ExtentLogger.pass(tagName + " is Hovered");
-        click(getUpdate());
-        ExtentLogger.pass("update icon is clicked");
-        send(getEnterTagNameField(), changes);
-        ExtentLogger.pass("The given " + changes + VALUE_ENTERED);
-        click(getUpdateButton());
-        ExtentLogger.pass("Update button is clicked");
-    }
-
-    /**
-     * Deletes a tag based on the specified test case. The tag will be hovered over, and the delete action will be performed.
-     *
-     * @param testCase The test case containing the tag name to be deleted
-     */
-    public void deleteTag(final TestCase testCase) {
-        if (testCase.input.containsKey(DELETE)) {
-            testCase.input.optBoolean(DELETE, false);
-        }
-
-        final String tagName = testCase.input.getString(TAG_NAME);
-
-        hover(new Element(LocatorType.XPATH, getTagNameBlock(tagName), true));
-        ExtentLogger.pass(tagName + " is hovered");
-        click(getDelete());
-        ExtentLogger.pass("delete icon is clicked");
-        click(getDeleteButton());
-        ExtentLogger.pass("Delete button is clicked");
-    }
-
-    /**
-     * Deletes an email tag based on the specified test case. The tag will be selected, and the delete action will be performed.
-     *
-     * @param testCase The test case containing the tag name to be deleted
-     */
-    public void deleteEmailTag(final TestCase testCase) {
-        if (testCase.input.containsKey(DELETE)) {
-            testCase.input.optBoolean(DELETE, false);
-        }
-
-        final String tagName = testCase.input.getString(TAG_NAME);
-
-        click(getEmailTemplateButton());
-        hover(new Element(LocatorType.XPATH, getTagNameBlock(tagName), true));
-        ExtentLogger.pass(tagName + " is hovered");
-        click(getDelete());
-        ExtentLogger.pass("delete icon is clicked");
-        click(getDeleteButton());
-        ExtentLogger.pass("Delete button is clicked");
+        return isDisplayed(errorMsg());
     }
 
     /**
@@ -333,12 +489,7 @@ public class Tags extends BasePage {
      * @return The XPath of the tag block element
      */
     protected String getTagNameBlock(final String tagName) {
-        int rowNumber = 1;
-        while (!getText(findByXpath(String.format("((//*[@class='css-u4p24i'])[%d]/div/div/p)[1]", rowNumber))).contains(tagName)) {
-            rowNumber++;
-        }
-
-        return String.format("(//*[@class='css-u4p24i'])[%d]", rowNumber);
+        return String.format("(//*[contains(@class,'u4p24i')])//*[text()='%s']", tagName);
     }
 
     /**
@@ -347,7 +498,7 @@ public class Tags extends BasePage {
      * @return A collection of tag names
      */
     public Collection<String> getAvailableTagsInListView() {
-        final Collection<WebPageElement> tagElements = findElementsByXpath("//*[@class='MuiTypography-root MuiTypography-body1 MuiTypography-noWrap css-yzwrlm']");
+        final Collection<WebPageElement> tagElements = findElementsByXpath("//*[contains(@class,'u4p24i')]//p[contains(@class,'17l2x8q')]");
         final List<String> availableTags = new ArrayList<>();
 
         for (final WebPageElement tagElement : tagElements) {
@@ -364,17 +515,54 @@ public class Tags extends BasePage {
      * @return true if the tag is present in the list view; false otherwise
      */
     public boolean isTagsAvailableInListView(final String tagName) {
-        final Collection<String> availableTags = getAvailableTagsInListView();
 
+        final Collection<String> availableTags = getAvailableTagsInListView();
         return availableTags.contains(tagName);
     }
 
     /**
-     * Checks if the error validation message is displayed.
+     * Creates a new tag with the specified name.
      *
-     * @return true if the error message is displayed; false otherwise
+     * @param tagName The name of the tag to be created.
      */
-    public boolean isErrorValidationMessageDisplayed() {
-        return isDisplayed(errorMsg());
+    private void createTag(String tagName) {
+        click(getAddNewTagButton());
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        click(getEnterTagNameField());
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        mouseActions.sendKeys(tagName).perform();
+        click(getAddButton());
+        refresh();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Checks if the success message indicating an update operation is displayed on the page.
+     *
+     * @return true if the success message ("Success!") is displayed, false otherwise.
+     */
+    public boolean isUpdateMsg() {
+        return isDisplayed(findByXpath("//*[text()='Success!']"));
+    }
+
+    /**
+     * Checks if the message indicating a tag was successfully added is displayed on the page.
+     *
+     * @return true if the "Add Tag" success message is displayed, false otherwise.
+     */
+    public boolean isAddTagMsg() {
+        return isDisplayed(getAddTagMsg());
     }
 }

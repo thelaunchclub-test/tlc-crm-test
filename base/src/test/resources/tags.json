@@ -10,7 +10,7 @@
     "testCaseID": "RT-1",
     "title": "Make sure you can add a tag.",
     "input": {
-      "tagName": "hot"
+      "tagName": "Hot"
     }
   },
   {

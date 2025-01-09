@@ -1,6 +1,7 @@
 package com.twozo.page;
 
 import com.twozo.commons.cookie.BrowserCookie;
+import com.twozo.commons.util.ConfigFileReader;
 import com.twozo.page.xpath.XPath;
 import com.twozo.page.xpath.XPathBuilder;
 import com.twozo.web.driver.service.*;
@@ -17,6 +18,7 @@ import java.util.function.Supplier;
 
 public class BasePage {
 
+    protected static final Map<String, String> map = ConfigFileReader.get("locator/locator.Properties");
     public WebAutomationDriver webAutomationDriver;
     public ElementFinder elementFinder;
     public WebNavigator webNavigator;

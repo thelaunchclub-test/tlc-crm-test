@@ -3,9 +3,9 @@
     "testCaseID": "RT-3",
     "title": "Make sure you can update an existing tag.",
     "input": {
-      "tagName": "Cool",
+      "tagName": "Hot",
       "isUpdate" : true,
-      "changes" : "er"
+      "changes" : "J"
     }
   }
 ]

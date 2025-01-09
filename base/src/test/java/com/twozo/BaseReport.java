@@ -20,7 +20,7 @@ public class BaseReport extends BaseTest implements ITestListener {
 
     @Override
     public void onStart(final ITestContext context) {
-        final SparkReporter sparkReporter = new SparkReporter("./extent-report.html");
+        final SparkReporter sparkReporter = new SparkReporter("./tags-report.html");
 
         sparkReporter.setReportName("Tags TestCases");
         sparkReporter.setTitle("Test Results");

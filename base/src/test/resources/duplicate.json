@@ -3,7 +3,7 @@
     "testCaseID": "RT-5",
     "title": "Verify that the system prevents adding a duplicate tag with the same name",
     "input": {
-      "tagName": "Surendarsds9uji"
+      "tagName": "Ss9uji"
     }
   }
 ]

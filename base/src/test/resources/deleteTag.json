@@ -3,7 +3,7 @@
     "testCaseID": "RT-4",
     "title": "Make sure you can delete an existing tag.",
     "input": {
-      "tagName": "hot",
+      "tagName": "Hot",
       "isDelete" : true
     }
   }

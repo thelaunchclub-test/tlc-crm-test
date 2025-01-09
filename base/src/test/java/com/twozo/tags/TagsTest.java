@@ -16,6 +16,7 @@ import com.twozo.web.driver.service.WebNavigator;
 
 import org.testng.Assert;
 
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -59,6 +60,11 @@ public class TagsTest extends BaseTest {
         automationDriver.getWebWindowHandler().maximize();
         homePage = HomePage.getInstance(automationDriver);
         tags = new Tags(automationDriver);
+    }
+
+    @AfterMethod
+    public void close() {
+        automationDriver.close();
     }
 
     /**
@@ -124,8 +130,7 @@ public class TagsTest extends BaseTest {
      */
     @Test(dataProvider = "addTag")
     public void addTag(final TestCase testCase) {
-        tags.addTag(testCase);
-        Assert.assertTrue(tags.isTagsAvailableInListView(testCase.input.getString("tagName")));
+        Assert.assertTrue(tags.addTag(testCase));
     }
 
     /**
@@ -136,8 +141,8 @@ public class TagsTest extends BaseTest {
      */
     @Test(dataProvider = "updateTag", priority = 1)
     public void updateTag(final TestCase testCase) {
-        tags.updateTags(testCase);
-        Assert.assertTrue(tags.isTagsAvailableInListView(testCase.input.getString("changes")));
+
+        Assert.assertTrue(tags.updateTags(testCase) && tags.isUpdateMsg());
     }
 
     /**
@@ -148,8 +153,7 @@ public class TagsTest extends BaseTest {
      */
     @Test(dataProvider = "deleteTag", priority = 2)
     public void deleteTag(final TestCase testCase) {
-        tags.deleteTag(testCase);
-        Assert.assertFalse(tags.isTagsAvailableInListView(testCase.input.getString("tagName")));
+        Assert.assertTrue(tags.deleteTag(testCase));
     }
 
     /**
@@ -171,8 +175,7 @@ public class TagsTest extends BaseTest {
      */
     @Test(dataProvider = "maximum", priority = 4)
     public void addMaximumTagName(final TestCase testCase) {
-        tags.addTag(testCase);
-        Assert.assertTrue(tags.isErrorValidationMessageDisplayed());
+        Assert.assertTrue(tags.checkTag(testCase));
     }
 
     /**
@@ -183,8 +186,7 @@ public class TagsTest extends BaseTest {
      */
     @Test(dataProvider = "addTag", priority = 5)
     public void addEmailTag(final TestCase testCase) {
-        tags.addEmailTag(testCase);
-        Assert.assertTrue(tags.getTagBlock(testCase.input.getString("tagName")));
+        Assert.assertTrue(tags.addEmailTag(testCase) && tags.isAddTagMsg());
     }
 
     /**
@@ -195,7 +197,7 @@ public class TagsTest extends BaseTest {
      */
     @Test(dataProvider = "updateTag", priority = 6)
     public void updateEmailTag(final TestCase testCase) {
-        tags.updateEmailTags(testCase);
+        Assert.assertTrue(tags.updateEmailTags(testCase) && tags.isUpdateMsg());
     }
 
     /**
@@ -206,8 +208,7 @@ public class TagsTest extends BaseTest {
      */
     @Test(dataProvider = "deleteTag", priority = 7)
     public void deleteEmailTag(final TestCase testCase) {
-        tags.deleteEmailTag(testCase);
-        Assert.assertFalse(tags.isTagsAvailableInListView(testCase.input.getString("tagName")));
+        Assert.assertTrue( tags.deleteEmailTag(testCase));
     }
 
     /**
@@ -218,8 +219,7 @@ public class TagsTest extends BaseTest {
      */
     @Test(dataProvider = "duplicate", priority = 8)
     public void checkDuplicateEmailTagName(final TestCase testCase) {
-        tags.addEmailTag(testCase);
-        Assert.assertTrue(tags.verifyTagNameCannotBeDuplicated(testCase));
+        Assert.assertTrue(tags.verifyEmailTagNameCannotBeDuplicated(testCase));
     }
 
     /**
@@ -230,7 +230,6 @@ public class TagsTest extends BaseTest {
      */
     @Test(dataProvider = "maximum", priority = 9)
     public void addMaximumEmailTagName(final TestCase testCase) {
-        tags.addEmailTag(testCase);
-        Assert.assertTrue(tags.isErrorValidationMessageDisplayed());
+        Assert.assertTrue(tags.checkEmailTag(testCase));
     }
 }
