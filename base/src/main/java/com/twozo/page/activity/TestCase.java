@@ -1,4 +1,4 @@
-package com.twozo.test;
+package com.twozo.page.activity;
 
 import com.twozo.commons.json.JsonObject;
 import lombok.Getter;

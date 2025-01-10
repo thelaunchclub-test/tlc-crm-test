@@ -149,7 +149,7 @@ public class AddActivity extends BasePage {
 //        return;
 //    }
 //
-//    public WebPageElement getCollaborators() {
+//    public WebPageElement validateCollaboratorField() {
 //
 //        if (Objects.isNull()) {
 //

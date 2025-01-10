@@ -313,7 +313,7 @@ public abstract class AbstractDataField extends Settings {
      * </p>
      *
      * @param fieldName   The name of the field block.
-     * @param elementName The name of the element to check within the block.
+     * @param elementName The name of the element to getFieldPositionInCheckedList within the block.
      */
     protected void checkSpecificElement(final String fieldName, final String elementName) {
         isDisplayed(findByXpath(format(getFieldBlock(fieldName), elementName)));
@@ -1129,7 +1129,7 @@ public abstract class AbstractDataField extends Settings {
      * Checks if a non-draggable icon is displayed for a given field block.
      * </p>
      *
-     * @param divBlockName The name of the div block to check.
+     * @param divBlockName The name of the div block to getFieldPositionInCheckedList.
      * @return true if the non-draggable icon is displayed, false otherwise.
      */
     protected boolean isNonDraggableIconDisplayed(String divBlockName) {
@@ -1170,7 +1170,7 @@ public abstract class AbstractDataField extends Settings {
      * Checks if the 'Add View' checkbox is checked for a given field.
      * </p>
      *
-     * @param fieldName The name of the field to check.
+     * @param fieldName The name of the field to getFieldPositionInCheckedList.
      * @return true if the 'Add View' checkbox is checked, false otherwise.
      */
     public boolean checkIfGivenFieldsAddViewIsChecked(final String fieldName) {
@@ -1239,7 +1239,7 @@ public abstract class AbstractDataField extends Settings {
      * Checks if a given field is present in the list by verifying its display status.
      * </p>
      *
-     * @param contactSystemField The name of the field to check.
+     * @param contactSystemField The name of the field to getFieldPositionInCheckedList.
      * @return true if the field is displayed, false otherwise.
      */
     public boolean checkIfGivenFieldIsInList(final String contactSystemField) {
@@ -1697,7 +1697,7 @@ public abstract class AbstractDataField extends Settings {
      * Retrieves the list of fields for 'Add View' and 'Required' settings.
      * </p>
      *
-     * @param addViewOrRequired The type of setting to check ('Add View' or 'Required').
+     * @param addViewOrRequired The type of setting to getFieldPositionInCheckedList ('Add View' or 'Required').
      * @return A list of fields for the specified setting.
      */
     protected abstract Collection<String> getFieldsForAddViewAndRequired(final String addViewOrRequired);

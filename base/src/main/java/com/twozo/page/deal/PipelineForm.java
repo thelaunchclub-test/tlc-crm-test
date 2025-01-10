@@ -355,7 +355,7 @@ public class PipelineForm extends DealPage {
 
     public boolean checkPipelineLimit() {
         final Collection<WebPageElement> pipelinesAsElement = findElementsByXpath(map.get("crm.deal.pipeline.count"));
-        final String name = "pipeline check";
+        final String name = "pipeline getFieldPositionInCheckedList";
         String pipelineName;
 
         for (int i = 1; i <= 15 - pipelinesAsElement.size(); i++) {

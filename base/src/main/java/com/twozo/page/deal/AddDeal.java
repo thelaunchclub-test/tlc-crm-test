@@ -33,7 +33,7 @@ public class AddDeal extends DealPage {
 
     public static AddDeal getInstance(final WebAutomationDriver webAutomationDriver) {
 
-      //  if (Objects.isNull(addDeal)) {
+      //  if (Objects.isNull(addDealToActivity)) {
             addDeal = new AddDeal(webAutomationDriver);
         //}
 
@@ -178,7 +178,7 @@ public class AddDeal extends DealPage {
         dropdown("timing");
         click(getLostReasonDropdown());
         dropdown("junk lead");
-        selectDate(new Element(LocatorType.XPATH, "//*[text()='Deal Closed On']", true), Month.AUGUST, 23, 1980);
+        selectDate("//*[text()='Deal Closed On']", Month.AUGUST, 23, 1980);
         send(getPrimaryContact(), "erer");
         send(getRelatedContacts(), "dfse");
         send(getDealValue(), "324");

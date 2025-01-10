@@ -63,7 +63,7 @@ public class BasePage {
     }
 
     public WebPageElement getColumnSettingsButton() {
-        return findByXpath("//*[@class='css-181x7hd']");
+        return findByXpath("//*[@class='twozo-css-prefix-1jk9avb']");
     }
 
     public void switchToColumnSettings() {
@@ -153,14 +153,20 @@ public class BasePage {
         return XPathBuilder.getXPathByText(text);
     }
 
-    protected final void selectDate(final Element element, final String month, final int date, final int year) {
+    protected void selectDate(final String fieldXPath, final String month, final int date, final int year) {
         final String xpath = "//button[text()='%d']";
 
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         click(findBelowElement(List.of(
-                new Element(LocatorType.XPATH, "//button[@aria-label='Choose date']", false),
-                element)));
+                new Element(LocatorType.XPATH, "//*[@class='MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary MuiIconButton-edgeStart MuiIconButton-sizeMedium css-17ahke1']", false),
+                new Element(LocatorType.XPATH, fieldXPath,true))));
         click(findByXpath("//button[@aria-label='calendar view is open, switch to year view']"));
-        click(findByText(String.format(xpath, year)));
+        click(findByXpath(String.format(xpath, year)));
         final WebPageElement div = findLeftElement(List.of(
                 new Element(LocatorType.TAG_NAME, "div", false),
                 new Element(LocatorType.XPATH,
@@ -262,7 +268,7 @@ public class BasePage {
         webNavigator.refresh();
 
     }
-//    public WebPageElement getStatus() {
+//    public WebPageElement validateFieldStatus() {
 //
 //        if (Objects.isNull(status)) {
 //            status = findByXpath("(//div[text()='Status'])[2]");

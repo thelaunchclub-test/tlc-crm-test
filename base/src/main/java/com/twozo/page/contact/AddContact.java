@@ -13,7 +13,7 @@ public class AddContact extends Contact {
 
     public static AddContact getInstance(final WebAutomationDriver webAutomationDriver) {
 
-        // if (Objects.isNull(addContact)) {
+        // if (Objects.isNull(addContactToActivity)) {
         addContact = new AddContact(webAutomationDriver);
         //}
 

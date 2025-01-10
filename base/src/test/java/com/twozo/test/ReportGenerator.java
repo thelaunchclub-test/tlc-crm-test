@@ -5,6 +5,7 @@ import com.twozo.extent.report.reporter.internal.extent.ExtentReporterInitialize
 import com.twozo.extent.report.reporter.internal.spark.SparkReporter;
 import com.twozo.extent.report.test.service.ReportTest;
 import com.twozo.test.listener.test.TestListener;
+import com.twozo.web.driver.service.WebAutomationDriver;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 
@@ -18,10 +19,10 @@ public class ReportGenerator extends BaseTest implements TestListener {
 
     @Override
     public void onStart(final ITestContext context) {
-        final SparkReporter sparkReporter = new SparkReporter("./DataFields.html");
+        final SparkReporter sparkReporter = new SparkReporter("./activity_form.html");
 
-        sparkReporter.setReportName("Data Fields");
-        sparkReporter.setTitle("Data Fields Test Results");
+        sparkReporter.setReportName("Activity Add form");
+        sparkReporter.setTitle("Activity add form Test Results");
         reports.attachReporter(sparkReporter);
         reports.systemInfo("OS", System.getProperty("os.name"));
         reports.systemInfo("JAVA VERSION", System.getProperty("java.version"));
@@ -29,10 +30,10 @@ public class ReportGenerator extends BaseTest implements TestListener {
 
     @Override
     public void onTestStart(final ITestResult result) {
-        System.out.println("test starts " + result.getMethod().getMethodName());
+        System.out.println("validateActivityStatusByDate starts " + result.getMethod().getMethodName());
         final ReportTest reportTest = reports.createTest(result.getMethod().getMethodName());
 
-        reportTest.getTabs().assignAuthor("Petchimuthu");
+        reportTest.getTabs().assignAuthor("Navin Jones");
         threadLocal.set(reportTest);
     }
 
@@ -52,6 +53,8 @@ public class ReportGenerator extends BaseTest implements TestListener {
 
     @Override
     public void onTestFailure(final ITestResult result) {
+        WebAutomationDriver webAutomationDriver = null;
+
         System.out.println("Test failed: " + result.getThrowable());
         final ReportTest reportTest = threadLocal.get();
 
@@ -64,23 +67,30 @@ public class ReportGenerator extends BaseTest implements TestListener {
         final Object testObject = result.getInstance();
 
         try {
-            final Field driverField = testObject.getClass().getDeclaredField("automationDriver");
 
+            final Field driverField = testObject.getClass().getDeclaredField("automationDriver");
             driverField.setAccessible(true);
-        } catch (NoSuchFieldException exception) {
+
+            webAutomationDriver = (WebAutomationDriver) driverField.get(testObject);
+            System.out.println("Driver successfully retrieved: " + webAutomationDriver);
+        } catch (NoSuchFieldException | IllegalAccessException exception) {
             exception.printStackTrace();
-            throw new RuntimeException("No such field: 'automationDriver'", exception);
+            System.out.println("Error accessing 'automationDriver' field: " + exception.getMessage());
+            throw new RuntimeException("Error accessing 'automationDriver' field", exception);
         }
 
-        try {
-            if (Objects.nonNull(automationDriver)) {
+        if (Objects.nonNull(webAutomationDriver)) {
+            try {
                 assert reportTest != null;
-                reportTest.getScreenCapture().fromPath(takeScreenShot(result.getMethod().getMethodName(), automationDriver), result.getMethod().getMethodName());
-            } else {
-                System.out.println("Driver is null. Cannot capture screenshot.");
+                reportTest.getScreenCapture().fromPath(
+                        takeScreenShot(result.getMethod().getMethodName(), webAutomationDriver),
+                        result.getMethod().getMethodName()
+                );
+            } catch (IOException e) {
+                throw new RuntimeException("Error taking screenshot", e);
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } else {
+            System.out.println("Driver is null. Cannot capture screenshot.");
         }
 
         result.setStatus(ITestResult.FAILURE);

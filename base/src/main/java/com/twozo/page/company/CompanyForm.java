@@ -13,7 +13,7 @@ public class CompanyForm extends Company {
 
     public static CompanyForm getInstance(final WebAutomationDriver webAutomationDriver) {
 
-       // if (Objects.isNull(addCompany)) {
+       // if (Objects.isNull(addCompanyToActivity)) {
             addCompany = new CompanyForm(webAutomationDriver);
         //}
 
