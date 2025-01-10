@@ -6,6 +6,7 @@ import com.twozo.page.settings.sales.activities.JsonFields;
 import com.twozo.page.settings.sales.activities.JsonFileReader;
 import com.twozo.page.settings.sales.activities.SalesActivities;
 import com.twozo.page.settings.sales.activities.TestCase;
+import com.twozo.page.url.URL;
 import com.twozo.page.url.settings.SettingsURL;
 import com.twozo.test.BaseTest;
 import com.twozo.web.driver.service.WebAutomationDriver;
@@ -17,6 +18,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.List;
 
 public class SalesActivitiesTest extends BaseTest {
     private WebAutomationDriver webAutomationDriver;
@@ -77,65 +79,59 @@ public class SalesActivitiesTest extends BaseTest {
         return new JsonFileReader().getTestCases(JsonFields.SAVE_WITHOUT_NAME);
     }
 
-    @Test
+    @Test (priority = 1)
     public void checkDefault() {
         Assert.assertTrue(salesActivities.checkDefaultActivityTypes());
     }
 
-    @Test(dataProvider = "salesActivities", priority = 1)
+    @Test (priority = 2 )
+    public void isAvailableInAddForm() {
+        Assert.assertTrue(salesActivities.verifyActivityTypesInAddForm());
+    }
+
+    @Test(dataProvider = "salesActivities", priority = 3)
     public void addActivityType(final TestCase testCase) {
-        final String activityTypeName = testCase.input.getString("activityTypeName");
-
-        salesActivities.addActivityType(testCase);
-
-        Assert.assertTrue(salesActivities.isActivityTypeAvailableInList(activityTypeName));
+        Assert.assertTrue(salesActivities.addNewActivityType(testCase));
     }
 
-    @Test(priority = 2)
+    @Test(priority = 4)
     public void checkDuplicate() {
-        salesActivities.addActivityTypeAndCheck();
-        Assert.assertTrue(salesActivities.isAlreadyExistErrorMsgDisplayed());
+        Assert.assertTrue(salesActivities.addActivityTypeAndCheck());
     }
 
-    @Test(dataProvider = "disabledActivityType", priority = 3)
+    @Test(dataProvider = "disabledActivityType", priority = 5)
     public void disableActivityType(final TestCase testCase) {
-        final String activityTypeName = testCase.input.getString("activityType");
         Assert.assertTrue(salesActivities.disableActivityType(testCase));
-//        Assert.assertTrue(salesActivities.isActivityTypeNotAvailableInList(activityTypeName));
     }
 
-    @Test(dataProvider = "enableActivityType", priority = 4)
+    @Test(dataProvider = "enableActivityType", priority = 6)
     public void enableActivityType(final TestCase testCase) {
-        final String activityTypeName = testCase.input.getString("activityType");
         Assert.assertTrue(salesActivities.enableActivityType(testCase));
-//        Assert.assertTrue(salesActivities.isActivityTypeNotAvailableInList(activityTypeName));
     }
 
-    @Test(dataProvider = "updateActivityType", priority = 5)
+    @Test(dataProvider = "updateActivityType", priority = 7)
     public void updateActivityType(final TestCase testCase) {
-        final String changes = testCase.input.getString("changes");
-        salesActivities.updateActivityTypes(testCase);
-        Assert.assertTrue(salesActivities.isActivityTypeAvailableInList(changes));
+        Assert.assertTrue(salesActivities.updateActivityType(testCase));
     }
 
-    @Test(dataProvider = "disabledActivityType", priority = 6)
+    @Test(dataProvider = "disabledActivityType", priority = 8)
     public void testEditWithoutChanges(final TestCase testCase) {
         Assert.assertTrue(salesActivities.editWithoutChanges(testCase));
     }
 
-    @Test(priority = 7)
+    @Test(priority = 9)
     public void disAbleAll() {
-        salesActivities.disableAll();
-        Assert.assertTrue(salesActivities.errorMsg() && salesActivities.isDisplayed(salesActivities.findByXpath("(//div[@class='css-95g4uk'])[1]")));
+        Assert.assertTrue(salesActivities.disableAll() && salesActivities.isDisplayed(salesActivities.findByXpath("(//div[contains(@class,'95g4uk')])[1]")));
     }
 
-    @Test(dataProvider = "saveWithoutIcon", priority = 8)
+    @Test(dataProvider = "saveWithoutIcon", priority = 10)
     public void withOutIcon(final TestCase testCase) {
         Assert.assertTrue(salesActivities.saveWithoutIconSelection(testCase));
     }
 
-    @Test(dataProvider = "saveWithoutName", priority = 9)
+    @Test(dataProvider = "saveWithoutName", priority = 11)
     public void withOutName(final TestCase testCase) {
         Assert.assertTrue(salesActivities.saveWithoutName(testCase));
     }
 }
+

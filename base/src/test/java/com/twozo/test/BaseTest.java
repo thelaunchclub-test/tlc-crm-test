@@ -2,9 +2,15 @@ package com.twozo.test;
 
 import com.twozo.commons.cookie.BrowserCookie;
 import com.twozo.commons.util.ConfigFileReader;
+import com.twozo.page.settings.sales.activities.WebAutomationListener;
 import com.twozo.page.sign.SignIn;
+//import com.twozo.test.settings.data.fields.PropertyLogExample;
+import com.twozo.test.settings.data.fields.PropertyLogExample;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.events.EventFiringDecorator;
+import org.openqa.selenium.support.events.WebDriverListener;
 import org.testng.annotations.BeforeTest;
 
 import java.io.File;
@@ -31,8 +37,11 @@ public class BaseTest {
 
         automationDriver.getWebNavigator().to(link);
         automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(10));
-        SignIn.getInstance(automationDriver).signIn("tqc@gmail.com", "A$12345a");
+        SignIn.getInstance(automationDriver).signIn("2p@gmail.com", "A$12345a");
         cookies = automationDriver.getSessionCookie().getCookies();
+//        WebAutomationListener listener = new PropertyLogExample();
+//
+//        automationDriver = (WebAutomationDriver) new EventFiringDecorator<WebDriver>((WebDriverListener) listener).decorate((WebDriver) automationDriver);
 
         automationDriver.close();
     }
