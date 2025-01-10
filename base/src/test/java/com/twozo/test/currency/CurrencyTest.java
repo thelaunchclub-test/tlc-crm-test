@@ -12,17 +12,27 @@ import com.twozo.test.BaseTest;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import com.twozo.web.driver.service.WebNavigator;
 import org.testng.Assert;
+import org.testng.ITest;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.lang.reflect.Method;
 import java.time.Duration;
 
 public class CurrencyTest extends BaseTest {
 
+    //    private final ThreadLocal<String> testName = new ThreadLocal<>();
     private WebAutomationDriver webAutomationDriver;
     WebNavigator webNavigator;
     Currency currency;
+
+//    @BeforeMethod
+//    public void setUp(final Method method, final TestCase[][] testCases) {
+//        testName.set(method.getName() + testCases);
+//
+//    }
 
     @BeforeMethod
     public void beforeMethod() {
@@ -41,6 +51,11 @@ public class CurrencyTest extends BaseTest {
         HomePage.getInstance(automationDriver);
         currency = new Currency(automationDriver);
     }
+
+//    @AfterMethod
+//    public void close() {
+//        automationDriver.close();
+//    }
 
     @DataProvider(name = "currency")
     public static TestCase[][] checkBase() {
@@ -72,10 +87,15 @@ public class CurrencyTest extends BaseTest {
         return new JsonFileReader().getTestCases(JsonFields.ADD_CURRENCY_VERIFY);
     }
 
+    @Test(priority = 1)
+    public void verifyAllCurrencyOptions() {
+        Assert.assertTrue(currency.verifyAllCurrenciesPresent());
+    }
+
     /**
      * Verifies that the base currency is set to USD by default.
      */
-    @Test
+    @Test(priority = 2)
     public void checkBaseCurrency() {
         Assert.assertTrue(currency.isBaseCurrencyUSD());
     }
@@ -83,7 +103,7 @@ public class CurrencyTest extends BaseTest {
     /**
      * Verifies that the base decimal value is set to 2 by default.
      */
-    @Test(priority = 1)
+    @Test(priority = 3)
     public void checkBaseDecimal() {
         Assert.assertTrue(currency.isBaseDecimal());
     }
@@ -91,100 +111,58 @@ public class CurrencyTest extends BaseTest {
     /**
      * Verifies that the popup is visible after clicking the "Add Currency" button.
      */
-    @Test(priority = 2)
+    @Test(priority = 4)
     public void hasPopUpVisibleToAddCurrency() {
         Assert.assertTrue(currency.isPopUpVisible());
     }
 
-    @Test(dataProvider = "currency", priority = 3)
+    @Test(dataProvider = "currency", priority = 5)
     public void addBaseCurrency(final TestCase testCase) {
-
-        if (testCase.input.containsKey("currency")) {
-            testCase.input.getString("currency");
-        }
-        currency.baseCurrency(testCase);
-        Assert.assertTrue(currency.checkTheBaseCurrencyValue(testCase));
+        Assert.assertTrue(currency.baseCurrency(testCase));
     }
 
-    @Test(priority = 4)
+    @Test(priority = 6)
     public void AddBaseCurrencyInSearch() {
         Assert.assertTrue(currency.searchBase());
     }
 
-    @Test(dataProvider = "decimal", priority = 5)
+    @Test(dataProvider = "decimal", priority = 7)
     public void addDecimal(final TestCase testCase) {
-
-        if (testCase.input.containsKey("decimal")) {
-            final DecimalOption decimalOption = DecimalOption.fromValue(testCase.input.getInt("decimal"));
-
-            currency.getDecimal(testCase);
-            Assert.assertTrue(currency.checkTheDecimalValue(testCase),
-                    "The decimal value was not changed as expected. Expected: " + decimalOption);
-        }
+        Assert.assertTrue(currency.getDecimal(testCase));
     }
 
-    @Test(dataProvider = "addCurrency", priority = 6)
-    public void addCurrency(final TestCase testCase) {
-
-        if (testCase.input.containsKey("currency")) {
-            testCase.input.getString("currency");
-        }
-
-        currency.addCurrencyTest(testCase);
-        Assert.assertTrue(currency.isCurrencyAvailableInList(testCase.input.getString("currency")));
-    }
-
-    @Test(dataProvider = "disableCurrency", priority = 7)
-    public void disAbleCurrency(final TestCase testCase) {
-
-        if (testCase.input.containsKey("makeItDisable")) {
-            testCase.input.optBoolean("makeItDisable", false);
-        }
-
-        currency.isDisabledCurrencySwitch(testCase);
-
-        Assert.assertTrue(currency.isDisableCurrency());
-    }
-
-    @Test(dataProvider = "disableCurrency", priority = 8)
-    public void enableCurrency(final TestCase testCase) {
-
-        if (testCase.input.containsKey("currency")) {
-            testCase.input.getString("currency");
-        }
-
-        if (testCase.input.containsKey("isEnable")) {
-            testCase.input.optBoolean("isEnable", false);
-        }
-
-        currency.isEnabledCurrency(testCase);
-        Assert.assertTrue(currency.isEnableCurrency());
-    }
-
-    @Test(dataProvider = "addCurrencyAndVerify", priority = 9)
-    public void addCurrencyAndVerify(final TestCase testCase) {
-        final String currencyToAdd = testCase.input.getString("currency");
-        currency.addCurrencyTest(testCase);
-
-        Assert.assertTrue(currency.isCurrencyAvailableInAddForm(currencyToAdd),
-                "Currency should not be available in the Add Currency form after adding it.");
-    }
-
-    @Test(dataProvider = "addCurrencyAndCheck", priority = 10)
-    public void testCurrencySelection(final TestCase testCase) {
-        final String currencyToCheck = testCase.input.getString("currency");
-
-        currency.addCurrencyTest(testCase);
-        final boolean isPresent = currency.isCurrencyPresentInDropdown(currencyToCheck);
-        Assert.assertFalse(isPresent, "The currency " + currencyToCheck + " should be present in the dropdown.");
-    }
-
-    @Test(priority = 11)
+    @Test(priority = 8)
     public void baseCurrencyButtonStatusAfterAddingCurrency() {
         Assert.assertTrue(currency.isEnabled());
     }
 
-    @Test(priority = 12)
+    @Test(dataProvider = "addCurrency", priority = 9)
+    public void addCurrency(final TestCase testCase) {
+        Assert.assertTrue(currency.addCurrencyTest(testCase));
+    }
+
+    @Test(dataProvider = "disableCurrency", priority = 10)
+    public void disAbleCurrency(final TestCase testCase) {
+        Assert.assertTrue(currency.isDisabledCurrencySwitch(testCase));
+    }
+
+    @Test(dataProvider = "disableCurrency", priority = 11)
+    public void enableCurrency(final TestCase testCase) {
+        Assert.assertTrue(currency.isEnabledCurrency(testCase));
+    }
+
+    @Test(dataProvider = "addCurrencyAndVerify", priority = 12)
+    public void addCurrencyAndVerify(final TestCase testCase) {
+        Assert.assertTrue(currency.isCurrencyAvailableInAddForm(testCase),
+                "Currency should not be available in the Add Currency form after adding it.");
+    }
+
+    @Test(dataProvider = "addCurrencyAndCheck", priority = 13)
+    public void testCurrencySelection(final TestCase testCase) {
+        Assert.assertFalse(currency.isCurrencyPresentInDropdown(testCase), "The currency should be present in the dropdown.");
+    }
+
+    @Test(priority = 14)
     public void searchAddCurrency() {
         Assert.assertTrue(currency.searchAddCurrency());
     }

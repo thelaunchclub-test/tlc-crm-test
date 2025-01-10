@@ -2,8 +2,8 @@ package com.twozo.test.settings.data.fields;
 
 import com.twozo.commons.json.JsonArray;
 import com.twozo.commons.json.JsonObject;
+import com.twozo.page.settings.currency.reader.TestCase;
 import com.twozo.page.settings.data.fields.FieldStatus;
-import com.twozo.test.TestCase;
 import com.twozo.test.TestDataProvider;
 import com.twozo.test.settings.SettingsTest;
 import com.twozo.web.driver.service.WebNavigator;

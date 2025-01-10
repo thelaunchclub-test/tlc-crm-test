@@ -27,7 +27,7 @@ public class FieldElement {
     public static final String EDIT_ICON = "//button[1]";
     public static final String DELETE_ICON = "//button[2]";
     public static final String EYE_ICON = "//button[1]";
-    public static final String ADD_CURRENCY_BLOCK = "(//*[@class='css-j7qwjs'][%d]/div/div)[2]/p";
-    public static final String CURRENCY_BLOCK_SWITCH = "(//*[@class='css-j7qwjs'])[%d]/div/div/span";
-    public static final String CURRENCY_BLOCK ="(//*[@class='css-j7qwjs'])[%d]";
+    public static final String ADD_CURRENCY_BLOCK = "//*[contains(@class, 'j7qwjs')]/div/div[2]/p";
+    public static final String CURRENCY_BLOCK_SWITCH = "(//*[contains(@class, 'j7qwjs')])[%d]/div/div/span";
+    public static final String CURRENCY_BLOCK ="(//*[contains(@class, 'j7qwjs')])[%d]";
 }

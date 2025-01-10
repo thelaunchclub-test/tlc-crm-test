@@ -1,10 +1,10 @@
 package com.twozo.test.sign.up;
 
 import com.twozo.commons.json.JsonObject;
+import com.twozo.page.settings.currency.reader.TestCase;
 import com.twozo.page.sign.Account;
 import com.twozo.page.sign.SignUp;
 import com.twozo.test.BaseTest;
-import com.twozo.test.TestCase;
 import com.twozo.test.TestDataProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

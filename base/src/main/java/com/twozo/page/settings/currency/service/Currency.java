@@ -4,7 +4,6 @@ import com.twozo.extent.report.reporter.logger.ExtentLogger;
 import com.twozo.page.BasePage;
 import com.twozo.page.settings.currency.model.DecimalOption;
 import com.twozo.page.settings.currency.reader.TestCase;
-import com.twozo.page.settings.data.fields.field.FieldElement;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import com.twozo.web.element.model.Element;
 import com.twozo.web.element.model.LocatorType;
@@ -15,7 +14,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
-import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class Currency extends BasePage {
 
@@ -166,7 +165,7 @@ public class Currency extends BasePage {
      * @return {@link WebPageElement} representing the pop-up dialog.
      */
     public WebPageElement getPopUp() {
-        return this.findByXpath("//*[@class='MuiDialogContent-root css-1ty026z']");
+        return this.findByXpath("//*[contains(@class, '1ty026z')]");
     }
 
     /**
@@ -176,25 +175,6 @@ public class Currency extends BasePage {
      */
     public WebPageElement getYes() {
         return this.findByText("Yes");
-    }
-
-    /**
-     * Locates the "Save" button element by its specific class attributes.
-     *
-     * @return {@link WebPageElement} after clicking the "Save" button.
-     */
-    public WebPageElement clickSave() {
-        return this.findByXpath("(//*[@class='MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-disableElevation  css-7jf6a5'])[2]");
-    }
-
-    /**
-     * Locates the active button {@link Element} identified by its index.
-     *
-     * @param index The index of the active button to be clicked.
-     * @return {@link WebPageElement} after clicking the active button.
-     */
-    public WebPageElement clickActiveButton(final int index) {
-        return this.findByXpath(String.format("(//*[@class='MuiSwitch-root MuiSwitch-sizeMedium css-1v2eis'])[%s]", index));
     }
 
     /**
@@ -216,7 +196,7 @@ public class Currency extends BasePage {
      * @return {@link WebPageElement} representing the enable toggle switch.
      */
     public WebPageElement getEnableButton() {
-        return this.findByXpath("//*[@class='MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary PrivateSwitchBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary css-4fvm5n']");
+        return this.findByXpath("(//*[contains(@class, '4fvm5n')])");
     }
 
     /**
@@ -239,31 +219,9 @@ public class Currency extends BasePage {
      * @return {@link WebPageElement} representing the "Add Currency" pop-up dialog.
      */
     public WebPageElement addCurrencyPopUp() {
-        return this.findByXpath("//*[@class='MuiDialogContent-root css-1ty026z']");
+        return this.findByXpath("//*[contains(@class, '1ty026z')]");
     }
 
-    /**
-     * <p>
-     * Locates and returns a checkbox button {@link Element} identified by its Currency attribute.
-     * </p>
-     *
-     * @return {@link WebPageElement} representing a checkbox button.
-     */
-    public WebPageElement getCurrencyButton() {
-        return this.findByXpath("//*[@type='checkbox']");
-    }
-
-    /**
-     * <p>
-     * Locates and returns the block {@link Element} that represents the "Add Currency" section,
-     * identified by its CSS class.
-     * </p>
-     *
-     * @return {@link WebPageElement} representing the "Add Currency" block.
-     */
-    public WebPageElement getAddCurrencyBlock() {
-        return this.findByXpath("//*[@class='MuiBox-root css-1sf3xto']");
-    }
 
     /**
      * Retrieves the "No" button element on the webpage.
@@ -380,7 +338,7 @@ public class Currency extends BasePage {
      *
      * @param testCase the test case object containing input data, including the decimal value to be selected.
      */
-    public void getDecimal(final TestCase testCase) {
+    public boolean getDecimal(final TestCase testCase) {
         final int decimalValue = testCase.input.getInt("decimal");
         final DecimalOption decimalOption = DecimalOption.fromValue(decimalValue);
 
@@ -398,31 +356,8 @@ public class Currency extends BasePage {
         click(getYes());
         ExtentLogger.pass(YES);
         sleepFor();
-    }
 
-    /**
-     * Verifies that the selected decimal value in the UI matches the expected value from the test case.
-     *
-     * @param testCase the test case object containing the expected decimal value.
-     * @return true if the decimal value in the UI matches the expected value, false otherwise.
-     */
-    public boolean checkTheDecimalValue(final TestCase testCase) {
-        final int decimalValue = testCase.input.getInt("decimal");
-        final String decimalValueString = String.valueOf(decimalValue);
-
-        return Objects.equals(decimalValueString, getText(getDecimalDropDown()));
-    }
-
-    /**
-     * Verifies that the selected base currency in the UI matches the expected currency from the test case.
-     *
-     * @param testCase the test case object containing the expected base currency.
-     * @return true if the base currency in the UI matches the expected currency, false otherwise.
-     */
-    public boolean checkTheBaseCurrencyValue(final TestCase testCase) {
-        final String currency = testCase.input.getString(CURRENCY_TYPE);
-
-        return getText(getBaseCurrencyBox()).contains(currency);
+        return Objects.equals(String.valueOf(decimalValue), getText(getDecimalDropDown()));
     }
 
     /**
@@ -430,11 +365,10 @@ public class Currency extends BasePage {
      *
      * @param testCase the test case object containing input data, including the currency to be selected.
      */
-    public void baseCurrency(final TestCase testCase) {
+    public boolean baseCurrency(final TestCase testCase) {
         final String currency = testCase.input.getString(CURRENCY_TYPE);
 
         if (Objects.nonNull(currency) && !getText(getBaseCurrencyBox()).contains(currency)) {
-
             click(getBaseCurrencyBox());
             ExtentLogger.pass("Base currency field is clicked");
             sleepFor();
@@ -444,170 +378,86 @@ public class Currency extends BasePage {
             click(getChange());
             ExtentLogger.pass("Get change button is clicked");
         }
+
+        return getText(getBaseCurrencyBox()).contains(currency);
     }
 
     /**
-     * Adds a new currency by selecting it from the dropdown and saving the selection.
+     * Checks if a currency is enabled based on the conditions in the test case.
+     * If the currency is set to be disabled, it tries to deactivate it;
+     * otherwise, it verifies if the currency is already enabled.
      *
-     * @param testCase the test case object containing input data, including the currency to be added.
+     * @param testCase the test case object containing the input conditions.
+     * @return true if the currency is successfully handled according to the conditions, false otherwise.
      */
-    public void addCurrency(final TestCase testCase) {
-        final String currency = testCase.input.getString(CURRENCY_TYPE);
+    public boolean isDisabledCurrencySwitch(final TestCase testCase) {
 
-        if (Objects.nonNull(currency)) {
-            click(getAddCurrencyButton());
-            ExtentLogger.pass(ADD_CURRENCY_BTN);
+        if (testCase.input.optBoolean("makeItDisable", false)) {
+            String currency = testCase.input.getString(CURRENCY_TYPE);
+
             try {
-                isDisplayed(addCurrencyPopUp());
-                ExtentLogger.info(POPUP_MSG);
-                click(getYes());
-                ExtentLogger.pass(YES);
-                click(getAddCurrencyBox());
-                ExtentLogger.pass(CURRENCY_FIELD);
-//                final Collection<WebPageElement> currencyOptions = findElementsByXpath(CURRENCY_LIST);
-//
-//                for (WebPageElement option : currencyOptions) {
-//                    String currencyText = option.getElementInformationProvider().getText().trim();
-//
-//                    if (currencyText.contains(currency)) {
-//                        Thread.sleep(2000);
-                click(findByXpath(String.format("//p[contains(text(),'%s')]//parent::div", currency)));
-                ExtentLogger.pass(CURRENCY_OPTION);
+                isDisplayed(findByXpath(String.format("%s%s", getCurrencyFieldBlock(currency),
+                        "//*[contains(@class, 'MuiSwitch-switchBase') and contains(@class, 'Mui-checked Mui-checked')]")));
 
-                click(getSave());
-                ExtentLogger.pass("The save button is clicked");
+                click(findByXpath(getCurrencyFieldBlock(currency)));
+                ExtentLogger.pass("Disable button for the specified currency has been clicked");
+                click(getDeActivateButton());
+                ExtentLogger.pass("DeActivated button is clicked");
 
             } catch (Exception exception) {
-
-                click(getAddCurrencyBox());
-                ExtentLogger.pass(CURRENCY_FIELD);
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                if (isDisplayed(getEnableButton())) {
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-                dropdown(String.format("//p[contains(text(),'%s')]//parent::div", currency));
-                ExtentLogger.pass(CURRENCY_OPTION);
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-
-                click(getSave());
-                ExtentLogger.pass("The save button is clicked");
             }
         }
-    }
 
-    /**
-     * Checks if the {@link Element} provided by the Supplier is displayed on the page.
-     *
-     * @param elementSupplier a Supplier that provides the {@link WebPageElement} to check.
-     * @return true if the element is displayed, false otherwise.
-     */
-    public boolean isElementDisplayed(final Supplier<WebPageElement> elementSupplier) {
-        try {
-            return isDisplayed(elementSupplier.get());
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
+        return isDisplayed(hasDisablePopUp());
 
-    /**
-     * Checks if the "Currency decimal has been updated successfully." message is displayed.
-     *
-     * @return true if the message is displayed, false otherwise.
-     */
-    public boolean isDecimalChanged() {
-        return isElementDisplayed(this::getDecimalVisible);
-    }
-
-    /**
-     * Checks if the "Base currency has been updated successfully." message is displayed.
-     *
-     * @return true if the message is displayed, false otherwise.
-     */
-    public boolean isBaseCurrency() {
-        return isElementDisplayed(this::hasBaseCurrencyPopUp);
-    }
-
-    /**
-     * Checks if the "Currency has been added successfully." message is displayed.
-     *
-     * @return true if the message is displayed, false otherwise.
-     */
-    public boolean isAddCurrency() {
-        return isElementDisplayed(this::hasAddCurrencyPopUp);
-    }
-
-    /**
-     * Checks if the "Currency has been deactivated successfully." message is displayed.
-     *
-     * @return true if the message is displayed, false otherwise.
-     */
-    public boolean isDisableCurrency() {
-        return isElementDisplayed(this::hasDisablePopUp);
-    }
-
-    /**
-     * Checks if the "Currency has been activated successfully." message is displayed.
-     *
-     * @return true if the message is displayed, false otherwise.
-     */
-    public boolean isEnableCurrency() {
-        return isElementDisplayed(this::hasEnablePopUp);
     }
 
     public boolean isEnabledCurrency(final TestCase testCase) {
+
         if (testCase.input.optBoolean("makeItEnable", false)) {
             final String currency = testCase.input.getString(CURRENCY_TYPE);
 
             try {
-                isDisplayed(findByXpath(String.format("%s%s", getCurrencyFieldBlock(currency),
-                        "//*[@class='MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary " +
-                                "PrivateSwitchBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary css-4fvm5n']")));
 
-                click(findByXpath(getCurrencyFieldBlockSwitch(currency)));
-                ExtentLogger.pass("The enable button for the specified currency has been clicked.");
+                WebPageElement currencySwitch = findByXpath(String.format("%s%s",
+                        getCurrencyFieldBlock(currency),
+                        "//*[contains(@class, 'MuiSwitch-switchBase') and contains(@class, 'MuiSwitch-colorPrimary')]"));
 
-                return true;
+
+                if (isDisplayed(currencySwitch)) {
+
+                    sleepFor();
+                    click(findByXpath(getCurrencyFieldBlock(currency)));
+                    ExtentLogger.pass("The enable button for the specified currency has been clicked.");
+                }
             } catch (Exception exception) {
+                // Handle cases where the currency might already be enabled
                 if (isDisplayed(getDisableButton())) {
-                    return true;
+                    ExtentLogger.info("The currency is already enabled.");
+                } else {
+                    ExtentLogger.fail("Failed to enable the currency. Exception: " + exception.getMessage());
+                    return false;
                 }
             }
         }
 
-        return false;
-    }
-
-
-    /**
-     * <p>
-     * Finds the Location for the currency field block switch based on the provided currency.
-     * Iterates through rows until the currency is found.
-     * </p>
-     *
-     * @param currency the currency to locate in the field block.
-     * @return the Xpath for the located currency field block.
-     */
-    protected String getCurrencyFieldBlockSwitch(final String currency) {
-        int rowNumber = 1;
-        while (!getText(findByXpath(String.format(FieldElement.ADD_CURRENCY_BLOCK, rowNumber))).contains(currency)) {
-            rowNumber++;
+        try {
+            return isDisplayed(hasEnablePopUp());
+        } catch (NoSuchElementException e) {
+            ExtentLogger.fail("Enable popup is not displayed.");
+            return false;
         }
-
-        return String.format(FieldElement.CURRENCY_BLOCK_SWITCH, rowNumber);
     }
 
     protected String getCurrencyFieldBlock(final String currency) {
-        int rowNumber = 1;
-        while (!getText(findByXpath(String.format(FieldElement.ADD_CURRENCY_BLOCK, rowNumber))).contains(currency)) {
-            rowNumber++;
-        }
-
-        return String.format(FieldElement.CURRENCY_BLOCK, rowNumber);
+        return String.format("//*[contains(text(), '%s')]/parent::div/preceding-sibling::div/span", currency);
     }
 
     /**
@@ -629,7 +479,7 @@ public class Currency extends BasePage {
 
     public Collection<String> getAvailableCurrenciesInList() {
         refresh();
-        final Collection<WebPageElement> currencyElements = findElementsByXpath("//*[@class='css-j7qwjs']/div/div[2]");
+        final Collection<WebPageElement> currencyElements = findElementsByXpath("//*[contains(@class, 'j7qwjs')]/div/div[2]");
         final List<String> availableCurrencies = new ArrayList<>();
 
         for (final WebPageElement currencyElement : currencyElements) {
@@ -647,44 +497,58 @@ public class Currency extends BasePage {
     /**
      * Checks if a specific currency is available in the add currency form dropdown.
      *
-     * @param currencyName the name of the currency to check for.
+     * @param testCase the name of the currency to check for.
      * @return true if the currency is available, false otherwise.
      */
-    public boolean isCurrencyAvailableInAddForm(final String currencyName) {
-        final Collection<String> availableCurrencies = getAvailableCurrenciesInAddForm();
-        return !availableCurrencies.contains(currencyName);
-    }
+    public boolean isCurrencyAvailableInAddForm(final TestCase testCase) {
+        final String currency = testCase.input.getString(CURRENCY_TYPE);
 
-    public boolean isCurrencyAvailableInList(final String currencyName) {
+        if (Objects.nonNull(currency)) {
+            click(getAddCurrencyButton());
+            ExtentLogger.pass(ADD_CURRENCY_BTN);
 
-        for (final String currency : getAvailableCurrenciesInList()) {
+            try {
+                isDisplayed(addCurrencyPopUp());
+                ExtentLogger.info(POPUP_MSG);
+                click(getYes());
+                ExtentLogger.pass(YES);
+                addCurrencyToDropdown(currency);
 
-            if (currency.contains(currencyName)) {
-                return true;
+            } catch (Exception exception) {
+                addCurrencyToDropdown(currency);
             }
         }
-
-        return false;
+        final Collection<String> availableCurrencies = getAvailableCurrenciesInAddForm();
+        return !availableCurrencies.contains(currency);
     }
 
-
-    /**
-     * Checks if the base currency field is enabled.
-     *
-     * @return true if the base currency field is enabled, false otherwise.
-     */
-    public boolean isEnabledBase() {
-        return isEnabled(getBaseCurrencyBox());
-    }
 
     /**
      * Checks if a specific currency is present in the dropdown.
      * Attempts to select the currency if found.
      *
-     * @param currencyToCheck the currency to search for in the dropdown.
+     * @param testCase the currency to search for in the dropdown.
      * @return true if the currency is present and successfully selected, false otherwise.
      */
-    public boolean isCurrencyPresentInDropdown(final String currencyToCheck) {
+    public boolean isCurrencyPresentInDropdown(final TestCase testCase) {
+        final String currency = testCase.input.getString(CURRENCY_TYPE);
+
+        if (Objects.nonNull(currency)) {
+            click(getAddCurrencyButton());
+            ExtentLogger.pass(ADD_CURRENCY_BTN);
+
+            try {
+                isDisplayed(addCurrencyPopUp());
+                ExtentLogger.info(POPUP_MSG);
+                click(getYes());
+                ExtentLogger.pass(YES);
+                addCurrencyToDropdown(currency);
+
+            } catch (Exception exception) {
+                addCurrencyToDropdown(currency);
+            }
+        }
+
         click(getAddCurrencyButton());
         ExtentLogger.pass("Add currency button is clicked successfully");
 
@@ -703,7 +567,7 @@ public class Currency extends BasePage {
             for (WebPageElement option : currencyOptions) {
                 String currencyText = option.getElementInformationProvider().getText().trim();
 
-                if (currencyText.contains(currencyToCheck)) {
+                if (currencyText.contains(currency)) {
                     ExtentLogger.info("The already added currency is not displayed in the currency list.");
                     click(findByXpath("//body"));
                     click(getCancel());
@@ -722,25 +586,19 @@ public class Currency extends BasePage {
      * @return true if the add currency button is enabled, false otherwise.
      */
     public boolean isEnabled() {
-        try {
-            findElement(new Element(LocatorType.CLASS_NAME, "Mui-disabled", true));
-        } catch (Exception e) {
-            click(getAddCurrencyButton());
-            ExtentLogger.pass("Add Currency button is clicked successfully");
-            click(getYes());
-            ExtentLogger.pass("Yes button is clicked successfully");
-            click(getAddCurrencyBox());
-            ExtentLogger.pass("Add Currency field is clicked successfully");
-            dropdown("EUR");
-            click(getSave());
-            ExtentLogger.pass("Save button is clicked successfully");
+        click(getAddCurrencyButton());
+        ExtentLogger.pass("Add Currency button is clicked successfully");
+        click(getYes());
+        ExtentLogger.pass("Yes button is clicked successfully");
+        click(getAddCurrencyBox());
+        ExtentLogger.pass("Add Currency field is clicked successfully");
+        dropdown("EUR");
+        click(getSave());
+        ExtentLogger.pass("Save button is clicked successfully");
 
-            boolean baseCurrencyButtonStatus = isDisplayed(findElement(new Element(LocatorType.CLASS_NAME, "Mui-disabled", true)));
-            ExtentLogger.info("After adding a currency, the base currency button will become unclickable");
-            return baseCurrencyButtonStatus;
-        }
-
-        return true;
+        boolean baseCurrencyButtonStatus = isDisplayed(findElement(new Element(LocatorType.CLASS_NAME, "Mui-disabled", true)));
+        ExtentLogger.info("After adding a currency, the base currency button will become unClickable");
+        return baseCurrencyButtonStatus;
     }
 
     /**
@@ -774,7 +632,7 @@ public class Currency extends BasePage {
      * @return the WebPageElement representing the search input in the base currency section.
      */
     public WebPageElement getSearchInBase() {
-        return this.findByXpath("//*[@class='MuiBox-root css-3yog9s']");
+        return this.findByXpath("//*[contains(@class,'3yog9s')]");
     }
 
     /**
@@ -783,7 +641,7 @@ public class Currency extends BasePage {
      * @return the WebPageElement representing the search input in the add currency section.
      */
     public WebPageElement getSearchInAddCurrency() {
-        return this.findByXpath("//*[@class='MuiBox-root css-3yog9s']//*[@placeholder='Search']");
+        return this.findByXpath("//*[contains(@class,'3yog9s')]//*[@placeholder='Search']");
     }
 
     /**
@@ -812,6 +670,7 @@ public class Currency extends BasePage {
             send(getSearchInAddCurrency(), currencyCode);
             ExtentLogger.pass("The given currency is entered in the search field");
         } catch (Exception exception) {
+            sleepFor();
             click(getAddCurrencyBox());
             ExtentLogger.pass(CURRENCY_FIELD);
             click(getSearchInAddCurrency());
@@ -849,41 +708,6 @@ public class Currency extends BasePage {
     }
 
     /**
-     * Checks if a currency is enabled based on the conditions in the test case.
-     * If the currency is set to be disabled, it tries to deactivate it;
-     * otherwise, it verifies if the currency is already enabled.
-     *
-     * @param testCase the test case object containing the input conditions.
-     * @return true if the currency is successfully handled according to the conditions, false otherwise.
-     */
-    public boolean isDisabledCurrencySwitch(final TestCase testCase) {
-
-        if (testCase.input.optBoolean("makeItDisable", false)) {
-            String currency = testCase.input.getString(CURRENCY_TYPE);
-            try {
-                isDisplayed(findByXpath(String.format("%s%s", getCurrencyFieldBlock(currency),
-                        "//*[@class='MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary Mui-checked " +
-                                "PrivateSwitchBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary Mui-checked " +
-                                "Mui-checked css-4fvm5n']")));
-
-                click(findByXpath(getCurrencyFieldBlockSwitch(currency)));
-                ExtentLogger.pass("Disable button for the specified currency has been clicked");
-                click(getDeActivateButton());
-                ExtentLogger.pass("DeActivated button is clicked");
-
-                return true;
-
-            } catch (Exception exception) {
-                if (isDisplayed(getEnableButton())) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Pauses the current thread for 2 seconds (2000 milliseconds).
      * If the thread is interrupted while sleeping, it catches
      * the `InterruptedException` and rethrows it as a `RuntimeException`.
@@ -902,7 +726,7 @@ public class Currency extends BasePage {
      *
      * @param testCase The {@link TestCase} containing input data for the currency type.
      */
-    public void addCurrencyTest(final TestCase testCase) {
+    public boolean addCurrencyTest(final TestCase testCase) {
         final String currency = testCase.input.getString(CURRENCY_TYPE);
 
         if (Objects.nonNull(currency)) {
@@ -920,6 +744,15 @@ public class Currency extends BasePage {
                 addCurrencyToDropdown(currency);
             }
         }
+
+        for (final String currencies : getAvailableCurrenciesInList()) {
+
+            if (currencies.contains(currency)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -942,5 +775,79 @@ public class Currency extends BasePage {
         ExtentLogger.pass(CURRENCY_OPTION);
         click(getSave());
         ExtentLogger.pass("The save button is clicked");
+    }
+
+
+    public boolean verifyAllCurrenciesPresent() {
+        click(getBaseCurrencyBox());
+
+        List<String> currencyList = List.of(
+                "Afghanistan Afghani", "Albanian Lek", "Algerian Dinar", "Angolan Kwanza",
+                "Argentine Peso", "Armenian Dram", "Aruban Guilder", "Australian Dollar",
+                "Azerbaijan Manat", "Azerbaijan Old Manat", "Bahamian Dollar", "Bahraini Dinar",
+                "Bangladesh Taka", "Barbados Dollar", "Belarusian Ruble", "Belize Dollar",
+                "Bermudian Dollar", "Bhutan Ngultrum", "Bitcoin", "Bolivian Boliviano",
+                "Bolívar Soberano", "Bosnia and Herzegovina Convertible Marks", "Botswana Pula",
+                "Brazilian Real", "Brunei Dollar", "Bulgarian Lev", "Burundi Franc",
+                "CFA Franc BCEAO", "CFA Franc BEAC", "CFP Franc", "Cambodia Riel",
+                "Canadian Dollar", "Cape Verde Escudo", "Cayman Islands Dollar", "Chilean Peso",
+                "Chilean Unidad de Fomento", "Chinese Yuan Renminbi", "Colombian Peso",
+                "Comorian Franc", "Costa Rican Colon", "Croatian Kuna", "Cuban Peso",
+                "Cyprus Pound", "Czech Koruna", "Danish Krone", "Djibouti Franc", "Dobra",
+                "Dominican Peso", "East Caribbean Dollar", "Egyptian Pound", "El Salvador Colon",
+                "Eritrea Nafka", "Estonian Kroon", "Ethiopian Birr", "Euro", "Falkland Islands Pound",
+                "Fiji Dollar", "Franc Congolais", "Gambian Dalasi", "Georgian Lari",
+                "Ghana Cedi", "Ghanaian Cedi", "Gibraltar Pound", "Gold", "Guatemala Quetzal",
+                "Guinean Franc", "Guyana Dollar", "Haiti Gourde", "Honduras Lempira",
+                "Hong Kong Dollar", "Hungarian Forint", "Iceland Krona", "Indian Rupee",
+                "Indonesian Rupiah", "Iranian Rial", "Iraqi Dinar", "Jamaican Dollar",
+                "Japanese Yen", "Jordanian Dinar", "Kazakhstan Tenge", "Kenyan Shilling",
+                "Korean Won", "Kuwaiti Dinar", "Kyrgyzstan Som", "Lao Kip", "Latvian Lats",
+                "Lebanese Pound", "Lesotho Loti", "Liberian Dollar", "Libyan Dinar",
+                "Lithuanian Litas", "Macau Pataca", "Macedonian Denar", "Malagasy Ariary",
+                "Malawi Kwacha", "Malaysian Ringgit", "Maldives Rufiyaa", "Maltese Lira",
+                "Mauritania Ouguiya", "Mauritius Rupee", "Mexican Peso", "Moldovan Leu",
+                "Mongolian Tugrik", "Moroccan Dirham", "Mozambican Metical", "Mozambique Metical",
+                "Myanmar Kyat", "Namibia Dollar", "Nepalese Rupee", "Netherlands Antillian Guilder",
+                "New Belarusian Ruble", "New Israeli Shekel", "New Taiwan Dollar", "New Zealand Dollar",
+                "Nicaragua Cordoba Oro", "Nigerian Naira", "North Korean Won", "Norwegian Krone",
+                "Ouguiya", "Pakistan Rupee", "Palladium", "Panama Balboa", "Papua New Guinea Kina",
+                "Paraguayan Guarani", "Peruvian Nuevo Sol", "Peso Convertible", "Peso Uruguayo",
+                "Philippine Peso", "Platinum", "Polish Zloty", "Pound Sterling", "Qatari Rial",
+                "Rial Omani", "Romanian Leu", "Russian Ruble", "Rwanda Franc", "SDR (Special Drawing Rights)",
+                "Samoa Tala", "Saudi Riyal", "Serbian Dinar", "Seychelles Rupee", "Sierra Leone Leone",
+                "Silver", "Singapore Dollar", "Slovak Koruna", "Slovenian Tolar", "Solomon Islands Dollar",
+                "Somali Shilling", "South African Rand", "South Sudanese Pound", "Sri Lanka Rupee",
+                "St Helena Pound", "Sudanese Dinar", "Sudanese Pound", "Surinam Dollar",
+                "Swaziland Lilangeni", "Swedish Krona", "Swiss Franc", "Syrian Pound",
+                "São Tome and Principe Dobra", "Tajik Somoni", "Tanzanian Shilling", "Thai Baht",
+                "Tonga Pa'anga", "Trinidad and Tobago Dollar", "Tunisian Dinar", "Turkish Lira",
+                "Turkmenistan Manat", "Turkmenistani Manat", "UAE Dirham", "US Dollar",
+                "Uganda Shilling", "Ukraine Hryvnia", "Uzbekistan Sum", "Vanuatu Vatu",
+                "Venezuelan Bolivar", "Venezuelan Bolívar", "Vietnamese Dong", "Yemeni Rial",
+                "Zambian Kwacha", "Zimbabwe Dollar"
+        );
+
+        Collection<WebPageElement> currencyElements = findElementsByXpath("//ul[contains(@class, 'MuiMenu-list')]//li//p[1]");
+
+        List<String> availableCurrencies = currencyElements.stream()
+                .map(e -> getText(e).trim().toLowerCase())
+                .collect(Collectors.toList());
+
+
+        List<String> missingCurrencies = new ArrayList<>();
+        for (String currency : currencyList) {
+            if (!availableCurrencies.contains(currency.toLowerCase().trim())) {
+                missingCurrencies.add(currency);
+            }
+        }
+
+        if (!missingCurrencies.isEmpty()) {
+            System.out.println("Missing Currencies: " + missingCurrencies);
+            return false;
+        }
+
+        System.out.println("All specified currencies are available.");
+        return true;
     }
 }

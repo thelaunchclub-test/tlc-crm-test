@@ -37,7 +37,7 @@ public enum DecimalOption {
      * @return the matching {@link DecimalOption} for the given value
      * @throws IllegalArgumentException if no {@link DecimalOption} matches the input value
      */
-    public static DecimalOption fromValue(int value) {
+    public static DecimalOption fromValue(final int value) {
         for (DecimalOption option : DecimalOption.values()) {
             if (option.getValue() == value) {
                 return option;

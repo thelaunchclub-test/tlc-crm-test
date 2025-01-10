@@ -18,6 +18,7 @@ import java.util.Map;
 public class TestCase {
 
     public String testCaseID;
+    private String title;
     public JsonObject input;
     public Map<String, String> expectedOutput;
 }
