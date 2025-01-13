@@ -5,6 +5,7 @@ import com.twozo.commons.util.ConfigFileReader;
 import com.twozo.page.settings.currency.service.Currency;
 import com.twozo.page.sign.SignIn;
 import com.twozo.web.driver.service.WebAutomationDriver;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.testng.annotations.BeforeTest;
 
@@ -19,7 +20,6 @@ import java.util.Set;
 public class BaseTest {
 
     private static final Map<String, String> CONFIG = ConfigFileReader.get("config.Properties");
-
     protected WebAutomationDriver automationDriver;
     protected SignIn signIn;
     protected Set<BrowserCookie> cookies;
@@ -33,20 +33,20 @@ public class BaseTest {
 
         automationDriver.getWebNavigator().to(link);
         automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(10));
-        SignIn.getInstance(automationDriver).signIn("2o@gmail.com", "A$12345a");
+        SignIn.getInstance(automationDriver).signIn("2s@gmail.com", "A$12345a");
         cookies = automationDriver.getSessionCookie().getCookies();
 
         automationDriver.close();
     }
 
-    public String takeScreenShot(final String TestName, final WebAutomationDriver driver) throws IOException {
-        final File sourceFile = driver.getScreenCapturer().getScreenshotAs(OutputType.FILE);
+    public String takeScreenShot(final String TestName, final WebAutomationDriver webAutomationDriver) throws IOException {
+        final File sourceFile = webAutomationDriver.getScreenCapturer().getScreenshotAs(OutputType.FILE);
         final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HHmmss");
         final String timeStamp = dateFormat.format(new Date());
         final String path = System.getProperty("user.dir") + "\\reports\\" + TestName + "_" + timeStamp + ".png";
         final File file = new File(path);
 
-        //FileUtils.
+        FileUtils.copyFile(sourceFile, file);
 
         return path;
     }

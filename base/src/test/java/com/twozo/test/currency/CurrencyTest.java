@@ -4,7 +4,6 @@ import com.twozo.commons.cookie.BrowserCookie;
 import com.twozo.page.JsonFields;
 import com.twozo.page.homepage.HomePage;
 import com.twozo.page.settings.currency.service.Currency;
-import com.twozo.page.settings.currency.model.DecimalOption;
 import com.twozo.page.settings.currency.reader.JsonFileReader;
 import com.twozo.page.settings.currency.reader.TestCase;
 import com.twozo.page.url.settings.SettingsURL;
@@ -12,27 +11,18 @@ import com.twozo.test.BaseTest;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import com.twozo.web.driver.service.WebNavigator;
 import org.testng.Assert;
-import org.testng.ITest;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.lang.reflect.Method;
 import java.time.Duration;
 
 public class CurrencyTest extends BaseTest {
 
-    //    private final ThreadLocal<String> testName = new ThreadLocal<>();
-    private WebAutomationDriver webAutomationDriver;
+    WebAutomationDriver automationDriver;
     WebNavigator webNavigator;
     Currency currency;
-
-//    @BeforeMethod
-//    public void setUp(final Method method, final TestCase[][] testCases) {
-//        testName.set(method.getName() + testCases);
-//
-//    }
 
     @BeforeMethod
     public void beforeMethod() {
@@ -52,10 +42,10 @@ public class CurrencyTest extends BaseTest {
         currency = new Currency(automationDriver);
     }
 
-//    @AfterMethod
-//    public void close() {
-//        automationDriver.close();
-//    }
+    @AfterMethod
+    public void close() {
+        automationDriver.close();
+    }
 
     @DataProvider(name = "currency")
     public static TestCase[][] checkBase() {
