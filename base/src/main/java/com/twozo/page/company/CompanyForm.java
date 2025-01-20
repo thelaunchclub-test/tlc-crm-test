@@ -3,22 +3,6 @@ package com.twozo.page.company;
 import com.twozo.page.add.form.Form;
 import lombok.Getter;
 import lombok.Setter;
-import com.twozo.web.driver.service.WebAutomationDriver;
-import com.twozo.web.element.service.WebPageElement;
-
-public class CompanyForm extends Company {
-
-    private static CompanyForm addCompany;
-
-    protected CompanyForm(final WebAutomationDriver webAutomationDriver) {
-        super(webAutomationDriver);
-    }
-
-    public static CompanyForm getInstance(final WebAutomationDriver webAutomationDriver) {
-
-       // if (Objects.isNull(addCompanyToActivity)) {
-            addCompany = new CompanyForm(webAutomationDriver);
-        //}
 
 import java.util.List;
 

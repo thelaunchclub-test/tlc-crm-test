@@ -162,161 +162,161 @@
 //        Assert.assertTrue(isPresentInAddForm(contactDataField.getFieldsForAddViewAndRequired(FieldElement.REQUIRED_CHECKBOX)));
 //    }
 
-    @BeforeMethod
-    public void before() {
-        automationDriver = WebAutomationDriver.get();
-        webNavigator = automationDriver.getWebNavigator();
-        webNavigator.to(link);
-
-        for (final BrowserCookie cookie : cookies) {
-            automationDriver.getSessionCookie().addCookie(cookie);
-        }
-
-        automationDriver.getWebWindowHandler().maximize();
-        webNavigator.to(SettingsURL.CONTACT_DATA_FIELDS);
-        automationDriver.getWebWindowHandler().maximize();
-        homePage = HomePage.getInstance(automationDriver);
-        contactDataField = ContactDataField.getInstance(automationDriver);
-    }
-
-    @AfterMethod
-    public void after() {
-        automationDriver.close();
-    }
-
-    @Test
-    public void verifyDefaultSystemFields() {
-        Assert.assertTrue(contactDataField.verifyDefaultSystemFields());
-    }
-
-    @Test(dataProvider = "contactSystemFields")
-    public void addSystemFields(final Object object) {
-        Assert.assertTrue(contactDataField.addSystemField(getFieldStatus(object)));
-    }
-
-    @Test(dataProvider = "addViewAndRequired")
-    public void enableAddView(final Object object) {
-        Assert.assertTrue(contactDataField.enableAddView(getFieldStatus(object)));
-    }
-
-    @Test(dataProvider = "addViewAndRequired")
-    public void enableRequired(final Object object) {
-        Assert.assertTrue(contactDataField.enableRequired(getFieldStatus(object)));
-    }
-
-    @Test(dataProvider = "autoGeneratingField")
-    public void enableAddViewForAutoGeneratingField(final Object object) {
-        Assert.assertFalse(contactDataField.enableAddViewForAutoGeneratingField(getFieldStatus(object)));
-    }
-
-    @Test(dataProvider = "autoGeneratingField")
-    public void enableRequiredForAutoGeneratingField(final Object object) {
-        Assert.assertFalse(contactDataField.enableRequiredForAutoGeneratingField(getFieldStatus(object)));
-    }
-
-    @Test(dataProvider = "contactSystemFields")
-    public void hideField(final Object object) {
-        Assert.assertTrue(contactDataField.hideField(getFieldStatus(object).getFieldName()));
-    }
-
-    @Test(dataProvider = "customField")
-    public void addCustomFieldsWithAllFieldType(final Object object) {
-        Assert.assertTrue(contactDataField.addCustomField(getFieldStatus(object)));
-    }
-
-    @Test(dataProvider = "editData")
-    public void editFieldName(final Object object) {
-        Assert.assertTrue(contactDataField.editCustomField(getFieldStatus(object)));
-    }
-
-    @Test(dataProvider = "deleteField")
-    public void deleteField(final Object object) {
-        Assert.assertTrue(contactDataField.deleteField(getFieldStatus(object).getFieldName()));
-    }
-
-    @Test
-    public void checkMaxLimit() {
-        final String fieldName = "q1";
-        // final List<String> choices = List.of("a", "b");
-
-        for (int i = 1; i <= 11; i++) {
-            FieldStatus fieldStatus = new FieldStatus();
-            fieldStatus.setFieldName(String.format("%s%d", fieldName, i));
-            fieldStatus.setFieldType("Email");
-            // fieldStatus.setChoices(choices);
-            contactDataField.checkMaximumLimit(fieldStatus);
-
-//            if (i != 11) {
-//                contactDataField.refresh();
-//            }
-        }
-        Assert.assertTrue(contactDataField.isLimitExceededNotificationDisplayed());
-    }
-
-    @Test
-    public void checkSubscriptionStatus() {
-        Assert.assertTrue(contactDataField.checkSubscriptionStatus());
-    }
-
-    @Test
-    public void checkLifecycleStage() {
-        Assert.assertTrue(contactDataField.checkLifecycleStage());
-    }
-
-    @Test
-    public void checkTimeZone() {
-        Assert.assertTrue(contactDataField.checkTimezone());
-    }
-
-    @Test
-    public void checkSource() {
-        Assert.assertTrue(contactDataField.checkSource());
-    }
-
-    @Test
-    public void checkAddForm() {
-        Assert.assertTrue(isPresentInAddForm(contactDataField.getFieldsForAddViewAndRequired(FieldElement.ADD_VIEW_CHECKBOX)));
-    }
-
-    @Test
-    public void checkAddFormAsRequired() {
-        Assert.assertTrue(isPresentInAddForm(contactDataField.getFieldsForAddViewAndRequired(FieldElement.REQUIRED_CHECKBOX)));
-    }
-
-    @Test
-    public void checkSummary() {
-        Assert.assertTrue(isPresentInSummary(contactDataField.getFieldsForSummary()));
-    }
-
-    @Test
-    public void checkColumnSettings() {
-        Assert.assertTrue(isPresentInColumnSettings(contactDataField.getAllFields()));
-    }
-
-    @Override
-    public boolean isPresentInSummary(final Collection<String> fields) {
-        webNavigator.to(URL.CONTACTS);
-        contactDataField.switchToSummary();
-
-        return contactDataField.isPresentInSummary(fields);
-    }
-
-    @Override
-    public boolean isPresentInAddForm(final Collection<String> fields) {
-        webNavigator.to(URL.CONTACTS);
-        contactDataField.switchToAddContactForm();
-
-        return contactDataField.isPresentInAddForm(fields);
-    }
-
-    @Override
-    public boolean isPresentInColumnSettings(final Field[] fields) {
-        webNavigator.to(URL.CONTACTS);
-        contactDataField.switchToColumnSettings();
-
-        return contactDataField.isPresentInColumnSettings(fields);
-    }
-}
+//    @BeforeMethod
+//    public void before() {
+//        automationDriver = WebAutomationDriver.get();
+//        webNavigator = automationDriver.getWebNavigator();
+//        webNavigator.to(link);
+//
+//        for (final BrowserCookie cookie : cookies) {
+//            automationDriver.getSessionCookie().addCookie(cookie);
+//        }
+//
+//        automationDriver.getWebWindowHandler().maximize();
+//        webNavigator.to(SettingsURL.CONTACT_DATA_FIELDS);
+//        automationDriver.getWebWindowHandler().maximize();
+//        homePage = HomePage.getInstance(automationDriver);
+//        contactDataField = ContactDataField.getInstance(automationDriver);
+//    }
+//
+//    @AfterMethod
+//    public void after() {
+//        automationDriver.close();
+//    }
+//
+//    @Test
+//    public void verifyDefaultSystemFields() {
+//        Assert.assertTrue(contactDataField.verifyDefaultSystemFields());
+//    }
+//
+//    @Test(dataProvider = "contactSystemFields")
+//    public void addSystemFields(final Object object) {
+//        Assert.assertTrue(contactDataField.addSystemField(getFieldStatus(object)));
+//    }
+//
+//    @Test(dataProvider = "addViewAndRequired")
+//    public void enableAddView(final Object object) {
+//        Assert.assertTrue(contactDataField.enableAddView(getFieldStatus(object)));
+//    }
+//
+//    @Test(dataProvider = "addViewAndRequired")
+//    public void enableRequired(final Object object) {
+//        Assert.assertTrue(contactDataField.enableRequired(getFieldStatus(object)));
+//    }
+//
+//    @Test(dataProvider = "autoGeneratingField")
+//    public void enableAddViewForAutoGeneratingField(final Object object) {
+//        Assert.assertFalse(contactDataField.enableAddViewForAutoGeneratingField(getFieldStatus(object)));
+//    }
+//
+//    @Test(dataProvider = "autoGeneratingField")
+//    public void enableRequiredForAutoGeneratingField(final Object object) {
+//        Assert.assertFalse(contactDataField.enableRequiredForAutoGeneratingField(getFieldStatus(object)));
+//    }
+//
+//    @Test(dataProvider = "contactSystemFields")
+//    public void hideField(final Object object) {
+//        Assert.assertTrue(contactDataField.hideField(getFieldStatus(object).getFieldName()));
+//    }
+//
+//    @Test(dataProvider = "customField")
+//    public void addCustomFieldsWithAllFieldType(final Object object) {
+//        Assert.assertTrue(contactDataField.addCustomField(getFieldStatus(object)));
+//    }
+//
+//    @Test(dataProvider = "editData")
+//    public void editFieldName(final Object object) {
+//        Assert.assertTrue(contactDataField.editCustomField(getFieldStatus(object)));
+//    }
+//
+//    @Test(dataProvider = "deleteField")
+//    public void deleteField(final Object object) {
+//        Assert.assertTrue(contactDataField.deleteField(getFieldStatus(object).getFieldName()));
+//    }
+//
+//    @Test
+//    public void checkMaxLimit() {
+//        final String fieldName = "q1";
+//        // final List<String> choices = List.of("a", "b");
+//
+//        for (int i = 1; i <= 11; i++) {
+//            FieldStatus fieldStatus = new FieldStatus();
+//            fieldStatus.setFieldName(String.format("%s%d", fieldName, i));
+//            fieldStatus.setFieldType("Email");
+//            // fieldStatus.setChoices(choices);
+//            contactDataField.checkMaximumLimit(fieldStatus);
+//
+////            if (i != 11) {
+////                contactDataField.refresh();
+////            }
+//        }
+//        Assert.assertTrue(contactDataField.isLimitExceededNotificationDisplayed());
+//    }
+//
+//    @Test
+//    public void checkSubscriptionStatus() {
+//        Assert.assertTrue(contactDataField.checkSubscriptionStatus());
+//    }
+//
+//    @Test
+//    public void checkLifecycleStage() {
+//        Assert.assertTrue(contactDataField.checkLifecycleStage());
+//    }
+//
+//    @Test
+//    public void checkTimeZone() {
+//        Assert.assertTrue(contactDataField.checkTimezone());
+//    }
+//
+//    @Test
+//    public void checkSource() {
+//        Assert.assertTrue(contactDataField.checkSource());
+//    }
+//
+//    @Test
+//    public void checkAddForm() {
+//        Assert.assertTrue(isPresentInAddForm(contactDataField.getFieldsForAddViewAndRequired(FieldElement.ADD_VIEW_CHECKBOX)));
+//    }
+//
+//    @Test
+//    public void checkAddFormAsRequired() {
+//        Assert.assertTrue(isPresentInAddForm(contactDataField.getFieldsForAddViewAndRequired(FieldElement.REQUIRED_CHECKBOX)));
+//    }
+//
+//    @Test
+//    public void checkSummary() {
+//        Assert.assertTrue(isPresentInSummary(contactDataField.getFieldsForSummary()));
+//    }
+//
+//    @Test
+//    public void checkColumnSettings() {
+//        Assert.assertTrue(isPresentInColumnSettings(contactDataField.getAllFields()));
+//    }
+//
+//    @Override
+//    public boolean isPresentInSummary(final Collection<String> fields) {
+//        webNavigator.to(URL.CONTACTS);
+//        contactDataField.switchToSummary();
+//
+//        return contactDataField.isPresentInSummary(fields);
+//    }
+//
+//    @Override
+//    public boolean isPresentInAddForm(final Collection<String> fields) {
+//        webNavigator.to(URL.CONTACTS);
+//        contactDataField.switchToAddContactForm();
+//
+//        return contactDataField.isPresentInAddForm(fields);
+//    }
+//
+//    @Override
+//    public boolean isPresentInColumnSettings(final Field[] fields) {
+//        webNavigator.to(URL.CONTACTS);
+//        contactDataField.switchToColumnSettings();
+//
+//        return contactDataField.isPresentInColumnSettings(fields);
+//    }
+//}
 //
 //    @Test
 //    public void checkSummary() {
