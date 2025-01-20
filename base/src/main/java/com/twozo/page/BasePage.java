@@ -260,15 +260,15 @@ public class BasePage {
         mouseActions.moveToElement(new Element(LocatorType.XPATH, xpath, true)).build().perform();
     }
 
-//    private void select(final String option, final String dropdownType) {
-//        for (final WebPageElement element : findElements(new Element(LocatorType.TAG_NAME, dropdownType, true))) {
-//
-//            if (getText(element).equalsIgnoreCase(option)) {
-//                click(element);
-//                break;
-//            }
-//        }
-//    }
+    private void select(final String option, final String dropdownType) {
+        for (final WebPageElement element : findElements(new Element(LocatorType.TAG_NAME, dropdownType, true))) {
+
+            if (getText(element).contains(option)) {
+                click(element);
+                break;
+            }
+        }
+    }
 
     protected Element getElementByXpath(final String xpath) {
         return new Element(LocatorType.XPATH, xpath, true);

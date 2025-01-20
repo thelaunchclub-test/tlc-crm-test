@@ -3,6 +3,7 @@ package com.twozo.test;
 import com.twozo.commons.json.Json;
 import com.twozo.commons.json.JsonArray;
 import com.twozo.commons.json.JsonObject;
+import com.twozo.page.settings.currency.reader.TestCase;
 import com.twozo.commons.util.EnvUtility;
 
 import java.io.File;
@@ -21,7 +22,7 @@ public class TestDataProvider {
             final JsonObject jsonObject = jsonArray.getJsonObject(i);
             final TestCase testCase = new TestCase();
 
-            testCase.setTestCaseId(jsonObject.getString("testCaseID"));
+            testCase.setTestCaseID(jsonObject.getString("testCaseID"));
             testCase.setInput(jsonObject.getJsonObject("input"));
             testCases1.add(testCase);
         }

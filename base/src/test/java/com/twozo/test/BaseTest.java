@@ -38,6 +38,8 @@ public class BaseTest {
 
         link = CONFIG.get("Domain");
         automationDriver.getWebNavigator().to(link);
+        automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(10));
+        SignIn.getInstance(automationDriver).signIn("2s@gmail.com", "A$12345a");
         automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(3));
         automationDriver.getExplicitWaitHandler().waitTillVisible(new Element(LocatorType.XPATH, "//*[text()='Sign In']", true));
         SignIn.getInstance(automationDriver).signIn(MAP.get("login.id"), MAP.get("login.password"));
@@ -46,14 +48,14 @@ public class BaseTest {
         automationDriver.close();
     }
 
-    public String takeScreenShot(final String TestName, final WebAutomationDriver driver) throws IOException {
-        final File sourceFile = driver.getScreenCapturer().getScreenshotAs(OutputType.FILE);
+    public String takeScreenShot(final String TestName, final WebAutomationDriver webAutomationDriver) throws IOException {
+        final File sourceFile = webAutomationDriver.getScreenCapturer().getScreenshotAs(OutputType.FILE);
         final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HHmmss");
         final String timeStamp = dateFormat.format(new Date());
         final String path = System.getProperty("user.dir") + "\\reports\\" + TestName + "_" + timeStamp + ".png";
         final File file = new File(path);
 
-        //FileUtils.
+        FileUtils.copyFile(sourceFile, file);
 
         return path;
     }

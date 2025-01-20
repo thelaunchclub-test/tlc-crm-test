@@ -2,6 +2,7 @@ package com.twozo.test.settings.data.fields;
 
 import com.twozo.commons.json.JsonArray;
 import com.twozo.commons.json.JsonObject;
+import com.twozo.page.settings.currency.reader.TestCase;
 import com.twozo.page.settings.data.fields.FieldStatus;
 import com.twozo.page.settings.data.fields.field.Field;
 import com.twozo.test.TestCase;

@@ -1,0 +1,16 @@
+[
+  {
+    "testCaseID": "TC-3",
+    "title": "Make sure you can change the base currency",
+    "input": {
+      "currency": "FJD"
+    }
+  },
+  {
+    "testCaseID": "TC-3",
+    "title" : "Make sure you can change the base currency",
+    "input": {
+      "currency" : "MVR"
+    }
+  }
+]
