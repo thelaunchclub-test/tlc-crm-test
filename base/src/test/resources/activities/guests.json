@@ -1,0 +1,12 @@
+[
+  {
+    "testCaseID": "TC-7",
+    "title": "Verify that a title can be added for the activity.",
+    "input": {
+      "guest": [
+        "Swathi",
+        "swathi@gmail.com"
+      ]
+    }
+  }
+]

@@ -38,3 +38,29 @@ public class TestDataProvider {
     }
 
 }
+//public class TestDataProvider {
+//
+//    public Object[][] getTestCases(final String fileName) {
+//        final JsonArray jsonArray = Json.array(new File("C:\\Data fields log\\tlc-crm-validateActivityStatusByDate\\base\\src\\validateActivityStatusByDate\\resources", fileName));
+//        final Collection<TestCase> testCases1 = new ArrayList<>();
+//
+//        for (int i = 0; i < jsonArray.size(); i++) {
+//            final JsonObject jsonObject = jsonArray.getJsonObject(i);
+//            final TestCase testCase = new TestCase();
+//
+//            testCase.setTestCaseId(jsonObject.getString("testCaseID"));
+//            testCase.setInput(jsonObject.getJsonObject("input"));
+//            testCases1.add(testCase);
+//        }
+//
+//        final Object[][] testCasesArray = new Object[testCases1.size()][1];
+//        int index = 0;
+//
+//        for (final TestCase testCase : testCases1) {
+//            testCasesArray[index++][0] = testCase;
+//        }
+//
+//        return testCasesArray;
+//    }
+//
+//}

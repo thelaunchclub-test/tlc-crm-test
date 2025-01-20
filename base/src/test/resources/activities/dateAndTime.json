@@ -1,0 +1,15 @@
+[
+  {
+    "testCaseID": "TC-7",
+    "title": "Verify that a title can be added for the activity.",
+    "input": {
+      "fieldXPath": "//*[@class='myFieldXPath']",
+      "month": "August",
+      "date": 15,
+      "year": 2024,
+      "hour": 4,
+      "minutes": 30,
+      "period": "AM"
+    }
+  }
+]

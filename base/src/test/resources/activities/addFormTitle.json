@@ -1,0 +1,22 @@
+[
+  {
+    "testCaseID": "TC-7",
+    "title": "Verify that a title can be added for the activity.",
+    "input": {
+      "Title": "FunWithFriends",
+      "activityType" : "Task",
+      "availability": "Free",
+      "reminder" : "5 Minutes",
+      "priority" : "Low",
+      "Collaborators" : "New User",
+      "guest": "Jo",
+      "guestWithEmail": "jones0304@gmail.com",
+      "location": "Tirunelveli",
+      "description": "This is about AJJ",
+      "private note": "all about the Disuss with these gentlemens",
+      "deal": "CEAT",
+      "contacts": "Swathi",
+      "company": "NJ restaurant"
+    }
+  }
+]

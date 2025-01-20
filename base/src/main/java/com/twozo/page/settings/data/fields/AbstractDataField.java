@@ -96,8 +96,6 @@ public abstract class AbstractDataField extends Settings {
      * @return true if the notification is displayed, false otherwise.
      */
     public boolean isLimitExceededNotificationDisplayed() {
-        waitTillVisible("//*[contains(text(),'Maximum')]");
-
         return isDisplayed(findByXpath("//*[contains(text(),'Maximum')]"));
     }
 
@@ -328,7 +326,7 @@ public abstract class AbstractDataField extends Settings {
      * </p>
      *
      * @param fieldName   The name of the field block.
-     * @param elementName The name of the element to check within the block.
+     * @param elementName The name of the element to getFieldPositionInCheckedList within the block.
      */
     protected boolean checkSpecificElement(final String fieldName, final String elementName) {
         final String xpath = format(getFieldBlock(fieldName), elementName);
@@ -748,7 +746,13 @@ public abstract class AbstractDataField extends Settings {
             click(findByXpath(format(fieldBlockXpath, FieldElement.EDIT_ICON)));
             send(getCustomFieldName(), newName);
 
-            // final String updateButton = format(fieldBlockXpath, FieldElement.UPDATE_BUTTON);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            click(findByXpath(format(fieldBlockXpath, FieldElement.UPDATE_BUTTON)));
+            refresh();
 
             click(findByText("Update"));
             // refresh();
@@ -1177,7 +1181,7 @@ public abstract class AbstractDataField extends Settings {
      * Checks if a non-draggable icon is displayed for a given field block.
      * </p>
      *
-     * @param divBlockName The name of the div block to check.
+     * @param divBlockName The name of the div block to getFieldPositionInCheckedList.
      * @return true if the non-draggable icon is displayed, false otherwise.
      */
     protected boolean isNonDraggableIconDisplayed(String divBlockName) {
@@ -1218,7 +1222,7 @@ public abstract class AbstractDataField extends Settings {
      * Checks if the 'Add View' checkbox is checked for a given field.
      * </p>
      *
-     * @param fieldName The name of the field to check.
+     * @param fieldName The name of the field to getFieldPositionInCheckedList.
      * @return true if the 'Add View' checkbox is checked, false otherwise.
      */
     public boolean checkIfGivenFieldsAddViewIsChecked(final String fieldName) {
@@ -1305,7 +1309,7 @@ public abstract class AbstractDataField extends Settings {
      * Checks if a given field is present in the list by verifying its display status.
      * </p>
      *
-     * @param contactSystemField The name of the field to check.
+     * @param contactSystemField The name of the field to getFieldPositionInCheckedList.
      * @return true if the field is displayed, false otherwise.
      */
     public boolean checkIfGivenFieldIsInList(final String contactSystemField) {

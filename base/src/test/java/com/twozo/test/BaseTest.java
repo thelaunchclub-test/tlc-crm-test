@@ -11,11 +11,10 @@ import com.twozo.test.settings.data.fields.PropertyLogExample;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import com.twozo.web.element.model.Element;
 import com.twozo.web.element.model.LocatorType;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
-
-import org.testng.annotations.BeforeClass;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +26,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class BaseTest {
+    private static final Map<String, String> CONFIG = ConfigFileReader.get("config.Properties");
 
     private static final Map<String, String> CONFIG = ConfigFileReader.get("config.Properties");
 
@@ -38,9 +38,13 @@ public class BaseTest {
     @BeforeSuite
     public void setUp() {
         automationDriver = WebAutomationDriver.get();
-
         link = CONFIG.get("Domain");
+
         automationDriver.getWebNavigator().to(link);
+        automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(5));
+
+        SignIn.getInstance(automationDriver).signIn("2s@gmail.com", "A$12345a");
+
         automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(10));
         SignIn.getInstance(automationDriver).signIn("2p@gmail.com", "A$12345a");
         SignIn.getInstance(automationDriver).signIn("2s@gmail.com", "A$12345a");
@@ -48,10 +52,6 @@ public class BaseTest {
         automationDriver.getExplicitWaitHandler().waitTillVisible(new Element(LocatorType.XPATH, "//*[text()='Sign In']", true));
         SignIn.getInstance(automationDriver).signIn(MAP.get("login.id"), MAP.get("login.password"));
         cookies = automationDriver.getSessionCookie().getCookies();
-//        WebAutomationListener listener = new PropertyLogExample();
-//
-//        automationDriver = (WebAutomationDriver) new EventFiringDecorator<WebDriver>((WebDriverListener) listener).decorate((WebDriver) automationDriver);
-
         automationDriver.close();
     }
 

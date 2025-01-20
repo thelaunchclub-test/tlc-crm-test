@@ -32,7 +32,7 @@ public class ReportGenerator extends BaseTest implements TestListener {
 
     @Override
     public void onTestStart(final ITestResult result) {
-        System.out.println("test starts " + result.getMethod().getMethodName());
+        System.out.println("validateActivityStatusByDate starts " + result.getMethod().getMethodName());
         final ReportTest reportTest = reports.createTest(result.getMethod().getMethodName());
 
         reportTest.getTabs().assignAuthor("Navin Jones");
