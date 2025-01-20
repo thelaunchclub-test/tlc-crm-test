@@ -165,4 +165,5 @@ public class Settings extends BasePage {
     public WebPageElement getTags() {
         return this.findByXpath("//*[text()='Tags']");
     }
+
 }

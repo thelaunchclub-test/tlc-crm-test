@@ -1,0 +1,12 @@
+[
+  {
+    "testCaseID": "TC-7",
+    "title": "Ensure that an already added activity type can be edited.",
+    "input": {
+      "isUpdate": true,
+      "activityTypeName": "Task",
+      "changes": "Found",
+      "ActivityTypeIcon": "search"
+    }
+  }
+]

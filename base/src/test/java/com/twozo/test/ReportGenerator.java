@@ -20,10 +20,11 @@ public class ReportGenerator extends BaseTest implements TestListener {
 
     @Override
     public void onStart(final ITestContext context) {
-        final SparkReporter sparkReporter = new SparkReporter("./Pipeline.html");
+        final SparkReporter sparkReporter = new SparkReporter("./salesActivities_report.html");
 
-        sparkReporter.setReportName("Pipeline");
-        sparkReporter.setTitle("Pipeline test results");
+        sparkReporter.setReportName("Sales Activities");
+        sparkReporter.setTitle("Sales Activities Test Results");
+
         reports.attachReporter(sparkReporter);
         reports.systemInfo("OS", System.getProperty("os.name"));
         reports.systemInfo("JAVA VERSION", System.getProperty("java.version"));

@@ -2,9 +2,12 @@ package com.twozo.test;
 
 import com.twozo.commons.cookie.BrowserCookie;
 import com.twozo.commons.util.ConfigFileReader;
+import com.twozo.page.settings.sales.activities.WebAutomationListener;
 import com.twozo.page.homepage.HomePage;
 
 import com.twozo.page.sign.SignIn;
+//import com.twozo.test.settings.data.fields.PropertyLogExample;
+import com.twozo.test.settings.data.fields.PropertyLogExample;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import com.twozo.web.element.model.Element;
 import com.twozo.web.element.model.LocatorType;
@@ -39,11 +42,15 @@ public class BaseTest {
         link = CONFIG.get("Domain");
         automationDriver.getWebNavigator().to(link);
         automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(10));
+        SignIn.getInstance(automationDriver).signIn("2p@gmail.com", "A$12345a");
         SignIn.getInstance(automationDriver).signIn("2s@gmail.com", "A$12345a");
         automationDriver.getImplicitWaitHandler().implicitWait(Duration.ofSeconds(3));
         automationDriver.getExplicitWaitHandler().waitTillVisible(new Element(LocatorType.XPATH, "//*[text()='Sign In']", true));
         SignIn.getInstance(automationDriver).signIn(MAP.get("login.id"), MAP.get("login.password"));
         cookies = automationDriver.getSessionCookie().getCookies();
+//        WebAutomationListener listener = new PropertyLogExample();
+//
+//        automationDriver = (WebAutomationDriver) new EventFiringDecorator<WebDriver>((WebDriverListener) listener).decorate((WebDriver) automationDriver);
 
         automationDriver.close();
     }

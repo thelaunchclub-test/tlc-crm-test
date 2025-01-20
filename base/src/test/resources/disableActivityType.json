@@ -1,0 +1,10 @@
+[
+  {
+    "testCaseID": "TC-1",
+    "title": "Verify that the activity type can be disabled.",
+    "input": {
+      "activityType": "Mail",
+      "isDisable": true
+    }
+  }
+]
