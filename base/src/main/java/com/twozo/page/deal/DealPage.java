@@ -46,11 +46,11 @@ public class DealPage extends BasePage {
     }
 
     public WebPageElement getListViewButton() {
-        return findByXpath(MAP.get("crm.deal.view.list"));
+        return findByXpath(map.get("crm.deal.view.list"));
     }
 
     public WebPageElement getKanbanViewButton() {
-        return findByText(MAP.get("crm.deal.view.kanban"));
+        return findByText(map.get("crm.deal.view.kanban"));
     }
 
     public WebPageElement getForecastViewButton() {
@@ -58,47 +58,47 @@ public class DealPage extends BasePage {
     }
 
     public WebPageElement getAllDealButton() {
-        return findByText(MAP.get("crm.deal.filter.all.deal"));
+        return findByText(map.get("crm.deal.filter.all.deal"));
     }
 
     public WebPageElement getImportDealsButton() {
-        return findByText(MAP.get("crm.deal.button.import.deal"));
+        return findByText(map.get("crm.deal.button.import.deal"));
     }
 
     public WebPageElement getAddDealButton() {
-        return findByXpath(MAP.get("crm.deal.button.add.deal"));
+        return findByXpath(map.get("crm.deal.button.add.deal"));
     }
 
     public WebPageElement getContactIcon() {
-        return findByXpath(MAP.get("crm.contact.icon"));
+        return findByXpath(map.get("crm.contact.icon"));
     }
 
     public WebPageElement getFilterIcon() {
-        return findByXpath(MAP.get("crm.source.filter.icon"));
+        return findByXpath(map.get("crm.source.filter.icon"));
     }
 
 //    public WebPageElement getNewDeal() {
-//        return findByText(MAP.get("crm.deal.kanban.pipeline.default.stage.new"));
+//        return findByText(map.get("crm.deal.kanban.pipeline.default.stage.new"));
 //    }
 //
 //    public WebPageElement getWonDeal() {
-//        return findByText(MAP.get("crm.deal.kanban.pipeline.default.stage.won"));
+//        return findByText(map.get("crm.deal.kanban.pipeline.default.stage.won"));
 //    }
 //
 //    public WebPageElement getLostDeal() {
-//        return findByText(MAP.get("crm.deal.kanban.pipeline.default.stage.lost"));
+//        return findByText(map.get("crm.deal.kanban.pipeline.default.stage.lost"));
 //    }
 
     public WebPageElement getManageButton() {
-        return findByXpath(MAP.get("crm.deal.button.manage"));
+        return findByXpath(map.get("crm.deal.button.manage"));
     }
 
     public WebPageElement getActivePipeline() {
-        return findByXpath(MAP.get("crm.deal.pipeline.active"));
+        return findByXpath(map.get("crm.deal.pipeline.active"));
     }
 
     public Collection<WebPageElement> getStagesOfPipeline() {
-        return findElementsByClass(MAP.get("crm.deal.pipeline.stages"));
+        return findElementsByClass(map.get("crm.deal.pipeline.stages"));
     }
 
     public DealAddForm getAddDeal() {
@@ -173,7 +173,7 @@ public class DealPage extends BasePage {
 
 
     public void switchToColumnSettings() {
-        waitTillClickable(MAP.get("crm.deal.view.list"));
+        waitTillClickable(map.get("crm.deal.view.list"));
         click(getListViewButton());
         click(getColumnSettingsButton());
     }
@@ -185,7 +185,7 @@ public class DealPage extends BasePage {
 
     public void switchToPipeline() {
         click(getActivePipeline());
-        waitTillClickable(MAP.get("crm.deal.button.manage"));
+        waitTillClickable(map.get("crm.deal.button.manage"));
 //        try {
 //            Thread.sleep(3000);
 //        } catch (InterruptedException e) {
@@ -194,7 +194,7 @@ public class DealPage extends BasePage {
     }
 
     public boolean verifyPipelineChangeInKanbanReflectedInAddDealForm() {
-        final String activePipelineXPath = MAP.get("crm.deal.pipeline.active");
+        final String activePipelineXPath = map.get("crm.deal.pipeline.active");
         String newPipeline = null;
         waitTillVisible(activePipelineXPath);
 
@@ -202,7 +202,7 @@ public class DealPage extends BasePage {
 
         System.out.println(currentPipeline);
         click(getActivePipeline());
-        final Collection<WebPageElement> pipelinesAsElement = findElementsByXpath(MAP.get("crm.deal.pipelines"));
+        final Collection<WebPageElement> pipelinesAsElement = findElementsByXpath(map.get("crm.deal.pipelines"));
         boolean isPipelineChanged = false;
 
         for (final WebPageElement pipelineAsElement : pipelinesAsElement) {
@@ -216,7 +216,7 @@ public class DealPage extends BasePage {
                 break;
             }
         }
-        //click(findByXpath(MAP.get("body")));
+        //click(findByXpath(map.get("body")));
 
         if (!isPipelineChanged) {
             newPipeline = String.format("%s%s", currentPipeline, "New");
@@ -236,7 +236,7 @@ public class DealPage extends BasePage {
 //        System.out.println(newPipeline);
 //        System.out.println(getText(findByXpath("//*[text()='Pipeline']/parent::div/div/div")));
 
-        //  waitTillVisible(XPathBuilder.getXPathByText(MAP.get("crm.deal.pipeline.form.save.and.new")));
+        //  waitTillVisible(XPathBuilder.getXPathByText(map.get("crm.deal.pipeline.form.save.and.new")));
 
         System.out.println(Objects.equals(newPipeline,
                 getText(findByXpath("//*[text()='Pipeline']/parent::div/div/div"))));

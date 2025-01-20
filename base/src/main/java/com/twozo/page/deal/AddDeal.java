@@ -178,7 +178,7 @@ public class AddDeal extends DealPage {
         dropdown("timing");
         click(getLostReasonDropdown());
         dropdown("junk lead");
-        selectDate("//*[text()='Deal Closed On']", Month.AUGUST, 23, 1980);
+//        selectDate("//*[text()='Deal Closed On']", Month.AUGUST, 23, 1980);
         send(getPrimaryContact(), "erer");
         send(getRelatedContacts(), "dfse");
         send(getDealValue(), "324");

@@ -1,11 +1,11 @@
 package com.twozo.test;
 
+import com.twozo.commons.listener.test.TestListener;
 import com.twozo.extent.report.reporter.internal.extent.AbstractExtentReporter;
 import com.twozo.extent.report.reporter.internal.extent.ExtentReporterInitializer;
 import com.twozo.extent.report.reporter.internal.spark.SparkReporter;
 import com.twozo.extent.report.test.service.ReportTest;
 
-import com.twozo.test.listener.test.TestListener;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import org.testng.ITestContext;
 import org.testng.ITestResult;

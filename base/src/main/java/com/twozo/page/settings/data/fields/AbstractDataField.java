@@ -446,7 +446,7 @@ public abstract class AbstractDataField extends Settings {
         final List<String> choices = fieldStatus.getChoices();
         final String xPath = "(//*[@data-rbd-droppable-id='%s-choices']//child::input[@type='text'])[%d]";
 
-        //waitTillVisible(MAP.get("body"));
+        //waitTillVisible(map.get("body"));
         waitTillVisible("//main/div[3]");
         click(getAddCustomFieldButton());
         waitTillVisible("//div[@data-rbd-draggable-id='new_field1']");
@@ -471,7 +471,7 @@ public abstract class AbstractDataField extends Settings {
                 }
             }
         }
-        click(findByXpath(MAP.get("body")));
+        click(findByXpath(map.get("body")));
 
         waitTillClickable(FieldElement.ADD_BUTTON);
         click(getCustomFieldAddButton());

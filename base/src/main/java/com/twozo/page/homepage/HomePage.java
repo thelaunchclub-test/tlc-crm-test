@@ -2,9 +2,6 @@ package com.twozo.page.homepage;
 
 import com.twozo.page.BasePage;
 import com.twozo.page.activity.ActivityForm;
-import com.twozo.page.analytics.Analytics;
-import com.twozo.page.company.Company;
-import com.twozo.page.contact.Contact;
 import com.twozo.page.deal.DealPage;
 import com.twozo.page.inbox.Inbox;
 import com.twozo.page.product.Product;
@@ -20,13 +17,10 @@ public class HomePage extends BasePage {
 
     protected final WebAutomationDriver webAutomationDriver;
     private final DealPage deal;
-    private final Contact contact;
-    private final Company company;
     private final ActivityForm activity;
     private final Product product;
     private final Settings settings;
     private final Inbox inbox;
-    private final Analytics analytics;
 
     private WebPageElement dealIcon;
     private WebPageElement contactIcon;
@@ -42,13 +36,12 @@ public class HomePage extends BasePage {
         super(webAutomationDriver);
         this.webAutomationDriver = webAutomationDriver;
         this.deal = DealPage.getInstance(webAutomationDriver);
-        this.contact = Contact.getInstance(webAutomationDriver);
-        this.company = Company.getInstance(webAutomationDriver);
+
         this.activity = ActivityForm.getInstance(webAutomationDriver);
         this.product = Product.getInstance(webAutomationDriver);
         this.settings = Settings.getInstance(webAutomationDriver);
         this.inbox = Inbox.getInstance(webAutomationDriver);
-        this.analytics = Analytics.getInstance(webAutomationDriver);
+
     }
 
     public static HomePage getInstance(final WebAutomationDriver webAutomationDriver) {
@@ -144,17 +137,6 @@ public class HomePage extends BasePage {
         return deal;
     }
 
-    public Contact switchToContact() {
-        click(getContactIcon());
-
-        return contact;
-    }
-
-    public Company switchToCompany() {
-        click(getCompanyIcon());
-
-        return company;
-    }
 
     public ActivityForm switchToActivity() {
         click(getActivityIcon());
@@ -180,11 +162,6 @@ public class HomePage extends BasePage {
         return inbox;
     }
 
-    public Analytics switchToAnalytics() {
-        click(getAnalyticsIcon());
-
-        return analytics;
-    }
 
     public void hover() {
         scroll("//*[@class='css-11x1d9z']//child::div[@class='MuiBox-root css-0']//*[text()='LinkedIn']/ancestor::div[@class='MuiBox-root css-19idom']");

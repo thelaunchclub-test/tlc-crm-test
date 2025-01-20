@@ -1,11 +1,11 @@
-package com.twozo.test.currency;
+package com.twozo.test.settings.currency;
 
 import com.twozo.commons.cookie.BrowserCookie;
 import com.twozo.page.JsonFields;
+import com.twozo.page.JsonFileReader;
+import com.twozo.page.TestCase;
 import com.twozo.page.homepage.HomePage;
 import com.twozo.page.settings.currency.service.Currency;
-import com.twozo.page.settings.currency.reader.JsonFileReader;
-import com.twozo.page.settings.currency.reader.TestCase;
 import com.twozo.page.url.settings.SettingsURL;
 import com.twozo.test.BaseTest;
 import com.twozo.web.driver.service.WebAutomationDriver;

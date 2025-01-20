@@ -1,7 +1,6 @@
 package com.twozo.page.deal;
 
 import com.twozo.page.add.form.AddForm;
-import com.twozo.page.contact.ContactAddForm;
 import com.twozo.page.settings.data.fields.deal.field.DealField;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import com.twozo.web.element.service.WebPageElement;

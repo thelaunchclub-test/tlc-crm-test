@@ -289,7 +289,7 @@ public class DealDataField extends AbstractDataField {
             return false;
         }
 
-        click(findByXpath(MAP.get("body")));
+        click(findByXpath(map.get("body")));
 
         final String lostReason = DealField.LOST_REASON.getName();
         if (!checkSpecificElement(lostReason, FieldTypePath.DROPDOWN)) {
@@ -301,7 +301,7 @@ public class DealDataField extends AbstractDataField {
             return false;
         }
 
-        click(findByXpath(MAP.get("body")));
+        click(findByXpath(map.get("body")));
 
         return checkSpecificElement(DealField.DEAL_CLOSED_ON.getName(), FieldTypePath.DATE);
     }

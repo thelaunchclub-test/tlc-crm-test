@@ -13,13 +13,12 @@ import com.twozo.web.element.service.ElementInteraction;
 import com.twozo.web.element.service.WebPageElement;
 import com.twozo.web.mouse.service.actions.MouseActions;
 
-import java.time.Duration;
 import java.util.*;
 import java.util.function.Supplier;
 
 public class BasePage {
 
-    protected static final Map<String, String> MAP = ConfigFileReader.get("locator/locator.Properties");
+    protected static final Map<String, String> map = ConfigFileReader.get("locator/locator.Properties");
     protected static final String TWO_STRING_FORMAT = "%s%s";
 
     public WebAutomationDriver webAutomationDriver;
@@ -190,34 +189,34 @@ public class BasePage {
         return XPathBuilder.getXPathByText(text);
     }
 
-    protected final void chooseDate(final String fieldName, final String date) {
-        final String[] part = date.split("-");
-
-        click(findByXpath(String.format(MAP.get("crm.calendar.icon"), fieldName)));
-        click(findByXpath(MAP.get("crm.calendar.switch.to.year.view")));
-        click(findByNumber(Integer.parseInt(part[3])));
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        click(findBelowElement(List.of(
-                new Element(LocatorType.XPATH, "//*[@class='MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary MuiIconButton-edgeStart MuiIconButton-sizeMedium css-17ahke1']", false),
-                new Element(LocatorType.XPATH, fieldXPath,true))));
-        click(findByXpath("//button[@aria-label='calendar view is open, switch to year view']"));
-        click(findByXpath(String.format(xpath, year)));
-        final WebPageElement div = findLeftElement(List.of(
-                new Element(LocatorType.TAG_NAME, "div", false),
-                new Element(LocatorType.XPATH,
-                        "//button[@aria-label='calendar view is open, switch to year view']", true)));
-
-        while (!getText(findByXpath(MAP.get("crm.calendar.month.and.year"))).contains(Month.fromInt(Integer.parseInt(part[2])))) {
-            click(findByXpath(MAP.get("crm.calendar.next.month.button")));
-        }
-
-        click(findByNumber(Integer.parseInt(part[1])));
-    }
+//    protected final void chooseDate(final String fieldName, final String date) {
+//        final String[] part = date.split("-");
+//
+//        click(findByXpath(String.format(map.get("crm.calendar.icon"), fieldName)));
+//        click(findByXpath(map.get("crm.calendar.switch.to.year.view")));
+//        click(findByNumber(Integer.parseInt(part[3])));
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        click(findBelowElement(List.of(
+//                new Element(LocatorType.XPATH, "//*[@class='MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary MuiIconButton-edgeStart MuiIconButton-sizeMedium css-17ahke1']", false),
+//                new Element(LocatorType.XPATH, fieldXPath,true))));
+//        click(findByXpath("//button[@aria-label='calendar view is open, switch to year view']"));
+//        click(findByXpath(String.format(xpath, year)));
+//        final WebPageElement div = findLeftElement(List.of(
+//                new Element(LocatorType.TAG_NAME, "div", false),
+//                new Element(LocatorType.XPATH,
+//                        "//button[@aria-label='calendar view is open, switch to year view']", true)));
+//
+//        while (!getText(findByXpath(map.get("crm.calendar.month.and.year"))).contains(Month.fromInt(Integer.parseInt(part[2])))) {
+//            click(findByXpath(map.get("crm.calendar.next.month.button")));
+//        }
+//
+//        click(findByNumber(Integer.parseInt(part[1])));
+//    }
 
     public final boolean isDisplayed(final WebPageElement webPageElement) {
         return getElementInformationProvider(webPageElement).isDisplayed();
@@ -280,6 +279,10 @@ public class BasePage {
         mouseActions.scrollToElement(new Element(LocatorType.XPATH, xpath, true)).build().perform();
     }
 
+    public void navigateTo(final String url) {
+        webNavigator.to(url);
+    }
+
     private void select(final String option, final String dropdownType) {
         for (final WebPageElement element : findElements(new Element(LocatorType.TAG_NAME, dropdownType, true))) {
 
@@ -290,9 +293,9 @@ public class BasePage {
         }
     }
 
-    protected final void moveToElement(final String xpath) {
-        mouseActions.moveToElement(new Element(LocatorType.XPATH,xpath,true), 0, 0).pause(Duration.ofSeconds(10)).build().perform();
-    }
+//    protected final void moveToElement(final String xpath) {
+//        mouseActions.moveToElement(new Element(LocatorType.XPATH,xpath,true), 0, 0).pause(Duration.ofSeconds(10)).build().perform();
+//    }
     protected Element getElementByXpath(final String xpath) {
         return new Element(LocatorType.XPATH, xpath, true);
     }

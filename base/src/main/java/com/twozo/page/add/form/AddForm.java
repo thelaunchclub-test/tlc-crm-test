@@ -4,25 +4,24 @@ import com.twozo.page.BasePage;
 import com.twozo.page.settings.data.fields.company.field.CompanyField;
 import com.twozo.page.settings.data.fields.contact.field.ContactField;
 import com.twozo.page.settings.data.fields.deal.field.DealField;
-import com.twozo.page.xpath.XPathBuilder;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import com.twozo.web.element.service.WebPageElement;
 
 public class AddForm extends BasePage {
 
-    protected static final String SAVE_BUTTON = MAP.get("crm.deal.pipeline.form.save");
-    protected static final String SAVE_AND_NEW_BUTTON = MAP.get("crm.deal.pipeline.form.save.and.new");
-    protected static final String CLOSE_BUTTON = MAP.get("crm.deal.pipeline.close");
-    protected static final String TEXT_FIELD = MAP.get("crm.add.form.text.field");
-    protected static final String NUMBER_FIELD = MAP.get("crm.add.form.number.field");
-    protected static final String DROPDOWN_FIELD = MAP.get("crm.add.form.dropdown.field");
-    protected static final String ADDRESS_FIELD = MAP.get("crm.add.form.address.field");
-    protected static final String ADDRESS_LINE_1 = MAP.get("crm.add.form.address.placeholder.address.line.1");
-    protected static final String ADDRESS_LINE_2 = MAP.get("crm.add.form.address.placeholder.address.line.2");
-    protected static final String CITY = MAP.get("crm.add.form.address.placeholder.address.city");
-    protected static final String STATE = MAP.get("crm.add.form.address.placeholder.address.state");
-    protected static final String COUNTRY = MAP.get("crm.add.form.address.placeholder.address.country");
-    protected static final String PINCODE = MAP.get("crm.add.form.address.placeholder.address.pincode");
+    protected static final String SAVE_BUTTON = map.get("crm.deal.pipeline.form.save");
+    protected static final String SAVE_AND_NEW_BUTTON = map.get("crm.deal.pipeline.form.save.and.new");
+    protected static final String CLOSE_BUTTON = map.get("crm.deal.pipeline.close");
+    protected static final String TEXT_FIELD = map.get("crm.add.form.text.field");
+    protected static final String NUMBER_FIELD = map.get("crm.add.form.number.field");
+    protected static final String DROPDOWN_FIELD = map.get("crm.add.form.dropdown.field");
+    protected static final String ADDRESS_FIELD = map.get("crm.add.form.address.field");
+    protected static final String ADDRESS_LINE_1 = map.get("crm.add.form.address.placeholder.address.line.1");
+    protected static final String ADDRESS_LINE_2 = map.get("crm.add.form.address.placeholder.address.line.2");
+    protected static final String CITY = map.get("crm.add.form.address.placeholder.address.city");
+    protected static final String STATE = map.get("crm.add.form.address.placeholder.address.state");
+    protected static final String COUNTRY = map.get("crm.add.form.address.placeholder.address.country");
+    protected static final String PINCODE = map.get("crm.add.form.address.placeholder.address.pincode");
 
     protected AddForm(final WebAutomationDriver webAutomationDriver) {
         super(webAutomationDriver);

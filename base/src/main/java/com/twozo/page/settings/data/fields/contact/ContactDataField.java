@@ -895,7 +895,7 @@ public class ContactDataField extends AbstractDataField {
         if (!checkChoicesForSubscriptionStatus()) {
             return false;
         }
-        click(findByXpath(MAP.get("body")));
+        click(findByXpath(map.get("body")));
 
         final String subscriptionTypes = ContactField.SUBSCRIPTION_TYPES.getName();
 
@@ -908,7 +908,7 @@ public class ContactDataField extends AbstractDataField {
             return false;
         }
 
-        click(findByXpath(MAP.get("body")));
+        click(findByXpath(map.get("body")));
         final String unsubscribeReason = ContactField.UNSUBSCRIBE_REASON.getName();
 
         if (!checkDependableFieldSpecificElement(unsubscribeReason, FieldTypePath.DROPDOWN)) {
@@ -918,7 +918,7 @@ public class ContactDataField extends AbstractDataField {
         if (!checkChoicesForUnsubscribeReason()) {
             return false;
         }
-        click(findByXpath(MAP.get("body")));
+        click(findByXpath(map.get("body")));
 
         return checkDependableFieldSpecificElement(ContactField.OTHER_UNSUBSCRIBE_REASON.getName(), FieldTypePath.TEXT);
     }

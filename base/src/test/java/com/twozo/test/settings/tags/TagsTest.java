@@ -1,16 +1,15 @@
-package com.twozo.tags;
-
-import com.twozo.BaseTest;
+package com.twozo.test.settings.tags;
 
 import com.twozo.commons.cookie.BrowserCookie;
 
+import com.twozo.page.JsonFileReader;
+import com.twozo.page.TestCase;
 import com.twozo.page.homepage.HomePage;
 import com.twozo.page.settings.JsonFields;
-import com.twozo.page.settings.JsonFileReader;
-import com.twozo.page.settings.TestCase;
 import com.twozo.page.settings.tags.Tags;
 import com.twozo.page.url.settings.SettingsURL;
 
+import com.twozo.test.BaseTest;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import com.twozo.web.driver.service.WebNavigator;
 

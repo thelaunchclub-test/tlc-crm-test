@@ -1,12 +1,12 @@
-package com.twozo.test.settings;
+package com.twozo.test.settings.sales.activities;
 
 import com.twozo.commons.cookie.BrowserCookie;
+import com.twozo.page.JsonFileReader;
+import com.twozo.page.TestCase;
 import com.twozo.page.homepage.HomePage;
 import com.twozo.page.settings.sales.activities.JsonFields;
-import com.twozo.page.settings.sales.activities.JsonFileReader;
+
 import com.twozo.page.settings.sales.activities.SalesActivities;
-import com.twozo.page.settings.sales.activities.TestCase;
-import com.twozo.page.url.URL;
 import com.twozo.page.url.settings.SettingsURL;
 import com.twozo.test.BaseTest;
 import com.twozo.web.driver.service.WebAutomationDriver;
@@ -18,7 +18,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
-import java.util.List;
+
 
 public class SalesActivitiesTest extends BaseTest {
     private WebAutomationDriver webAutomationDriver;

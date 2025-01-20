@@ -4,6 +4,7 @@ import com.twozo.commons.json.JsonArray;
 import com.twozo.extent.report.reporter.logger.ExtentLogger;
 import com.twozo.page.BasePage;
 import com.twozo.page.Month;
+import com.twozo.page.TestCase;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import com.twozo.web.element.model.Element;
 import com.twozo.web.element.model.LocatorType;
@@ -463,7 +464,7 @@ public class AddActivityForm extends BasePage {
         return validateActivityDate(
                 map.get("crm.activity.form.list.end.time.checkbox"),
                 "End Time",
-                Month.DECEMBER, 12, 2004
+                String.valueOf(Month.DECEMBER), 12, 2004
         );
     }
 
@@ -495,7 +496,7 @@ public class AddActivityForm extends BasePage {
         click(getActivityButton());
         ExtentLogger.pass("Activity button is clicked");
 
-        String selectedStartDate = pickStartDate(DATE_TIME, Month.DECEMBER, 11, 2004);
+        String selectedStartDate = pickStartDate(DATE_TIME, String.valueOf(Month.DECEMBER), 11, 2004);
         String[] startDateParts = selectedStartDate.split(" ");
         String formattedStartDate = formatDate(startDateParts[1], startDateParts[0], startDateParts[2]);
 
@@ -803,7 +804,7 @@ public class AddActivityForm extends BasePage {
         click(getActivityButton());
         ExtentLogger.pass("Activity button is clicked");
 
-        pickStartDate(DATE_TIME, Month.DECEMBER, 11, 2024);
+        pickStartDate(DATE_TIME, String.valueOf(Month.DECEMBER), 11, 2024);
 
         String selectedDate = "December 11 2024 9:45 AM";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d yyyy h:mm a", Locale.ENGLISH);

@@ -2,8 +2,8 @@ package com.twozo.page.settings.currency.service;
 
 import com.twozo.extent.report.reporter.logger.ExtentLogger;
 import com.twozo.page.BasePage;
+import com.twozo.page.TestCase;
 import com.twozo.page.settings.currency.model.DecimalOption;
-import com.twozo.page.settings.currency.reader.TestCase;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import com.twozo.web.element.model.Element;
 import com.twozo.web.element.model.LocatorType;

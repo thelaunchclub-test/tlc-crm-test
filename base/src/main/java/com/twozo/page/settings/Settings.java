@@ -1,8 +1,7 @@
 package com.twozo.page.settings;
 
 import com.twozo.page.BasePage;
-import com.twozo.page.company.Company;
-import com.twozo.page.contact.Contact;
+
 import com.twozo.page.deal.DealPage;
 import com.twozo.page.product.Product;
 import com.twozo.page.settings.data.fields.company.CompanyDataField;
@@ -55,10 +54,10 @@ public class Settings extends BasePage {
 
     /**
      * <p>
-     * Retrieves the {@link WebPageElement} for the {@link Contact} data field.
+     * Retrieves the {@link WebPageElement} for the Contact data field.
      * </p>
      *
-     * @return The {@link WebPageElement} representing the {@link Contact} data field.
+     * @return The {@link WebPageElement} representing the Contact data field.
      */
     public WebPageElement getContact() {
         return findByText("Contact");
@@ -66,10 +65,10 @@ public class Settings extends BasePage {
 
     /**
      * <p>
-     * Retrieves the {@link WebPageElement} for the {@link Company} data field.
+     * Retrieves the {@link WebPageElement} for the Company data field.
      * </p>
      *
-     * @return The {@link WebPageElement} representing the {@link Company} data field.
+     * @return The {@link WebPageElement} representing the Company data field.
      */
     public WebPageElement getCompany() {
         return findByText("Company");
