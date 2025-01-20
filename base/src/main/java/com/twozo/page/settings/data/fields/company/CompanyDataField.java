@@ -1,31 +1,32 @@
 package com.twozo.page.settings.data.fields.company;
 
-import com.twozo.commons.exception.ErrorCode;
 import com.twozo.page.settings.data.fields.AbstractDataField;
 import com.twozo.page.settings.data.fields.company.field.CompanyField;
-import com.twozo.page.settings.data.fields.contact.field.ContactField;
 import com.twozo.page.settings.data.fields.field.Field;
 import com.twozo.page.settings.data.fields.field.FieldElement;
 import com.twozo.page.settings.data.fields.field.FieldTypePath;
 import com.twozo.page.settings.data.fields.field.SystemField;
-import com.twozo.page.url.settings.SettingsURL;
 import com.twozo.page.xpath.XPathBuilder;
+
 import com.twozo.web.driver.service.WebAutomationDriver;
-import com.twozo.web.element.service.WebPageElement;
-import com.twozo.web.error.code.WebDriverErrorCode;
 
 import java.util.*;
 
+/**
+ * <p>
+ * Manages company-related fields and their behaviors in the data field settings. Provides methods to interact with
+ * various company fields. It also supports adding, editing, and validating the company fields.
+ * </p>
+ *
+ * @author Petchimuthu
+ * @version 1.0
+ */
 public class CompanyDataField extends AbstractDataField {
 
     private static CompanyDataField company;
 
     protected CompanyDataField(final WebAutomationDriver webAutomationDriver) {
         super(webAutomationDriver);
-
-        if (getURL().equals(SettingsURL.CONTACT_DATA_FIELDS)) {
-            throw ErrorCode.get(WebDriverErrorCode.EXPECTED_PAGE_NOT_FOUND, "exp page not found");
-        }
     }
 
     public static CompanyDataField getInstance(final WebAutomationDriver webAutomationDriver) {
@@ -34,22 +35,57 @@ public class CompanyDataField extends AbstractDataField {
         return company;
     }
 
+    /**
+     * <p>
+     * Retrieves the block associated with the company's name field.
+     * </p>
+     *
+     * @return String representation of the name field block.
+     */
     public String getNameDiv() {
         return getFieldBlock(CompanyField.NAME);
     }
 
+    /**
+     * <p>
+     * Retrieves the block associated with the company's website field.
+     * </p>
+     *
+     * @return String representation of the website field block.
+     */
     public String getWebsiteDiv() {
         return getFieldBlock(CompanyField.WEBSITE);
     }
 
+    /**
+     * <p>
+     * Retrieves the block associated with the company's sales owner field.
+     * </p>
+     *
+     * @return String representation of the sales owner field block.
+     */
     public String getSalesOwnerDiv() {
         return getFieldBlock(CompanyField.SALES_OWNER);
     }
 
+    /**
+     * <p>
+     * Retrieves the block associated with the company's address field.
+     * </p>
+     *
+     * @return String representation of the address field block.
+     */
     public String getAddressDiv() {
         return getFieldBlock(CompanyField.ADDRESS);
     }
 
+    /**
+     * <p>
+     * Constructs and returns a {@link SystemField}  for the company's name field.
+     * </p>
+     *
+     * @return SystemField The {@link SystemField} for the name field.
+     */
     private SystemField getNameField() {
         final String nameDiv = getNameDiv();
 
@@ -61,6 +97,13 @@ public class CompanyDataField extends AbstractDataField {
                 null);
     }
 
+    /**
+     * <p>
+     * Constructs and returns a {@link SystemField}  for the company's website field.
+     * </p>
+     *
+     * @return SystemField The {@link SystemField} for the website field.
+     */
     private SystemField getWebsiteField() {
         final String websiteDiv = getWebsiteDiv();
 
@@ -72,6 +115,13 @@ public class CompanyDataField extends AbstractDataField {
                 null);
     }
 
+    /**
+     * <p>
+     * Constructs and returns a {@link SystemField}  for the company's sales owner field.
+     * </p>
+     *
+     * @return SystemField The {@link SystemField} for the sales owner field.
+     */
     private SystemField getSalesOwnerField() {
         final String salesOwnerDiv = getSalesOwnerDiv();
 
@@ -83,6 +133,13 @@ public class CompanyDataField extends AbstractDataField {
                 null);
     }
 
+    /**
+     * <p>
+     * Constructs and returns a {@link SystemField}  for the company's address field.
+     * </p>
+     *
+     * @return SystemField The {@link SystemField} for the address field.
+     */
     private SystemField getAddressField() {
         final String addressDiv = getAddressDiv();
 
@@ -94,26 +151,26 @@ public class CompanyDataField extends AbstractDataField {
                 null);
     }
 
+    /**
+     * <p>
+     * Checks if the available choices for organization status match the expected options.
+     * </p>
+     *
+     * @return true if all expected options are present, false otherwise.
+     */
     public boolean checkChoicesForOrganizationStatus() {
-        final String[] options = {"Acquire", "Active", "Market Failed", "Project Cancelled", "Shutdown"};
+        final String[] options = {"Acquired", "Active", "Market Failed", "Project Cancelled", "Shutdown"};
 
-        final List<String> choices = new ArrayList<>();
-        final Collection<WebPageElement> choicesAsElements = findElementsByXpath("//*[@class='css-vb6e92']");
-
-        for (final WebPageElement choicesAsElement : choicesAsElements) {
-            choices.add(getText(choicesAsElement));
-        }
-
-        for (final String option : options) {
-
-            if (!choices.contains(option)) {
-                return false;
-            }
-        }
-
-        return true;
+        return areChoicesPresent(options);
     }
 
+    /**
+     * <p>
+     * Checks if the available choices for industry type match the expected industries.
+     * </p>
+     *
+     * @return true if all expected industries are present, false otherwise.
+     */
     public boolean checkChoicesForIndustryType() {
         final String[] industries = {
                 "Accounting",
@@ -186,24 +243,16 @@ public class CompanyDataField extends AbstractDataField {
                 "Venture Capital"
         };
 
-
-        final Collection<WebPageElement> choices = findElementsByXpath("//*[@class='css-vb6e92']");
-        final Set<String> industryChoices = new HashSet<>();
-
-        for (final WebPageElement choice : choices) {
-            industryChoices.add(getText(choice));
-        }
-
-        for (final String industry : industries) {
-
-            if (!industryChoices.contains(industry)) {
-                return false;
-            }
-        }
-
-        return true;
+        return areChoicesPresent(industries);
     }
 
+    /**
+     * <p>
+     * Checks if the available choices for business type match the expected business types.
+     * </p>
+     *
+     * @return true if all expected business types are present, false otherwise.
+     */
     public boolean checkChoicesForBusinessType() {
         final String[] businessTypes = {
                 "Analyst",
@@ -221,130 +270,184 @@ public class CompanyDataField extends AbstractDataField {
                 "Vendor"
         };
 
-        final List<String> choices = new ArrayList<>();
-        final Collection<WebPageElement> choicesAsElements = findElementsByXpath("//*[@class='css-vb6e92']");
-
-        for (final WebPageElement choicesAsElement : choicesAsElements) {
-            choices.add(getText(choicesAsElement));
-        }
-
-        for (final String businessType : businessTypes) {
-
-            if (!choices.contains(businessType)) {
-                return false;
-            }
-        }
-
-        return true;
+        return areChoicesPresent(businessTypes);
     }
 
+    /**
+     * <p>
+     * Verifies if the active company tab is displayed on the page.
+     * </p>
+     *
+     * @return true if the active company tab is visible, false otherwise.
+     */
     public boolean verifyActiveCompanyTab() {
         return isDisplayed(getActiveCompanyTab());
     }
 
+    /**
+     * <p>
+     * Checks if the "Organization Status" field is correctly added and displays the expected choices.
+     * </p>
+     *
+     * @return true if the field and its choices are verified successfully.
+     */
     public boolean checkOrganizationStatus() {
-        final String organizationStatus = "Organization Status";
-        final String fiveChoices = XPathBuilder.getXPathByText("5");
-        String organizationStatusBlock = null;
-
+        final String organizationStatus = CompanyField.ORGANIZATION_STATUS.getName();
 
         if (!isFieldPresent(organizationStatus)) {
             addField(organizationStatus);
         }
         refresh();
-        try {
-            Thread.sleep(2000);
-        } catch (Exception exception) {
 
+        if (!checkSpecificElement(organizationStatus, FieldElement.DRAGGABLE)) {
+            return false;
         }
 
-        checkSpecificElement(organizationStatus, FieldElement.DRAGGABLE);
-        checkSpecificElement(organizationStatus, FieldTypePath.DROPDOWN);
-        click(findByXpath(format(getFieldBlock(organizationStatus), fiveChoices)));
-        checkChoicesForOrganizationStatus();
+        if (!checkSpecificElement(organizationStatus, FieldTypePath.DROPDOWN)) {
+            return false;
+        }
+        click(findByXpath(format(getFieldBlock(organizationStatus), XPathBuilder.getXPathByText("5"))));
 
-        return true;
+        return checkChoicesForOrganizationStatus();
     }
 
+    /**
+     * <p>
+     * Checks if the "Industry Type" field is correctly added and displays the expected choices.
+     * </p>
+     *
+     * @return true if the field and its choices are verified successfully.
+     */
     public boolean checkIndustryType() {
-        final String industryType = "Industry Type";
-        final String sixtyEightChoices = XPathBuilder.getXPathByText("68");
-        String industryTypeBlock = null;
+        final String industryType = CompanyField.INDUSTRY_TYPE.getName();
 
         if (!isFieldPresent(industryType)) {
             addField(industryType);
         }
         refresh();
-        try {
-            Thread.sleep(2000);
-        } catch (Exception exception) {
 
+        if (!checkSpecificElement(industryType, FieldElement.DRAGGABLE)) {
+            return false;
         }
 
-        checkSpecificElement(industryType, FieldElement.DRAGGABLE);
-        checkSpecificElement(industryType, FieldTypePath.DROPDOWN);
-        click(findByXpath(format(getFieldBlock(industryType), sixtyEightChoices)));
-        checkChoicesForIndustryType();
-        return true;
+        if (!checkSpecificElement(industryType, FieldTypePath.DROPDOWN)) {
+            return false;
+        }
+        click(findByXpath(format(getFieldBlock(industryType), XPathBuilder.getXPathByText("68"))));
+
+        return checkChoicesForIndustryType();
     }
 
+    /**
+     * <p>
+     * Checks if the "Business Type" field is correctly added and displays the expected choices.
+     * </p>
+     *
+     * @return true if the field and its choices are verified successfully.
+     */
     public boolean checkBusinessType() {
-        final String businessType = "Business Type";
-        final String thirteenChoices = XPathBuilder.getXPathByText("13");
-        String businessTypeBlock = null;
+        final String businessType = CompanyField.BUSINESS_TYPE.getName();
 
         if (!isFieldPresent(businessType)) {
             addField(businessType);
         }
-
         refresh();
-        try {
-            Thread.sleep(2000);
-        } catch (Exception exception) {
 
+        if (!checkSpecificElement(businessType, FieldElement.DRAGGABLE)) {
+            return false;
         }
 
-        checkSpecificElement(businessType, FieldElement.DRAGGABLE);
-        checkSpecificElement(businessType, FieldTypePath.DROPDOWN);
-        click(findByXpath(format(getFieldBlock(businessType), thirteenChoices)));
-        checkChoicesForBusinessType();
-        return true;
+        if (!checkSpecificElement(businessType, FieldTypePath.DROPDOWN)) {
+            return false;
+        }
+        click(findByXpath(format(getFieldBlock(businessType), XPathBuilder.getXPathByText("13"))));
+
+        return checkChoicesForBusinessType();
     }
 
+    /**
+     * <p>
+     * Retrieves the default fields for the company.
+     * </p>
+     *
+     * @return The {@link Collection} of default fields.
+     */
     @Override
-    protected List<Field> getDefaultFields() {
+    protected Collection<Field> getDefaultFields() {
         return CompanyField.getDefaultFields();
     }
 
+    /**
+     * <p>
+     * Retrieves all available fields for the company.
+     * </p>
+     *
+     * @return Array of all fields.
+     */
     @Override
-    protected Field[] getAllFields() {
+    public Field[] getAllFields() {
         return CompanyField.values();
     }
 
+    /**
+     * <p>
+     * Retrieves the mandatory fields for the company.
+     * </p>
+     *
+     * @return The {@link Collection} of mandatory fields.
+     */
     @Override
-    protected List<String> getMandatoryFields() {
+    protected Collection<String> getMandatoryFields() {
         return Arrays.asList(
                 getNameDiv(),
                 getSalesOwnerDiv()
         );
     }
 
+    /**
+     * <p>
+     * Verifies that the non-draggable fields are correctly displayed.
+     * </p>
+     *
+     * @return true if non-draggable fields are displayed correctly.
+     */
     @Override
     public boolean verifyNonDraggableFields() {
         return isNonDraggableIconDisplayed(getNameDiv());
     }
 
+    /**
+     * <p>
+     * Retrieves the default system field elements for the company.
+     * </p>
+     *
+     * @return The {@link Collection} of default system field elements.
+     */
     @Override
-    protected List<Record> getDefaultSystemFieldElements() {
+    public Collection<Record> getDefaultSystemFieldElements() {
         return List.of(getNameField(), getWebsiteField(), getSalesOwnerField(), getAddressField());
     }
 
+    /**
+     * <p>
+     * Verifies if the default fields are visible in the summary view.
+     * </p>
+     *
+     * @return true if default fields are visible in the summary.
+     */
     @Override
     public boolean isDefaultFieldsVisibleInSummary() {
         return isDisplayed(findByXpath(format("//*[@class='css-itno5t']",
-                XPathBuilder.getXPathByText(ContactField.SALES_OWNER.getName()))));
+                XPathBuilder.getXPathByText(CompanyField.SALES_OWNER.getName()))));
     }
 
+    /**
+     * <p>
+     * Unchecks the mandatory fields, making them non-mandatory.
+     * </p>
+     *
+     * @return true after unchecking mandatory fields.
+     */
     @Override
     public boolean uncheckMandatoryFields() {
         final String[] mandatoryFields = new String[]{
@@ -356,58 +459,16 @@ public class CompanyDataField extends AbstractDataField {
         return true;
     }
 
-    @Override
-    public List<String> getFieldsForAddViewAndRequired(final String addViewOrRequired) {
-        final List<String> fieldsPresent = new ArrayList<>();
+    /**
+     * <p>
+     * Retrieves the fields visible in the summary view, excluding certain profile fields for company.
+     * </p>
+     *
+     * @return The {@link Collection} of fields visible in the summary.
+     */
+    public Collection<String> getFieldsForSummary() {
+        final List<String> fieldsNotToDisplay = List.of("Name", "Website");
 
-        int count = 0;
-        final Collection<WebPageElement> elementsByXpath = findElementsByXpath("//*[@class='MuiBox-root css-19idom']");
-
-        for (final WebPageElement webPageElement : elementsByXpath) {
-            count++;
-        }
-
-        for (int i = 1; i <= count; i++) {
-
-            final String fieldBlock = String.format(FieldElement.BLOCK, i);
-            final WebPageElement fieldElement = findByXpath(getPathOfSpecificCheckbox
-                    (fieldBlock, addViewOrRequired));
-
-            if (isSelected(fieldElement)) {
-                fieldsPresent.add(getText(findByXpath(String.format("(%s%s%s)", "((", fieldBlock, "/div)[1])//*[@class='MuiTypography-root MuiTypography-body1 MuiTypography-noWrap css-10vldmf']"))));
-
-            }
-        }
-
-        return fieldsPresent;
-    }
-
-    @Override
-    public List<String> getFields() {
-        final List<String> fieldsPresent = new ArrayList<>();
-        final Collection<WebPageElement> fields = findElementsByXpath("//*[@class='css-1qqzcwf']/div/p");
-
-        for (final WebPageElement field : fields) {
-            fieldsPresent.add(getText(field));
-        }
-
-        return fieldsPresent;
-    }
-
-    @Override
-    public List<String> getFieldsForSummary() {
-        final List<String> fieldsPresent = new ArrayList<>();
-        final Collection<WebPageElement> fields = findElementsByXpath("//*[@class='css-1qqzcwf']/div/p");
-        final List<String> profileFieldsForContact = List.of("Name", "Website");
-
-        for (final WebPageElement field : fields) {
-            final String fieldName = getText(field);
-
-            if (!profileFieldsForContact.contains(fieldName)) {
-                fieldsPresent.add(getText(field));
-            }
-        }
-
-        return fieldsPresent;
+        return getFieldsForSummary(fieldsNotToDisplay);
     }
 }

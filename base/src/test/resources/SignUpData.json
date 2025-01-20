@@ -1,0 +1,317 @@
+[
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "pax1@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "pax1",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "pax2@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "pax2",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "pax3@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "pax3",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "pax4@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "pax4",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "pax5@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "pax5",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "pax6@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "pax6",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "pax7@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "pax7",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "pax8@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "pax8",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "pax9@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "pax9",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "pax10@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "pax10",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "pax11@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "pax11",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "pax12@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "pax12",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "pax13@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "pax13",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "pax14@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "pax14",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "pax15@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "pax15",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "pax16@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "pax16",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "pax17@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "pax17",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "pax18@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "pax18",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "pax19@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "pax19",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "pax20@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "pax20",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  },
+  {
+    "testCaseID": 1,
+    "title": "Sign up data",
+    "input": {
+      "email": "pax21@gmail.com",
+      "name": "a",
+      "password": "A$12345a",
+      "confirmPassword": "A$12345a",
+      "company": "pax21",
+      "jobRole": "Marketing"
+    },
+    "output": {
+      "result": "pass"
+    }
+  }
+]

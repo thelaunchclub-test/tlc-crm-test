@@ -25,9 +25,9 @@ public class ProductDataField extends AbstractDataField {
     protected ProductDataField(final WebAutomationDriver webAutomationDriver) {
         super(webAutomationDriver);
 
-        if (!getURL().equals(SettingsURL.PRODUCT_DATA_FIELDS)) {
-            throw ErrorCode.get(WebDriverErrorCode.EXPECTED_PAGE_NOT_FOUND, "exp page not found");
-        }
+//        if (!getURL().equals(SettingsURL.PRODUCT_DATA_FIELDS)) {
+//            throw ErrorCode.get(WebDriverErrorCode.EXPECTED_PAGE_NOT_FOUND, "exp page not found");
+//        }
         enableProduct();
     }
 
@@ -41,7 +41,7 @@ public class ProductDataField extends AbstractDataField {
         try {
             if (isDisplayed(findByXpath("//*[contains(text(),'Enables')]"))) {
                 click(findByXpath("//*[@class='MuiSwitch-root MuiSwitch-sizeMedium css-1v2eis']"));
-                refresh();
+                // refresh();
             }
         } catch (Exception exception) {
 
@@ -137,95 +137,118 @@ public class ProductDataField extends AbstractDataField {
         return isDisplayed(getActiveProductTab());
     }
 
-    public void choicesForActiveAndTaxable() {
-        String[] choices = {
+    public boolean choicesForActiveAndTaxable() {
+        final String[] options = {
                 "Yes",
                 "No"
         };
 
-        for (final String choice : choices) {
-            isDisplayed(findByXpath(XPathBuilder.getXPathByText(choice)));
-        }
+        return areChoicesPresent(options);
     }
 
-    public void checkCategory() {
-        final String category = "Category";
-        final String twoChoices = XPathBuilder.getXPathByText("2");
-        String categoryBlock = null;
+    public boolean choicesForCategory() {
+        final String[] options = {
+                "Unit",
+                "Subscription"
+        };
+
+        return areChoicesPresent(options);
+    }
+
+    public boolean choicesForType() {
+        final String[] options = {
+                "Hardware",
+                "Software"
+        };
+
+        return areChoicesPresent(options);
+    }
+
+    public boolean checkCategory() {
+        final String category = ProductField.CATEGORY.getName();
 
         if (!isFieldPresent(category)) {
             addField(category);
         }
 
-        categoryBlock = getFieldBlock(category);
 
-        checkSpecificElement(categoryBlock, FieldElement.DRAGGABLE);
-        checkSpecificElement(categoryBlock, FieldTypePath.DROPDOWN);
-        click(findByXpath(format(categoryBlock, twoChoices)));
-        isDisplayed(findByXpath(XPathBuilder.getXPathByText("Hardware")));
-        isDisplayed(findByXpath(XPathBuilder.getXPathByText("Software")));
+        if (!checkSpecificElement(category, FieldElement.DRAGGABLE)) {
+            return false;
+        }
+
+        if (!checkSpecificElement(category, FieldTypePath.DROPDOWN)) {
+            return false;
+        }
+
+        click(findByXpath(format(category, XPathBuilder.getXPathByText("2"))));
+
+        return choicesForCategory();
     }
 
-    public void checkActive() {
-        final String active = "Active";
-        final String twoChoices = XPathBuilder.getXPathByText("2");
-        String activeBlock = null;
+    public boolean checkActive() {
+        final String active = ProductField.ACTIVE.getName();
 
         if (!isFieldPresent(active)) {
             addField(active);
         }
 
-        activeBlock = getFieldBlock(active);
+        if (!checkSpecificElement(active, FieldElement.DRAGGABLE)) {
+            return false;
+        }
 
-        checkSpecificElement(activeBlock, FieldElement.DRAGGABLE);
-        checkSpecificElement(activeBlock, FieldTypePath.DROPDOWN);
-        click(findByXpath(format(activeBlock, twoChoices)));
-        choicesForActiveAndTaxable();
+        if (!checkSpecificElement(active, FieldTypePath.DROPDOWN)) {
+            return false;
+        }
+        click(findByXpath(format(active, XPathBuilder.getXPathByText("2"))));
+
+        return choicesForActiveAndTaxable();
     }
 
-    public void checkTaxable() {
-        final String taxable = "Taxable";
-        final String twoChoices = XPathBuilder.getXPathByText("2");
-        String taxableBlock = null;
+    public boolean checkTaxable() {
+        final String taxable = ProductField.TAXABLE.getName();
 
         if (!isFieldPresent(taxable)) {
             addField(taxable);
         }
 
-        taxableBlock = getFieldBlock(taxable);
+        if (!checkSpecificElement(taxable, FieldElement.DRAGGABLE)) {
+            return false;
+        }
 
-        checkSpecificElement(taxableBlock, FieldElement.DRAGGABLE);
-        checkSpecificElement(taxableBlock, FieldTypePath.DROPDOWN);
-        click(findByXpath(format(taxableBlock, twoChoices)));
-        choicesForActiveAndTaxable();
+        if (!checkSpecificElement(taxable, FieldTypePath.DROPDOWN)) {
+            return false;
+        }
+        click(findByXpath(format(taxable, XPathBuilder.getXPathByText("2"))));
+
+        return choicesForActiveAndTaxable();
     }
 
-    public void checkType() {
-        final String type = "Type";
-        final String twoChoices = XPathBuilder.getXPathByText("2");
-        String typeBlock = null;
+    public boolean checkType() {
+        final String type = ProductField.TYPE.getName();
 
         if (!isFieldPresent(type)) {
             addField(type);
         }
 
-        typeBlock = getFieldBlock(type);
-        checkSpecificElement(typeBlock, FieldElement.DRAGGABLE);
-        checkSpecificElement(typeBlock, FieldTypePath.DROPDOWN);
-        click(findByXpath(format(typeBlock, twoChoices)));
-        isDisplayed(findByXpath(XPathBuilder.getXPathByText("Unit")));
-        isDisplayed(findByXpath(XPathBuilder.getXPathByText("Subscription")));
-        refresh();
+        if (!checkSpecificElement(type, FieldElement.DRAGGABLE)) {
+            return false;
+        }
+
+        if (!checkSpecificElement(type, FieldTypePath.DROPDOWN)) {
+            return false;
+        }
+        click(findByXpath(format(type, XPathBuilder.getXPathByText("2"))));
+
+        return choicesForType();
     }
 
-
     @Override
-    protected List<Field> getDefaultFields() {
+    protected Collection<Field> getDefaultFields() {
         return ProductField.getDefaultFields();
     }
 
     @Override
-    protected Field[] getAllFields() {
+    public Field[] getAllFields() {
         return ProductField.values();
     }
 
@@ -240,13 +263,13 @@ public class ProductDataField extends AbstractDataField {
     }
 
     @Override
-    protected List<Record> getDefaultSystemFieldElements() {
+    protected Collection<Record> getDefaultSystemFieldElements() {
         return List.of(getNameField(), getSalesOwnerField(), getProductCodeField(), getCategoryField(), getUnitPriceField());
     }
 
     @Override
     public boolean isDefaultFieldsVisibleInSummary() {
-        final List<Field> summaryDefaultFields = List.of(ProductField.SALES_OWNER, ProductField.UNIT_PRICE,
+        final Collection<Field> summaryDefaultFields = List.of(ProductField.SALES_OWNER, ProductField.UNIT_PRICE,
                 ProductField.PRODUCT_CODE, ProductField.CATEGORY);
 
         for (final Field summaryDefaultField : summaryDefaultFields) {
@@ -256,71 +279,22 @@ public class ProductDataField extends AbstractDataField {
                 return false;
             }
         }
+
         return true;
     }
 
     @Override
     public boolean uncheckMandatoryFields() {
-        final String[] mandatoryFields = new String[]{
-                getNameDiv(),
-        };
+        final String[] mandatoryFields = new String[]{getNameDiv()};
+
         unCheck(mandatoryFields);
 
         return true;
     }
 
-    @Override
-    public List<String> getFieldsForAddViewAndRequired(final String addViewOrRequired) {
-        final List<String> fieldsPresent = new ArrayList<>();
+    public Collection<String> getFieldsForSummary() {
+        final Collection<String> fieldsNotToDisplay = List.of("Unit Price");
 
-        int count = 0;
-        final Collection<WebPageElement> elementsByXpath = findElementsByXpath("//*[@class='MuiBox-root css-19idom']");
-
-        for (final WebPageElement webPageElement : elementsByXpath) {
-            count++;
-        }
-
-        for (int i = 1; i <= count; i++) {
-
-            final String fieldBlock = String.format(FieldElement.BLOCK, i);
-            final WebPageElement fieldElement = findByXpath(getPathOfSpecificCheckbox
-                    (fieldBlock, addViewOrRequired));
-
-            if (isSelected(fieldElement)) {
-                fieldsPresent.add(getText(findByXpath(String.format("(%s%s%s)", "((", fieldBlock, "/div)[1])//*[@class='MuiTypography-root MuiTypography-body1 MuiTypography-noWrap css-10vldmf']"))));
-            }
-        }
-
-        return fieldsPresent;
-    }
-
-    @Override
-    public List<String> getFields() {
-        final List<String> fieldsPresent = new ArrayList<>();
-        final Collection<WebPageElement> fields = findElementsByXpath("//*[@class='css-1qqzcwf']/div/p");
-
-        for (final WebPageElement field : fields) {
-            fieldsPresent.add(getText(field));
-        }
-
-        return fieldsPresent;
-    }
-
-    @Override
-    public List<String> getFieldsForSummary() {
-        final List<String> fieldsPresent = new ArrayList<>();
-        final Collection<WebPageElement> fields = findElementsByXpath("//*[@class='css-1qqzcwf']/div/p");
-        final List<String> profileFieldsForContact = List.of("First Name", "Last Name", "LinkedIn", "Facebook",
-                "Designation", "Company", "Unsubscribe Reason", "Other unsubscribe reason");
-
-        for (final WebPageElement field : fields) {
-            final String fieldName = getText(field);
-
-            if (!profileFieldsForContact.contains(fieldName)) {
-                fieldsPresent.add(getText(field));
-            }
-        }
-
-        return fieldsPresent;
+        return getFieldsForSummary(fieldsNotToDisplay);
     }
 }

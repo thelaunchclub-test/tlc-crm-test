@@ -2,7 +2,7 @@ package com.twozo.page.activity;
 
 import com.twozo.web.driver.service.WebAutomationDriver;
 
-public class CalendarView extends Activity {
+public class CalendarView extends ActivityForm {
 
     private static CalendarView calendarView;
 

@@ -1,0 +1,122 @@
+[
+  {
+    "testCaseID": 1,
+    "title": "Verify First Name without value when required",
+    "input": {
+      "First Name": ""
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 2,
+    "title": "Verify Last Name without value when required",
+    "input": {
+      "Last Name": ""
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 3,
+    "title": "Verify Emails without value when required",
+    "input": {
+      "Emails": ""
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 4,
+    "title": "Verify Phones without value when required",
+    "input": {
+      "Phones": ""
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 5,
+    "title": "Verify Company without value when required",
+    "input": {
+      "Company": ""
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 6,
+    "title": "Verify Designation without value when required",
+    "input": {
+      "Designation": ""
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 7,
+    "title": "Verify Source without value when required",
+    "input": {
+      "Source": ""
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 8,
+    "title": "Verify Territory without value when required",
+    "input": {
+      "Territory": ""
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 9,
+    "title": "Verify Tags without value when required",
+    "input": {
+      "Tags": []
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 10,
+    "title": "Verify Date Of Birth without value when required",
+    "input": {
+      "Date Of Birth": ""
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 11,
+    "title": "Verify Department without value when required",
+    "input": {
+      "Department": ""
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 12,
+    "title": "Verify Address without value when required",
+    "input": {
+      "Address": ""
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 13,
+    "title": "Verify Facebook without value when required",
+    "input": {
+      "Facebook": ""
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 14,
+    "title": "Verify Twitter without value when required",
+    "input": {
+      "Twitter": ""
+    },
+    "required": true
+  },
+  {
+    "testCaseID": 15,
+    "title": "Verify LinkedIn without value when required",
+    "input": {
+      "LinkedIn": ""
+    },
+    "required": true
+  }
+]

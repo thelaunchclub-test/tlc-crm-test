@@ -1,6 +1,7 @@
 package com.twozo.page.company;
 
 import com.twozo.page.BasePage;
+import com.twozo.page.xpath.XPathBuilder;
 import com.twozo.web.driver.service.WebAutomationDriver;
 import com.twozo.web.element.service.WebPageElement;
 
@@ -9,7 +10,7 @@ import java.util.Objects;
 public class Company extends BasePage {
 
     private static Company company;
-    private AddCompany addCompany;
+    private CompanyAddForm addCompany;
 
     protected Company(final WebAutomationDriver webAutomationDriver) {
         super(webAutomationDriver);
@@ -24,10 +25,10 @@ public class Company extends BasePage {
         return company;
     }
 
-    private AddCompany getAddCompany() {
+    private CompanyAddForm getAddCompany() {
 
         if (Objects.isNull(addCompany)) {
-            addCompany = AddCompany.getInstance(webAutomationDriver);
+            addCompany = CompanyAddForm.getInstance(webAutomationDriver);
         }
 
         return addCompany;
@@ -37,12 +38,8 @@ public class Company extends BasePage {
         return findByText("Company");
     }
 
-    public AddCompany addCompany() {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+    public CompanyAddForm addCompany() {
+        waitTillVisible(XPathBuilder.getXPathByText("Company"));
         click(getAddCompanyButton());
 
         return getAddCompany();

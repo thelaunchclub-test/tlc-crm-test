@@ -1,0 +1,13 @@
+[
+  {
+    "testCaseID": 1,
+    "title": "Adding new pipeline",
+    "input": {
+      "pipelineName": "IPhone 16",
+      "stage": [
+        "Interested",
+        "Interested"
+      ]
+    }
+  }
+]

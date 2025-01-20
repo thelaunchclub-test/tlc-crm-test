@@ -14,6 +14,10 @@ public class XPathBuilder {
         return String.format("//*[text()='%s']", value);
     }
 
+    public static String getXPathByNumber(final int value) {
+        return String.format("//*[text()='%d']", value);
+    }
+
     public static String getXPathByTag(final String value) {
         return String.format("//*[@%s]", value);
     }

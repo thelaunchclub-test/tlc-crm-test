@@ -1,11 +1,11 @@
 package com.twozo.page.homepage;
 
 import com.twozo.page.BasePage;
-import com.twozo.page.activity.Activity;
+import com.twozo.page.activity.ActivityForm;
 import com.twozo.page.analytics.Analytics;
 import com.twozo.page.company.Company;
 import com.twozo.page.contact.Contact;
-import com.twozo.page.deal.Deal;
+import com.twozo.page.deal.DealPage;
 import com.twozo.page.inbox.Inbox;
 import com.twozo.page.product.Product;
 import com.twozo.page.settings.Settings;
@@ -19,10 +19,10 @@ public class HomePage extends BasePage {
     private static HomePage homePage;
 
     protected final WebAutomationDriver webAutomationDriver;
-    private final Deal deal;
+    private final DealPage deal;
     private final Contact contact;
     private final Company company;
-    private final Activity activity;
+    private final ActivityForm activity;
     private final Product product;
     private final Settings settings;
     private final Inbox inbox;
@@ -41,10 +41,10 @@ public class HomePage extends BasePage {
     protected HomePage(final WebAutomationDriver webAutomationDriver) {
         super(webAutomationDriver);
         this.webAutomationDriver = webAutomationDriver;
-        this.deal = Deal.getInstance(webAutomationDriver);
+        this.deal = DealPage.getInstance(webAutomationDriver);
         this.contact = Contact.getInstance(webAutomationDriver);
         this.company = Company.getInstance(webAutomationDriver);
-        this.activity = Activity.getInstance(webAutomationDriver);
+        this.activity = ActivityForm.getInstance(webAutomationDriver);
         this.product = Product.getInstance(webAutomationDriver);
         this.settings = Settings.getInstance(webAutomationDriver);
         this.inbox = Inbox.getInstance(webAutomationDriver);
@@ -138,7 +138,7 @@ public class HomePage extends BasePage {
     }
 
 
-    public Deal switchToDeal() {
+    public DealPage switchToDeal() {
         click(getDealIcon());
 
         return deal;
@@ -156,7 +156,7 @@ public class HomePage extends BasePage {
         return company;
     }
 
-    public Activity switchToActivity() {
+    public ActivityForm switchToActivity() {
         click(getActivityIcon());
 
         return activity;

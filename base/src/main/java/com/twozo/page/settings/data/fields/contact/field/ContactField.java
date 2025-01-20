@@ -2,7 +2,9 @@ package com.twozo.page.settings.data.fields.contact.field;
 
 import com.twozo.page.settings.data.fields.FieldType;
 import com.twozo.page.settings.data.fields.field.Field;
+import com.twozo.page.settings.data.fields.field.FieldElement;
 
+import java.util.Collection;
 import java.util.List;
 
 public enum ContactField implements Field {
@@ -19,13 +21,15 @@ public enum ContactField implements Field {
     SOURCE("Source", FieldType.DROPDOWN),
     LINKED_IN("LinkedIn", FieldType.TEXT),
     LIFECYCLE_STAGE("Lifecycle Stage", FieldType.DROPDOWN),
+    LIFECYCLE_STATUS("Lifecycle Status",FieldType.DROPDOWN),
+    LOST_REASON("Lost Reason", FieldType.DROPDOWN),
     DEPARTMENT("Department", FieldType.TEXT),
     DATE_OF_BIRTH("Date Of Birth", FieldType.DATE),
     ADDRESS("Address", FieldType.ADDRESS),
     SUBSCRIPTION_STATUS("Subscription Status", FieldType.DROPDOWN),
     SUBSCRIPTION_TYPES("Subscription Types", FieldType.DROPDOWN),
-    UNSUBSCRIBE_TYPES("Unsubscribe reason", FieldType.DROPDOWN),
-    OTHER_UNSUBSCRIBE_REASON("Other unsubscribe reason", FieldType.DROPDOWN),
+    UNSUBSCRIBE_REASON("Unsubscribe reason", FieldType.DROPDOWN),
+    OTHER_UNSUBSCRIBE_REASON("Other unsubscribe reason", FieldType.TEXT),
     WEB_FORM("Web Form", FieldType.TEXT),
     TIME_ZONE("Time Zone", FieldType.DROPDOWN),
     RECENT_NOTE("Recent Note", FieldType.LARGE_TEXT),
@@ -70,7 +74,7 @@ public enum ContactField implements Field {
         return fieldType;
     }
 
-    public static List<Field> getDefaultFields() {
+    public static Collection<Field> getDefaultFields() {
         return List.of(FIRST_NAME, LAST_NAME, EMAILS, PHONES, COMPANY, DESIGNATION, SALES_OWNER, FACEBOOK, LINKED_IN);
     }
 }

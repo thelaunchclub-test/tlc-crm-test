@@ -18,7 +18,9 @@ import java.util.function.Supplier;
 
 public class BasePage {
 
-    protected static final Map<String, String> map = ConfigFileReader.get("locator/locator.Properties");
+    protected static final Map<String, String> MAP = ConfigFileReader.get("locator/locator.Properties");
+    protected static final String TWO_STRING_FORMAT = "%s%s";
+
     public WebAutomationDriver webAutomationDriver;
     public ElementFinder elementFinder;
     public WebNavigator webNavigator;
@@ -46,7 +48,7 @@ public class BasePage {
         return basePage;
     }
 
-    public Set<BrowserCookie> getCookies(){
+    public Set<BrowserCookie> getCookies() {
         //System.out.println(sessionCookie.getCookies());
 //        for (Cookie cookie : sessionCookie.getCookies()) {
 //            System.out.println(cookie);
@@ -66,19 +68,49 @@ public class BasePage {
     }
 
     public void switchToColumnSettings() {
+        //waitTillVisible("//*[@class='css-181x7hd']");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
 
+        }
         click(getColumnSettingsButton());
     }
 
-    public void close(){
+    public void close() {
         webAutomationDriver.close();
     }
+
+    protected String format(final String div, final String element) {
+        return String.format(TWO_STRING_FORMAT, div, element);
+    }
+
+    public void waitTillVisible(final Element element) {
+        explicitWaitHandler.waitTillVisible(element);
+    }
+
+    public void waitTillInvisible(final Element element) {
+        explicitWaitHandler.waitTillInvisible(element);
+    }
+
+    public void waitTillInvisible(final String xpath) {
+        explicitWaitHandler.waitTillVisible(new Element(LocatorType.XPATH, xpath, true));
+    }
+
     public void waitTillVisible(final String xpath) {
         explicitWaitHandler.waitTillVisible(new Element(LocatorType.XPATH, xpath, true));
     }
 
     public void waitTillClickable(final String xpath) {
         explicitWaitHandler.WaitTillClickable(new Element(LocatorType.XPATH, xpath, true));
+    }
+
+    public void shortWaitTillVisible(final String xpath) {
+        explicitWaitHandler.shortWaitTillVisible(new Element(LocatorType.XPATH, xpath, true));
+    }
+
+    public void shortWaitTillClickable(final String xpath) {
+        explicitWaitHandler.shortWaitTillClickable(new Element(LocatorType.XPATH, xpath, true));
     }
 
     protected final WebPageElement findElement(final Element element) {
@@ -113,6 +145,10 @@ public class BasePage {
         return findElement(new Element(LocatorType.XPATH, XPathBuilder.getXPath(xpath), true));
     }
 
+    public WebPageElement findByClass(final String className) {
+        return findElement(new Element(LocatorType.CLASS_NAME, className, true));
+    }
+
     public WebPageElement findByXpath(final String xpath) {
         return findElement(new Element(LocatorType.XPATH, xpath, true));
     }
@@ -121,8 +157,16 @@ public class BasePage {
         return findElements(new Element(LocatorType.XPATH, xpath, true));
     }
 
+    protected Collection<WebPageElement> findElementsByClass(final String className) {
+        return findElements(new Element(LocatorType.CLASS_NAME, className, true));
+    }
+
     protected WebPageElement findByText(final String value) {
         return findElement(new Element(LocatorType.XPATH, XPathBuilder.getXPathByText(value), true));
+    }
+
+    protected WebPageElement findByNumber(final int value) {
+        return findElement(new Element(LocatorType.XPATH, XPathBuilder.getXPathByNumber(value), true));
     }
 
     protected final void send(final WebPageElement webPageElement, final String value) {
@@ -145,24 +189,18 @@ public class BasePage {
         return XPathBuilder.getXPathByText(text);
     }
 
-    protected final void selectDate(final Element element, final String month, final int date, final int year) {
-        final String xpath = "//button[text()='%d']";
+    protected final void chooseDate(final String fieldName, final String date) {
+        final String[] part = date.split("-");
 
-        click(findBelowElement(List.of(
-                new Element(LocatorType.XPATH, "//button[@aria-label='Choose date']", false),
-                element)));
-        click(findByXpath("//button[@aria-label='calendar view is open, switch to year view']"));
-        click(findByText(String.format(xpath, year)));
-        final WebPageElement div = findLeftElement(List.of(
-                new Element(LocatorType.TAG_NAME, "div", false),
-                new Element(LocatorType.XPATH,
-                        "//button[@aria-label='calendar view is open, switch to year view']", true)));
+        click(findByXpath(String.format(MAP.get("crm.calendar.icon"), fieldName)));
+        click(findByXpath(MAP.get("crm.calendar.switch.to.year.view")));
+        click(findByNumber(Integer.parseInt(part[3])));
 
-        while (!getText(div).equals(String.format("%s %d", month, year))) {
-            click(findByXpath("//button[@aria-label='Next month']"));
+        while (!getText(findByXpath(MAP.get("crm.calendar.month.and.year"))).contains(Month.fromInt(Integer.parseInt(part[2])))) {
+            click(findByXpath(MAP.get("crm.calendar.next.month.button")));
         }
 
-        click(findByXpath(String.format(xpath, date)));
+        click(findByNumber(Integer.parseInt(part[1])));
     }
 
     public final boolean isDisplayed(final WebPageElement webPageElement) {
@@ -211,35 +249,30 @@ public class BasePage {
     }
 
     protected final void dropdown(final String option) {
-        select(option, "li");
-    }
-
-    protected final void dropdownMenu(final String option) {
-        select(option, "div");
+        click(findByXpath(format("//ul[@role]", XPathBuilder.getXPathByText(option))));
     }
 
     protected final void hover(final Element element) {
         mouseActions.moveToElement(element).build().perform();
     }
 
-    protected final void hoverByXpath(final String xpath) {
+    public final void hoverByXpath(final String xpath) {
         mouseActions.moveToElement(new Element(LocatorType.XPATH, xpath, true)).build().perform();
     }
 
-    private void select(final String option, final String dropdownType) {
-        for (final WebPageElement element : findElements(new Element(LocatorType.TAG_NAME, dropdownType, true))) {
-
-            if (getText(element).equalsIgnoreCase(option)) {
-                click(element);
-                break;
-            }
-        }
-    }
+//    private void select(final String option, final String dropdownType) {
+//        for (final WebPageElement element : findElements(new Element(LocatorType.TAG_NAME, dropdownType, true))) {
+//
+//            if (getText(element).equalsIgnoreCase(option)) {
+//                click(element);
+//                break;
+//            }
+//        }
+//    }
 
     protected Element getElementByXpath(final String xpath) {
         return new Element(LocatorType.XPATH, xpath, true);
     }
-
 
     private ElementInformationProvider getElementInformationProvider(final WebPageElement webPageElement) {
         return webPageElement.getElementInformationProvider();
@@ -252,12 +285,12 @@ public class BasePage {
 
     public void refresh() {
         webNavigator.refresh();
-
     }
+
 //    public WebPageElement getStatus() {
 //
 //        if (Objects.isNull(status)) {
-//            status = findByXpath("(//div[text()='Status'])[2]");
+//            status = findBy("(//div[text()='Status'])[2]");
 //            status = TagFinder.get(Record)
 //        }
 //

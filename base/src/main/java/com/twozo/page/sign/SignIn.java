@@ -1,7 +1,7 @@
 package com.twozo.page.sign;
 
 import com.twozo.page.BasePage;
-import com.twozo.page.deal.Deal;
+import com.twozo.page.deal.DealPage;
 import com.twozo.page.homepage.HomePage;
 import com.twozo.page.xpath.AttributeName;
 import com.twozo.page.xpath.TagName;
@@ -18,7 +18,7 @@ public class SignIn extends BasePage {
 
     private static SignIn signIn;
 
-    private Deal deal;
+    private DealPage deal;
     private SignUp signUp;
     private WebPageElement greetingText;
     private WebPageElement passwordText;
@@ -53,8 +53,8 @@ public class SignIn extends BasePage {
         return new SignIn(webAutomationDriver);
     }
 
-    public Deal getDeal() {
-        return Deal.getInstance(webAutomationDriver);
+    public DealPage getDeal() {
+        return DealPage.getInstance(webAutomationDriver);
     }
 
     public SignUp getSignUp() {
@@ -91,9 +91,7 @@ public class SignIn extends BasePage {
     }
 
     public WebPageElement getEmailField() {
-        emailField = initializeElement(emailField, () -> findByXpath("//input[@name='email']"));
-
-        return emailField;
+        return findByXpath("//input[@name='email']");
     }
 
     public WebPageElement getPasswordField() {

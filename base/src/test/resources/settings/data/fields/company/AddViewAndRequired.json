@@ -1,0 +1,178 @@
+[
+  {
+    "testCaseID": 1,
+    "title": "Name with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Name",
+      "fieldType": "Text",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 3,
+    "title": "Sales Owner with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Sales Owner",
+      "fieldType": "Owner",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 4,
+    "title": "Address with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Address",
+      "fieldType": "Address",
+      "isAddView": true,
+      "isRequired": false
+    }
+  },
+  {
+    "testCaseID": 5,
+    "title": "Facebook with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Facebook",
+      "fieldType": "Text",
+      "isAddView": true,
+      "isRequired": false
+    }
+  },
+  {
+    "testCaseID": 6,
+    "title": "Twitter with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Twitter",
+      "fieldType": "Text",
+      "isAddView": true,
+      "isRequired": false
+    }
+  },
+  {
+    "testCaseID": 7,
+    "title": "LinkedIn with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "LinkedIn",
+      "fieldType": "Text",
+      "isAddView": true,
+      "isRequired": false
+    }
+  },
+  {
+    "testCaseID": 8,
+    "title": "Annual Revenue with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Annual Revenue",
+      "fieldType": "Monetary",
+      "isAddView": true,
+      "isRequired": false
+    }
+  },
+  {
+    "testCaseID": 9,
+    "title": "SIC Code with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "SIC Code",
+      "fieldType": "Number",
+      "isAddView": true,
+      "isRequired": false
+    }
+  },
+  {
+    "testCaseID": 10,
+    "title": "Territory with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Territory",
+      "fieldType": "Dropdown",
+      "isAddView": true,
+      "isRequired": false
+    }
+  },
+  {
+    "testCaseID": 11,
+    "title": "Tags with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Tags",
+      "fieldType": "Dropdown",
+      "isAddView": true,
+      "isRequired": false
+    }
+  },
+  {
+    "testCaseID": 12,
+    "title": "Employees with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Employees",
+      "fieldType": "Number",
+      "isAddView": true,
+      "isRequired": false
+    }
+  },
+  {
+    "testCaseID": 13,
+    "title": "Parent Company with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Parent Company",
+      "fieldType": "Company",
+      "isAddView": true,
+      "isRequired": false
+    }
+  },
+  {
+    "testCaseID": 14,
+    "title": "Organization Status with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Organization Status",
+      "fieldType": "Dropdown",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 15,
+    "title": "Industry Type with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Industry Type",
+      "fieldType": "Dropdown",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 16,
+    "title": "Business Type with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Business Type",
+      "fieldType": "Dropdown",
+      "isAddView": true,
+      "isRequired": true
+    }
+  },
+  {
+    "testCaseID": 17,
+    "title": "Description with add view",
+    "input": {
+      "isDraggable": false,
+      "fieldName": "Description",
+      "fieldType": "Text",
+      "isAddView": true,
+      "isRequired": false
+    }
+  }
+]

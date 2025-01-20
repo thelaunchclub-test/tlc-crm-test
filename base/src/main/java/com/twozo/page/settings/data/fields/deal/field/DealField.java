@@ -3,6 +3,7 @@ package com.twozo.page.settings.data.fields.deal.field;
 import com.twozo.page.settings.data.fields.FieldType;
 import com.twozo.page.settings.data.fields.field.Field;
 
+import java.util.Collection;
 import java.util.List;
 
 public enum DealField implements Field {
@@ -73,7 +74,7 @@ public enum DealField implements Field {
         return fieldType;
     }
 
-    public static List<Field> getDefaultFields() {
+    public static Collection<Field> getDefaultFields() {
         return List.of(TITLE, PIPELINE, STAGE, WON_REASON, LOST_REASON, DEAL_CLOSED_ON, PRIMARY_CONTACT, RELATED_CONTACTS,
                 COMPANY, DEAL_VALUE, SALES_OWNER, PRODUCT_QUANTITY
         );
